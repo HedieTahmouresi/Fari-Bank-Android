@@ -127,55 +127,29 @@ public class Data{
         }
         return 0;
     }
-/*
-    public boolean checkSecurityNumber(String securityNumber) {
+
+    public int checkSecurityNumber(String securityNumber) {
         String ssnRegEx = "^[0-9]{10}$";
         Pattern ssnPattern = Pattern.compile(ssnRegEx);
         Matcher ssnMatcher = ssnPattern.matcher(securityNumber);
         if (!ssnMatcher.matches()) {
-            System.out.println(ColorConsole.RED_BOLD + "Invalid phone number Please try again" + ColorConsole.RESET);
-            return false;
+            return 1;
         }
         for (SimpleUser user : this.users) {
             if (securityNumber.equalsIgnoreCase(user.getSecurityNumber())) {
-                System.out.println(ColorConsole.RED_BOLD + "This phone number already exists" + ColorConsole.RESET);
-                return false;
+                return 2;
             }
         }
-        return true;
+        return 0;
     }
 
-
-    public void signUp(NeoBank neoBank) {
-        String name, lastName, phoneNumber, securityNumber, password;
-        System.out.println(ColorConsole.BLUE_BOLD + "Please enter your name" + ColorConsole.RESET);
-        name = input.nextLine();
-        if (!input.exitPoint(name)) {
-            return;
-        }
-        System.out.println(ColorConsole.BLUE_BOLD + "Please enter your last name" + ColorConsole.RESET);
-        lastName = input.nextLine();
-        if (!input.exitPoint(lastName)) {
-            return;
-        }
-        phoneNumber = input.nextPhoneNumber(this, "shouldn't exist");
-        if (phoneNumber == null) {
-            return;
-        }
-        securityNumber = input.nextSecurityNumber(this);
-        if (securityNumber == null) {
-            return;
-        }
-        password = input.nextPassword();
-        if (password == null) {
-            return;
-        }
-        SimCard simCard = this.getSim(neoBank, phoneNumber);
+    public void signUp(String name, String lastName, String phoneNumber, String securityNumber, String password) {
+        SimCard simCard = this.getSim(MainActivity.getFariBank(), phoneNumber);
         Authentication newAuthentication = new Authentication(phoneNumber);
         this.addUser(new SimpleUser(name, lastName, simCard, securityNumber, password, newAuthentication));
         this.addAuthentication(newAuthentication);
-        System.out.println(ColorConsole.GREEN + "You have successfully signed in!" + ColorConsole.RESET);
     }
+
 
     public SimCard getSim(NeoBank neoBank, String phoneNumber){
         SimCard simCard = neoBank.getManagerData().getSimCard(phoneNumber);
@@ -186,37 +160,9 @@ public class Data{
         return simCard;
     }
 
-    public SimpleUser signInUser() {
-        System.out.println(ColorConsole.BLUE_BOLD + "Please enter your phone number :" + ColorConsole.RESET);
-        String phoneNumber;
-        do {
-            phoneNumber = input.nextLine();
-            if (!input.exitPoint(phoneNumber)) {
-                return null;
-            }
-            if (this.getUserByPhone(phoneNumber) == null) {
-                System.out.println(ColorConsole.RED_BOLD + "this user doesn't exist! " + ColorConsole.BLUE + "if you want you can return and sign up!" + ColorConsole.RESET);
-            }
-        } while (this.getUserByPhone(phoneNumber) == null);
-        SimpleUser currentUser = this.getUserByPhone(phoneNumber);
-        String password;
-        System.out.println(ColorConsole.BLUE + "Please enter your password" + ColorConsole.RESET);
-        do {
-            password = input.nextLine();
-            if (!input.exitPoint(password)) {
-                return null;
-            }
-            if (!password.equals(currentUser.getPassword())) {
-                System.out.println(ColorConsole.RED_BOLD + "this phone number and password don't match" + ColorConsole.BLUE + "if you want you can return and try to sign in with a different number" + ColorConsole.RESET);
-            }
-        } while (!password.equals(currentUser.getPassword()));
-        return currentUser;
-    }
 
 
-
-
-
+/*
 
     public List<Request> allRequests(Admin currentAdmin) {
         if (this.requests.isEmpty()) {

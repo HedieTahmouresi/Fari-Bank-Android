@@ -19,6 +19,16 @@ public class Login extends AppCompatActivity {
     private EditText phoneNumber;
     private EditText password;
 
+    private static Toast message;
+
+    public static Toast getMessage() {
+        return message;
+    }
+
+    public static void setMessage(Toast message) {
+        Login.message = message;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +61,15 @@ public class Login extends AppCompatActivity {
     public boolean checkUserAndPass(String phoneNumber, String password, NeoBank fariBank){
         SimpleUser currentUser = fariBank.getBankData().getUserByPhone(phoneNumber);
         if (!password.equals(currentUser.getPassword())) {
+            setMessage(Toast.makeText(Login.this,"The phone number and password don't match" , Toast.LENGTH_LONG));
+            return false;
+        }
+        if (currentUser.isBlocked()){
+            setMessage(Toast.makeText(Login.this,"This user is blocked" , Toast.LENGTH_LONG));
+            return false;
+        }
+        if (!currentUser.getAuthenticated().isAuthenticated()){
+            setMessage(Toast.makeText(Login.this,currentUser.getAuthenticated().showRejection() , Toast.LENGTH_LONG));
             return false;
         }
         return true;
@@ -69,9 +88,10 @@ public class Login extends AppCompatActivity {
                             if (checkUserAndPass(phoneNumber.getText().toString(), password.getText().toString(), fariBank)){
                                 Toast.makeText(Login.this, "Welcome", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login.this, DashBoard.class);
+                                intent.putExtra("Phone Number", phoneNumber.getText().toString());
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(Login.this, "The phone number and password don't match", Toast.LENGTH_LONG).show();
+                                getMessage().show();
                             }
                         } else if(flag==1){
                             Toast.makeText(Login.this, "Wrong phone number format", Toast.LENGTH_LONG).show();

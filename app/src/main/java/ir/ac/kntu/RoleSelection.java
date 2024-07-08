@@ -35,12 +35,6 @@ public class RoleSelection extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        NeoBank fariBank = new NeoBank("21995282");
-                        Helper helper = new Helper();
-                        helper.initiateFari(fariBank);
-                        CentralBank centralBank = new CentralBank();
-                        helper.initiateCentralBank(centralBank, fariBank);
-                        Request request = new Request("hiii", RequestSection.AUTHENTICATIONS, "09109056296");
                         Intent intent = new Intent(RoleSelection.this, Login.class);
                         startActivity(intent);
                     }

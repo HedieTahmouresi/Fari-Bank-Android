@@ -29,12 +29,11 @@ public class Authentication extends Request{
         super("Please authenticate me!", RequestSection.AUTHENTICATIONS, phoneNumber);
         setAuthenticated(false);
     }
-/*
-    public void showRejection() {
-        System.out.println(ColorConsole.YELLOW_BOLD + "you haven't been authenticated!");
-        System.out.println("The reason :" + this.getAnswer() + ColorConsole.RESET);
-    }
 
+    public String showRejection() {
+        return "you haven't been authenticated!\nThe reason : " + this.getAnswer();
+    }
+/*
     @Override
     public void showInfo(Data data) {
         SimpleUser currentUser = data.getUserByPhone(this.getPhoneNumber());
