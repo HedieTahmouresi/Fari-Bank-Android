@@ -29,11 +29,8 @@ public class Login extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        NeoBank fariBank = new NeoBank("21995282");
-        Helper helper = new Helper();
-        helper.initiateFari(fariBank);
-        CentralBank centralBank = new CentralBank();
-        helper.initiateCentralBank(centralBank, fariBank);
+        CentralBank centralBank = MainActivity.getCentralBank();
+        NeoBank fariBank = MainActivity.getFariBank();
         onClickSignUp(centralBank, fariBank);
         onClickLogin(centralBank, fariBank);
     }
@@ -63,21 +60,19 @@ public class Login extends AppCompatActivity {
         phoneNumber = (EditText) findViewById(R.id.editTextPhone);
         password = (EditText) findViewById(R.id.editTextTextPassword);
         login = (Button) findViewById(R.id.button2);
-        String phone = phoneNumber.getText().toString();
-        String pass = password.getText().toString();
         login.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int flag = fariBank.getBankData().checkPhoneNumber(phone, "should exist");
+                        int flag = fariBank.getBankData().checkPhoneNumber(phoneNumber.getText().toString(), "should exist");
                         if (flag==0){
-                            if (checkUserAndPass(phone, pass, fariBank)){
+                            if (checkUserAndPass(phoneNumber.getText().toString(), password.getText().toString(), fariBank)){
+                                Toast.makeText(Login.this, "Welcome", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login.this, DashBoard.class);
-                                intent.putExtra("Central Bank", centralBank);
-                                intent.putExtra("Fari Bank", fariBank);
                                 startActivity(intent);
+                            } else {
+                                Toast.makeText(Login.this, "The phone number and password don't match", Toast.LENGTH_LONG).show();
                             }
-                            Toast.makeText(Login.this, "The phone number and password don't match", Toast.LENGTH_LONG).show();
                         } else if(flag==1){
                             Toast.makeText(Login.this, "Wrong phone number format", Toast.LENGTH_LONG).show();
                         } else if (flag==3){

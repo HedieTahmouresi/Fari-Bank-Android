@@ -17,6 +17,34 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private int progressStatus = 0;
 
+    private static NeoBank fariBank = new NeoBank("21995282");
+    private static Helper helper = new Helper();
+    private static CentralBank centralBank = new CentralBank();
+
+    public static NeoBank getFariBank() {
+        return fariBank;
+    }
+
+    public static void setFariBank(NeoBank fariBank) {
+        MainActivity.fariBank = fariBank;
+    }
+
+    public static Helper getHelper() {
+        return helper;
+    }
+
+    public static void setHelper(Helper helper) {
+        MainActivity.helper = helper;
+    }
+
+    public static CentralBank getCentralBank() {
+        return centralBank;
+    }
+
+    public static void setCentralBank(CentralBank centralBank) {
+        MainActivity.centralBank = centralBank;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        getHelper().initiateFari(getFariBank());
+        getHelper().initiateCentralBank(getCentralBank(), getFariBank());
         countDown();
     }
 

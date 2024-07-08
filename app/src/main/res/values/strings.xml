@@ -51,4 +51,10 @@
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign up!</string>
     <string name="password">Password :</string>
     <string name="phone_number">Phone Number :</string>
+    <string name="last_name">Last Name</string>
+    <string name="Name">Name</string>
+    <string name="Password">Password</string>
+    <string name="Phone_number">Phone Number</string>
+    <string name="sign_up">Sign Up!</string>
+    <string name="social_security_number">Social Security Number</string>
 </resources>
