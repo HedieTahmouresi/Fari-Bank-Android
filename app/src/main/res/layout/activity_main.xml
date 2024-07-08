@@ -5,15 +5,47 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#6D79BD"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="259dp"
+        android:layout_height="38dp"
+        android:progressTint="#3E1E76"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.884" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="315dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="212dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="@string/welcome_to_fari_bank"
+        android:textAlignment="center"
+        android:textColor="#3E1E76"
+        android:textColorLink="#673AB7"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="207dp"
+        android:layout_height="37dp"
+        android:text="@string/powered_by_hedie_tahmouresi"
+        android:textAlignment="center"
+        android:textColor="#261643"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

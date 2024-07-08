@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4C5AA9"
+    android:backgroundTint="#4C5AA9"
+    android:foregroundTint="#E91E63"
+    tools:context=".RoleSelection">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="343dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        android:background="#00F5F5F6"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="Please select your role!"
+        android:textAlignment="center"
+        android:textColor="#090F35"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.227" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="176dp"
+        android:layout_height="71dp"
+        android:backgroundTint="#5783A6"
+        android:cursorVisible="true"
+        android:fontFamily="monospace"
+        android:text="User"
+        android:textColor="#0F1749"
+        android:textSize="24sp"
+        app:iconTint="#4B5487"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
