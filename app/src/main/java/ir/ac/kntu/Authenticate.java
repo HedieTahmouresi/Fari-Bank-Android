@@ -9,19 +9,24 @@ public class Authenticate implements Runnable{
     public NeoBank getNeoBank() {
         return neoBank;
     }
+
     public void setNeoBank(NeoBank neoBank) {
         this.neoBank = neoBank;
     }
+
     public SimpleUser getUser() {
         return user;
     }
+
     public void setUser(SimpleUser user) {
         this.user = user;
     }
+
     public Authenticate(NeoBank neoBank, SimpleUser user) {
         this.neoBank = neoBank;
         this.user = user;
     }
+
     @Override
     public void run() {
         try {
@@ -32,3 +37,4 @@ public class Authenticate implements Runnable{
         }
     }
 }
+

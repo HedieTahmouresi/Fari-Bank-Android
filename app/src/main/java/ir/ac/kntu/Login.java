@@ -58,24 +58,24 @@ public class Login extends AppCompatActivity {
         );
     }
 
-    public boolean checkUserAndPass(String phoneNumber, String password, NeoBank fariBank){
+    public boolean checkUserAndPass(String phoneNumber, String password, NeoBank fariBank) {
         SimpleUser currentUser = fariBank.getBankData().getUserByPhone(phoneNumber);
         if (!password.equals(currentUser.getPassword())) {
-            setMessage(Toast.makeText(Login.this,"The phone number and password don't match" , Toast.LENGTH_LONG));
+            setMessage(Toast.makeText(Login.this, "The phone number and password don't match", Toast.LENGTH_LONG));
             return false;
         }
-        if (currentUser.isBlocked()){
-            setMessage(Toast.makeText(Login.this,"This user is blocked" , Toast.LENGTH_LONG));
+        if (currentUser.isBlocked()) {
+            setMessage(Toast.makeText(Login.this, "This user is blocked", Toast.LENGTH_LONG));
             return false;
         }
-        if (!currentUser.getAuthenticated().isAuthenticated()){
-            setMessage(Toast.makeText(Login.this,currentUser.getAuthenticated().showRejection() , Toast.LENGTH_LONG));
+        if (!currentUser.getAuthenticated().isAuthenticated()) {
+            setMessage(Toast.makeText(Login.this, currentUser.getAuthenticated().showRejection(), Toast.LENGTH_LONG));
             return false;
         }
         return true;
     }
 
-    public void onClickLogin(CentralBank centralBank, NeoBank fariBank){
+    public void onClickLogin(CentralBank centralBank, NeoBank fariBank) {
         phoneNumber = (EditText) findViewById(R.id.editTextPhone);
         password = (EditText) findViewById(R.id.editTextTextPassword);
         login = (Button) findViewById(R.id.button2);
@@ -84,8 +84,8 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         int flag = fariBank.getBankData().checkPhoneNumber(phoneNumber.getText().toString(), "should exist");
-                        if (flag==0){
-                            if (checkUserAndPass(phoneNumber.getText().toString(), password.getText().toString(), fariBank)){
+                        if (flag == 0) {
+                            if (checkUserAndPass(phoneNumber.getText().toString(), password.getText().toString(), fariBank)) {
                                 Toast.makeText(Login.this, "Welcome", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login.this, DashBoard.class);
                                 intent.putExtra("Phone Number", phoneNumber.getText().toString());
@@ -93,9 +93,9 @@ public class Login extends AppCompatActivity {
                             } else {
                                 getMessage().show();
                             }
-                        } else if(flag==1){
+                        } else if (flag == 1) {
                             Toast.makeText(Login.this, "Wrong phone number format", Toast.LENGTH_LONG).show();
-                        } else if (flag==3){
+                        } else if (flag == 3) {
                             Toast.makeText(Login.this, "No user with this phone number exists", Toast.LENGTH_LONG).show();
                         }
                     }

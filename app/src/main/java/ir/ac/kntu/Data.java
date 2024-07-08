@@ -143,7 +143,9 @@ public class Data{
         return 0;
     }
 
-    public void signUp(String name, String lastName, String phoneNumber, String securityNumber, String password) {
+    public void signUp(String[] names, String phoneNumber, String securityNumber, String password) {
+        String name = names[0];
+        String lastName = names[1];
         SimCard simCard = this.getSim(MainActivity.getFariBank(), phoneNumber);
         Authentication newAuthentication = new Authentication(phoneNumber);
         this.addUser(new SimpleUser(name, lastName, simCard, securityNumber, password, newAuthentication));

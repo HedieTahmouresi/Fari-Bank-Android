@@ -66,24 +66,24 @@ public class SignUp extends AppCompatActivity {
         setMessagePassword(Toast.makeText(SignUp.this, "...", Toast.LENGTH_SHORT));
         setMessageSSN(Toast.makeText(SignUp.this, "...", Toast.LENGTH_SHORT));
         setMessagePhoneNumber(Toast.makeText(SignUp.this, "...", Toast.LENGTH_SHORT));
-        onClick(centralBank,fariBank);
+        onClick(centralBank, fariBank);
     }
 
 
-    public boolean checkInfo(String phoneNumber, String ssn, String password, NeoBank fariBank){
+    public boolean checkInfo(String phoneNumber, String ssn, String password, NeoBank fariBank) {
         int flag = fariBank.getBankData().checkPhoneNumber(phoneNumber, "shouldn't exist");
-        if (flag==1){
+        if (flag == 1) {
             setMessagePhoneNumber(Toast.makeText(SignUp.this, "Wrong format!", Toast.LENGTH_LONG));
             return false;
-        } else if(flag==2){
+        } else if (flag == 2) {
             setMessagePhoneNumber(Toast.makeText(SignUp.this, "This phone number already has an account!", Toast.LENGTH_LONG));
             return false;
         }
         flag = fariBank.getBankData().checkSecurityNumber(ssn);
-        if (flag==1){
+        if (flag == 1) {
             setMessageSSN(Toast.makeText(SignUp.this, "Wrong format!", Toast.LENGTH_LONG));
             return false;
-        } else if(flag==2){
+        } else if (flag == 2) {
             setMessageSSN(Toast.makeText(SignUp.this, "This social security number already has an account!", Toast.LENGTH_LONG));
             return false;
         }
@@ -94,7 +94,7 @@ public class SignUp extends AppCompatActivity {
         return true;
     }
 
-    public boolean checkPass(String password){
+    public boolean checkPass(String password) {
         String numRegEx = "[0-9]";
         Pattern numPattern = Pattern.compile(numRegEx);
         Matcher numMatcher = numPattern.matcher(password);
@@ -113,7 +113,7 @@ public class SignUp extends AppCompatActivity {
         return false;
     }
 
-    public void onClick(CentralBank centralBank, NeoBank fariBank){
+    public void onClick(CentralBank centralBank, NeoBank fariBank) {
         phoneNumber = (EditText) findViewById(R.id.phoneNumber);
         password = (EditText) findViewById(R.id.passwordSignUp);
         name = (EditText) findViewById(R.id.name);
@@ -124,19 +124,20 @@ public class SignUp extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                       if (checkInfo(phoneNumber.getText().toString(), ssn.getText().toString(), password.getText().toString(), fariBank)){
-                           Toast.makeText(SignUp.this, "SignUp successfull", Toast.LENGTH_SHORT);
-                           fariBank.getBankData().signUp(name.getText().toString(), lastName.getText().toString(),phoneNumber.getText().toString(), ssn.getText().toString(), password.getText().toString());
-                           Authenticate authentication = new Authenticate(fariBank, fariBank.getBankData().getUserByPhone(phoneNumber.getText().toString()));
-                           Thread thread = new Thread(authentication);
-                           thread.start();
-                           Intent intent = new Intent(SignUp.this, Login.class);
-                           startActivity(intent);
-                       } else{
-                           messagePhoneNumber.show();
-                           messagePassword.show();
-                           messageSSN.show();
-                       }
+                        if (checkInfo(phoneNumber.getText().toString(), ssn.getText().toString(), password.getText().toString(), fariBank)) {
+                            Toast.makeText(SignUp.this, "SignUp was successful", Toast.LENGTH_SHORT).show();
+                            String[] names = {name.getText().toString(), lastName.getText().toString()};
+                            fariBank.getBankData().signUp(names, phoneNumber.getText().toString(), ssn.getText().toString(), password.getText().toString());
+                            Authenticate authentication = new Authenticate(fariBank, fariBank.getBankData().getUserByPhone(phoneNumber.getText().toString()));
+                            Thread thread = new Thread(authentication);
+                            thread.start();
+                            Intent intent = new Intent(SignUp.this, Login.class);
+                            startActivity(intent);
+                        } else {
+                            messagePhoneNumber.show();
+                            messagePassword.show();
+                            messageSSN.show();
+                        }
                     }
                 }
         );
