@@ -84,13 +84,15 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         int flag = fariBank.getBankData().checkPhoneNumber(phoneNumber.getText().toString(), "should exist");
-                        if (flag == 0) {
+                        if (phoneNumber.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
+                            Toast.makeText(Login.this, "You can't have an empty field", Toast.LENGTH_LONG).show();
+                        }else if (flag == 0) {
                             if (checkUserAndPass(phoneNumber.getText().toString(), password.getText().toString(), fariBank)) {
                                 Toast.makeText(Login.this, "Welcome", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login.this, DashBoard.class);
                                 intent.putExtra("Phone Number", phoneNumber.getText().toString());
                                 startActivity(intent);
-                            } else {
+                            }else {
                                 getMessage().show();
                             }
                         } else if (flag == 1) {
