@@ -100,6 +100,10 @@ public class SimpleUser extends UserPerson {
         return false;
     }
 
+    public List<Contact> getContacts(){
+        return this.contacts;
+    }
+
 
     public void addContact(Contact newContact) {
         contacts.add(newContact);

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,8 +39,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         public TransactionViewHolder(View v) {
             super(v);
-            type = v.findViewById(R.id.textView4);
-            transactionInfo = v.findViewById(R.id.textView5);
+            type = v.findViewById(R.id.nameAndLastName);
+            transactionInfo = v.findViewById(R.id.number);
         }
     }
 

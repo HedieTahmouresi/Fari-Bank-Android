@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/nameAndLastName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:fontFamily="serif-monospace"
         android:text="@string/textview"
         android:textColor="#DCD5E9"
@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/number"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="37dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/textview"
         android:textColor="#D6C0FF"

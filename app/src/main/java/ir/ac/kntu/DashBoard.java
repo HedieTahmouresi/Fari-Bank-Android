@@ -61,12 +61,10 @@ public class DashBoard extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // Do something when start tracking touch
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // Do something when stop tracking touch
             }
         });
 
