@@ -10,19 +10,6 @@
     app:barrierDirection="start"
     tools:context=".DashBoard">
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="34dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029"
-        app:srcCompat="@android:drawable/ic_dialog_info"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -30,16 +17,15 @@
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/credit_card" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="343dp"
-        android:layout_height="203dp"
+        android:layout_width="365dp"
+        android:layout_height="224dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.574"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.137"
@@ -49,46 +35,170 @@
         android:id="@+id/fullName"
         android:layout_width="316dp"
         android:layout_height="46dp"
+        android:fontFamily="monospace"
         android:text="TextView"
+        android:textColor="#3E1D43"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.076" />
 
     <TextView
         android:id="@+id/accountID"
         android:layout_width="312dp"
         android:layout_height="48dp"
+        android:fontFamily="monospace"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.204" />
+        android:textColor="#3E1D43"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.073" />
 
     <TextView
         android:id="@+id/Balance"
         android:layout_width="144dp"
         android:layout_height="43dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="TextView"
+        android:textColor="#3E1D43"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.734" />
+
+    <ImageButton
+        android:id="@+id/profile"
+        android:layout_width="61dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="298dp"
+        android:layout_marginBottom="705dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.377" />
+        app:layout_constraintVertical_bias="0.39"
+        app:srcCompat="@drawable/ic_action_profile"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/showBalance"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
+        android:layout_width="76dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.645"
+        app:layout_constraintStart_toEndOf="@+id/Balance"
+        app:layout_constraintTop_toBottomOf="@+id/fullName"
+        app:layout_constraintVertical_bias="0.342"
+        app:srcCompat="@drawable/ic_action_name"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="532dp"
+        android:layout_height="85dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintHorizontal_bias="0.628"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.375"
-        app:srcCompat="@drawable/eye_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/button_bar" />
+
+    <ImageButton
+        android:id="@+id/funds"
+        android:layout_width="78dp"
+        android:layout_height="59dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/services"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.333"
+        app:srcCompat="@drawable/ic_action_funds"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/services"
+        android:layout_width="85dp"
+        android:layout_height="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.285"
+        app:srcCompat="@drawable/ic_action_services"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/dashboard"
+        android:layout_width="84dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/services"
+        app:srcCompat="@drawable/ic_action_home"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/management"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.072"
+        app:srcCompat="@drawable/ic_action_plus"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/management"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.072"
+        app:srcCompat="@drawable/ic_action_management"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/transfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="52dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.846"
+        app:layout_constraintStart_toEndOf="@+id/management"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.07"
+        app:srcCompat="@drawable/ic_action_transfer"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="307dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="380dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:tint="#503456">
+    <corners android:radius="16dp" /> <!-- Adjust the radius as needed -->
+    <solid android:color="#503456" /> <!-- Background color of the shape -->
+</shape>
