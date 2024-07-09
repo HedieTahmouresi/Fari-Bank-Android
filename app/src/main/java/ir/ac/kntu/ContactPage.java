@@ -16,9 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ContactPage extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private static RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private SeekBar seekBar;
+
+    public static RecyclerView.Adapter getmAdapter() {
+        return mAdapter;
+    }
+
+    public static void setmAdapter(RecyclerView.Adapter mAdapter) {
+        ContactPage.mAdapter = mAdapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,7 @@ public class ContactPage extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.contactRecyclerReview);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new ContactAdapter(currentUser.getContacts(), this);
+        mAdapter = new ContactAdapter(currentUser.getContacts(), this, currentUser.getSimCard().getPhoneNumber());
         recyclerView.setAdapter(mAdapter);
         seekBar = (SeekBar) findViewById(id.seekBar1);
         seekBar.setMax(currentUser.getContacts().size() - 1);

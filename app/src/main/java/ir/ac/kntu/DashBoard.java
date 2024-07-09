@@ -22,10 +22,17 @@ public class DashBoard extends AppCompatActivity {
     private ImageButton show;
     private ImageButton profile;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private static RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private SeekBar seekBar;
 
+    public static RecyclerView.Adapter getmAdapter() {
+        return mAdapter;
+    }
+
+    public static void setmAdapter(RecyclerView.Adapter mAdapter) {
+        DashBoard.mAdapter = mAdapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

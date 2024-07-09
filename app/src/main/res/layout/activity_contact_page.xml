@@ -21,9 +21,9 @@
 
     <SeekBar
         android:id="@+id/seekBar1"
-        android:layout_width="647dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="72dp"
+        android:layout_width="591dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="92dp"
         android:layout_marginTop="8dp"
         android:progressDrawable="@drawable/seek_bar"
         android:rotation="90"
@@ -31,5 +31,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintVertical_bias="0.56" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/contactRecyclerReview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/contactRecyclerReview"
+        app:layout_constraintTop_toTopOf="@+id/contactRecyclerReview"
+        app:layout_constraintVertical_bias="0.02"
+        app:srcCompat="@drawable/ic_action_plus"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

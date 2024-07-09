@@ -15,6 +15,7 @@ import java.util.List;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     private List<Contact> contacts;
     private Context context;
+    private String phoneNumberUser;
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
@@ -43,9 +44,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         }
     }
 
-    public ContactAdapter(List<Contact> contacts, Context context) {
+    public ContactAdapter(List<Contact> contacts, Context context, String phoneNumberUser) {
         this.contacts = contacts;
         this.context = context;
+        this.phoneNumberUser = phoneNumberUser;
     }
 
     @NonNull
@@ -64,9 +66,29 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             public void onClick(View v) {
                 Intent intent = new Intent(context, ContactDetails.class);
                 intent.putExtra("Contact Info", contact.getSimCard().getPhoneNumber());
+                intent.putExtra("User Number", phoneNumberUser);
                 context.startActivity(intent);
             }
         });
+    }
+
+    public void addItem(Contact item) {
+        contacts.add(item);
+        notifyItemInserted(contacts.size() - 1);
+    }
+
+    public void removeItem(int position) {
+        if (position >= 0 && position < contacts.size()) {
+            contacts.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void updateItem(int position, Contact newItem) {
+        if (position >= 0 && position < contacts.size()) {
+            contacts.set(position, newItem);
+            notifyItemChanged(position);
+        }
     }
 
     @Override

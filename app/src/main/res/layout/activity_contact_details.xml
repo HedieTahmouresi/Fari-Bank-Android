@@ -5,6 +5,119 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3D2642"
     tools:context=".ContactDetails">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="195dp"
+        android:layout_height="186dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.031"
+        app:srcCompat="@drawable/ic_action_circle" />
+
+    <TextView
+        android:id="@+id/contactLetter"
+        android:layout_width="128dp"
+        android:layout_height="122dp"
+        android:fontFamily="serif-monospace"
+        android:text="T"
+        android:textAlignment="center"
+        android:textColor="#3D2642"
+        android:textSize="96sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.687" />
+
+    <TextView
+        android:id="@+id/contactName"
+        android:layout_width="322dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="serif-monospace"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#E2A3ED"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/numberContact"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:fontFamily="serif-monospace"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#E2A3ED"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactName"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/deleteContact"
+        android:layout_width="75dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberContact"
+        app:layout_constraintVertical_bias="0.862"
+        app:srcCompat="@drawable/ic_action_delete"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editContact"
+        android:layout_width="75dp"
+        android:layout_height="66dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/transferToContact"
+        app:layout_constraintStart_toEndOf="@+id/deleteContact"
+        app:layout_constraintTop_toBottomOf="@+id/numberContact"
+        app:layout_constraintVertical_bias="0.858"
+        app:srcCompat="@drawable/ic_action_edit"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/chargecontactsim"
+        android:layout_width="75dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberContact"
+        app:layout_constraintVertical_bias="0.858"
+        app:srcCompat="@drawable/ic_action_simcard"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/transferToContact"
+        android:layout_width="75dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="36dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/chargecontactsim"
+        app:layout_constraintTop_toBottomOf="@+id/numberContact"
+        app:layout_constraintVertical_bias="0.858"
+        app:srcCompat="@drawable/ic_action_transfer"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -83,6 +83,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         });
     }
 
+    public void addItem(Transaction item) {
+        transactions.add(item);
+        notifyItemInserted(transactions.size() - 1);
+    }
+
     @Override
     public int getItemCount() {
         return transactions.size();
