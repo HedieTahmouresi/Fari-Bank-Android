@@ -8,11 +8,148 @@
     android:background="#7F5387"
     tools:context=".Profile">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/contactSection"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:orientation="vertical"
+        android:layout_height="103dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/requestSection"
+        android:layout_width="match_parent"
+        android:layout_height="103dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactSection"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/settingsSection"
+        android:layout_width="match_parent"
+        android:layout_height="103dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/requestSection"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/contactIcon"
+        android:layout_width="104dp"
+        android:layout_height="101dp"
+        app:layout_constraintBottom_toBottomOf="@+id/contactSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_action_contact" />
+
+    <TextView
+        android:id="@+id/contactText"
+        android:layout_width="275dp"
+        android:layout_height="62dp"
+        android:fontFamily="serif-monospace"
+        android:text="Contacts"
+        android:textColor="#3F2343"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/contactSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/contactIcon"
+        app:layout_constraintTop_toTopOf="@+id/contactSection" />
+
+    <ImageView
+        android:id="@+id/supportIcon"
+        android:layout_width="101dp"
+        android:layout_height="94dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/requestSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactSection"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_action_support" />
+
+    <TextView
+        android:id="@+id/supportText"
+        android:layout_width="275dp"
+        android:layout_height="62dp"
+        android:fontFamily="serif-monospace"
+        android:text="Support"
+        android:textColor="#3F2343"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/requestSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/supportIcon"
+        app:layout_constraintTop_toTopOf="@+id/requestSection" />
+
+    <ImageView
+        android:id="@+id/settingsIcon"
+        android:layout_width="110dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/settingsSection"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_action_settings" />
+
+    <TextView
+        android:id="@+id/settingsText"
+        android:layout_width="275dp"
+        android:layout_height="62dp"
+        android:fontFamily="serif-monospace"
+        android:text="Settings"
+        android:textColor="#3F2343"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.882"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/requestSection"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <ImageView
+        android:id="@+id/arrowContact"
+        android:layout_width="97dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="194dp"
+        app:layout_constraintBottom_toBottomOf="@+id/contactSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/contactText"
+        app:layout_constraintTop_toTopOf="@+id/contactSection"
+        app:srcCompat="@drawable/ic_action_arrow" />
+
+    <ImageView
+        android:id="@+id/arrowSupport"
+        android:layout_width="97dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="194dp"
+        app:layout_constraintBottom_toBottomOf="@+id/requestSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/supportText"
+        app:layout_constraintTop_toTopOf="@+id/requestSection"
+        app:srcCompat="@drawable/ic_action_arrow" />
+
+    <ImageView
+        android:id="@+id/arrowSettings"
+        android:layout_width="97dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="194dp"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/settingsText"
+        app:layout_constraintTop_toTopOf="@+id/settingsSection"
+        app:srcCompat="@drawable/ic_action_arrow" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
