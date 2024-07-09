@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
-public class Authentication extends Request{
+public class Authentication extends Request {
     private boolean authenticated;
 
 
     protected Authentication(Parcel in) {
-        super(in.readString(),RequestSection.AUTHENTICATIONS, in.readString());
+        super(in.readString(), RequestSection.AUTHENTICATIONS, in.readString());
         authenticated = in.readByte() != 0;
     }
 

@@ -17,7 +17,6 @@ public class TransferTransaction extends Transaction {
     private boolean isReceiver;
 
 
-
     public boolean isReceiver() {
         return isReceiver;
     }

@@ -13,7 +13,6 @@ public class SimCard {
     private boolean hasAccount;
 
 
-
     public String getPhoneNumber() {
         return phoneNumber;
     }

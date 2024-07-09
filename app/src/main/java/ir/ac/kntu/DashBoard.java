@@ -48,7 +48,7 @@ public class DashBoard extends AppCompatActivity {
         showBalance(currentUser);
     }
 
-    public void showBalance(SimpleUser currentUser){
+    public void showBalance(SimpleUser currentUser) {
         show = (ImageButton) findViewById(R.id.showBalance);
         show.setOnClickListener(
                 new View.OnClickListener() {

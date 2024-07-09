@@ -23,8 +23,6 @@ public class ManagerData {
     private List<WireTransaction> wireTransactions;
 
 
-
-
     public void addTransaction(WireTransaction wireTransaction) {
         this.wireTransactions.add(wireTransaction);
     }

@@ -22,7 +22,6 @@ public class SimpleUser extends UserPerson {
     private boolean blocked;
 
 
-
     public String getSecurityNumber() {
         return securityNumber;
     }
@@ -100,7 +99,6 @@ public class SimpleUser extends UserPerson {
         }
         return false;
     }
-
 
 
     public void addContact(Contact newContact) {

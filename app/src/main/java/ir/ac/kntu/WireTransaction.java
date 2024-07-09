@@ -4,7 +4,7 @@ import android.os.Parcel;
 
 import androidx.annotation.NonNull;
 
-public class WireTransaction extends TransferTransaction{
+public class WireTransaction extends TransferTransaction {
     private boolean hasBeenDone;
 
     public boolean isHasBeenDone() {

@@ -12,7 +12,7 @@ import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.*;
 
-public class Account{
+public class Account {
     private CreditCard creditCard;
     private String accountId;
     private double balance;
@@ -81,8 +81,8 @@ public class Account{
 
     public void addRecent(TransferTransaction transaction, String phoneNumber, NeoBank neoBank) {
         Recent newRecent = new Recent(neoBank.getBankData().getUserByPhone(phoneNumber), transaction.isByContact());
-        for (Recent recent : recentList){
-            if (recent.equals(newRecent)){
+        for (Recent recent : recentList) {
+            if (recent.equals(newRecent)) {
                 return;
             }
         }
@@ -91,8 +91,8 @@ public class Account{
 
     public void addRecentCentral(TransferTransaction transaction, String phoneNumber, CentralBank centralBank) {
         Recent newRecent = new Recent(centralBank.getUserBySim(phoneNumber), transaction.isByContact());
-        for (Recent recent : recentList){
-            if (recent.equals(newRecent)){
+        for (Recent recent : recentList) {
+            if (recent.equals(newRecent)) {
                 return;
             }
         }

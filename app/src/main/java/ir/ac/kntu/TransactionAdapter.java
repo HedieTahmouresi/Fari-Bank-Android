@@ -8,17 +8,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
-public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>{
-    List<Transaction> transactions;
-    Context context;
+public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
+    private List<Transaction> transactions;
+    private Context context;
 
     public static class TransactionViewHolder extends RecyclerView.ViewHolder {
-        public TextView type;
-        public TextView transactionInfo;
+        private TextView type;
+        private TextView transactionInfo;
+
+        public TextView getType() {
+            return type;
+        }
+
+        public void setType(TextView type) {
+            this.type = type;
+        }
+
+        public TextView getTransactionInfo() {
+            return transactionInfo;
+        }
+
+        public void setTransactionInfo(TextView transactionInfo) {
+            this.transactionInfo = transactionInfo;
+        }
 
         public TransactionViewHolder(View v) {
             super(v);
@@ -38,24 +56,25 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         return new TransactionViewHolder(LayoutInflater.from(context).inflate(R.layout.transaction, parent, false));
     }
 
-    public String getType(Transaction transaction){
-        if (transaction instanceof ChargeTransaction chargeTransaction){
+    public String getType(Transaction transaction) {
+        if (transaction instanceof ChargeTransaction chargeTransaction) {
             return " ~Charge Account";
-        } else if (transaction instanceof SimChargeTransaction simChargeTransaction){
+        } else if (transaction instanceof SimChargeTransaction simChargeTransaction) {
             return " ~Charge Sim Card";
-        } else if (transaction instanceof TransferInsideTransaction transferInsideTransaction){
+        } else if (transaction instanceof TransferInsideTransaction transferInsideTransaction) {
             return " ~Inside Transfer";
-        } else if (transaction instanceof TransferTransaction){
+        } else if (transaction instanceof TransferTransaction) {
             return " ~Transfer";
         }
         return " ~Wire Transfer";
     }
+
     @Override
     public void onBindViewHolder(@NonNull TransactionAdapter.TransactionViewHolder holder, int position) {
         Transaction transaction = transactions.get(position);
-        holder.type.setText(getType(transaction));
-        holder.transactionInfo.setText(transaction.toString());
-        holder.transactionInfo.setOnClickListener(new View.OnClickListener() {
+        holder.getType().setText(getType(transaction));
+        holder.getTransactionInfo().setText(transaction.toString());
+        holder.getTransactionInfo().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TransactionDetails.class);

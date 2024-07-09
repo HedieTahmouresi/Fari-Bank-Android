@@ -31,7 +31,7 @@ public class SimChargeTransaction extends Transaction {
         ZonedDateTime zonedDateTime = this.getDateAndTime().atZone(ZoneId.systemDefault());
         LocalDate datePart = zonedDateTime.toLocalDate();
         LocalTime timePart = zonedDateTime.toLocalTime();
-        return "Transaction : \n" + "Value: " + this.getSign() + this.getValue() + "\nDate: " + datePart + ", Time: "+ timePart + "\nTracing Number: " +this.getTracingNumber()+"\nReceiver Phone Number: " + this.getPhoneNumber();
+        return "Transaction : \n" + "Value: " + this.getSign() + this.getValue() + "\nDate: " + datePart + ", Time: " + timePart + "\nTracing Number: " + this.getTracingNumber() + "\nReceiver Phone Number: " + this.getPhoneNumber();
     }
 
 

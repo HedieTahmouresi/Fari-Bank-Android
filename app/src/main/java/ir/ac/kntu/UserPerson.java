@@ -13,7 +13,6 @@ public class UserPerson {
     private SimCard simCard;
 
 
-
     public String getName() {
         return name;
     }

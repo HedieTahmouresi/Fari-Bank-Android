@@ -2,7 +2,7 @@ package ir.ac.kntu;
 
 import ir.ac.kntu.util.Calendar;
 
-public class Authenticate implements Runnable{
+public class Authenticate implements Runnable {
     private NeoBank neoBank;
     private SimpleUser user;
 

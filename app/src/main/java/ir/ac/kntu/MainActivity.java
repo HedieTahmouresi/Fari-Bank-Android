@@ -60,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
         countDown();
     }
 
-    public void countDown(){
+    public void countDown() {
         progressBar = findViewById(R.id.progressBar);
-        int duration = 10000000/6000;
+        int duration = 10000000 / 6000;
 
-        new CountDownTimer(duration, 100){
+        new CountDownTimer(duration, 100) {
 
             @Override
             public void onTick(long l) {
@@ -83,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-    public static SimpleUser getCurrentUser(String phoneNumber){
+    public static SimpleUser getCurrentUser(String phoneNumber) {
         return fariBank.getBankData().getUserByPhone(phoneNumber);
     }
 
-    private static void main(String[] args){
+    private static void main(String[] args) {
         System.out.println("hello");
     }
 }

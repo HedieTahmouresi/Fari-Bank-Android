@@ -7,13 +7,10 @@ import androidx.annotation.NonNull;
 
 import java.text.DecimalFormat;
 
-public class Fund{
+public class Fund {
     private double balance;
     private SimpleUser owner;
     private String fundID; // a string like 9988-----
-
-
-
 
 
     public double getBalance() {

@@ -44,7 +44,7 @@ public class TransferInsideTransaction extends Transaction {
     @Override
     public String showInfo(NeoBank neoBank) {
         String returnValue = super.showInfo(neoBank);
-        returnValue = returnValue +  "\n***\n" + "From your : " + this.getSender();
+        returnValue = returnValue + "\n***\n" + "From your : " + this.getSender();
         if ("Account".equals(this.getReceiver())) {
             returnValue = returnValue + "\nFund Id : " + this.getFundId();
         }
@@ -52,7 +52,7 @@ public class TransferInsideTransaction extends Transaction {
         if ("Account".equals(this.getSender())) {
             returnValue = returnValue + "\nFund Id : " + this.getFundId();
         }
-        returnValue = returnValue + "\n***" ;
+        returnValue = returnValue + "\n***";
         return returnValue;
     }
 

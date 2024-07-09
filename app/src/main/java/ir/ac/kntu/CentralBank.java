@@ -9,47 +9,47 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CentralBank{
+public class CentralBank {
     private List<NeoBank> banks;
 
 
-    public CentralBank(){
+    public CentralBank() {
         this.banks = new ArrayList<>();
     }
 
 
-    public void addBank(NeoBank neoBank){
+    public void addBank(NeoBank neoBank) {
         this.banks.add(neoBank);
     }
 
-    public NeoBank findBankByCreditCard(String creditCardStarter){
-        for (NeoBank bank : banks){
-            if (bank.getCreditCardStarter().equals(creditCardStarter)){
+    public NeoBank findBankByCreditCard(String creditCardStarter) {
+        for (NeoBank bank : banks) {
+            if (bank.getCreditCardStarter().equals(creditCardStarter)) {
                 return bank;
             }
         }
         return null;
     }
 
-    public boolean sameBank(SimpleUser first, SimpleUser second){
+    public boolean sameBank(SimpleUser first, SimpleUser second) {
         NeoBank firstBank = null;
-        for(NeoBank bank : banks){
-            if (bank.getBankData().getUserByPhone(first.getSimCard().getPhoneNumber())!=null){
+        for (NeoBank bank : banks) {
+            if (bank.getBankData().getUserByPhone(first.getSimCard().getPhoneNumber()) != null) {
                 firstBank = bank;
             }
         }
-        NeoBank secondBank =  null;
-        for(NeoBank bank : banks){
-            if (bank.getBankData().getUserByPhone(second.getSimCard().getPhoneNumber())!=null){
+        NeoBank secondBank = null;
+        for (NeoBank bank : banks) {
+            if (bank.getBankData().getUserByPhone(second.getSimCard().getPhoneNumber()) != null) {
                 secondBank = bank;
             }
         }
         return secondBank.equals(firstBank);
     }
 
-    public Account existsAccountId(String accountId){
-        for (NeoBank bank : banks){
-            if (bank.getBankData().existsAccountID(accountId)){
+    public Account existsAccountId(String accountId) {
+        for (NeoBank bank : banks) {
+            if (bank.getBankData().existsAccountID(accountId)) {
                 return bank.getBankData().getUserByAccountID(accountId).getAccount();
 
             }
@@ -57,18 +57,18 @@ public class CentralBank{
         return null;
     }
 
-    public Account existsCreditCardId(String creditID){
-        for (NeoBank bank : banks){
-            if(bank.getBankData().existsCreditCard(creditID)){
+    public Account existsCreditCardId(String creditID) {
+        for (NeoBank bank : banks) {
+            if (bank.getBankData().existsCreditCard(creditID)) {
                 return bank.getBankData().getAccountByCard(creditID);
             }
         }
         return null;
     }
 
-    public SimpleUser getUserBySim(String phoneNumber){
-        for(NeoBank bank : banks){
-            if (bank.getBankData().getUserByPhone(phoneNumber)!=null){
+    public SimpleUser getUserBySim(String phoneNumber) {
+        for (NeoBank bank : banks) {
+            if (bank.getBankData().getUserByPhone(phoneNumber) != null) {
                 return bank.getBankData().getUserByPhone(phoneNumber);
             }
         }

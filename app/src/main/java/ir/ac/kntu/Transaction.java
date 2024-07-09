@@ -59,13 +59,13 @@ public class Transaction {
         ZonedDateTime zonedDateTime = dateAndTime.atZone(ZoneId.systemDefault());
         LocalDate datePart = zonedDateTime.toLocalDate();
         LocalTime timePart = zonedDateTime.toLocalTime();
-        return "Transaction : \n" + "Value: " + this.getSign() + Double.toString(this.getValue()) + "\nDate: " + datePart + ", Time: "+ timePart + "\nTracing Number: " + this.getTracingNumber();
+        return "Transaction : \n" + "Value: " + this.getSign() + Double.toString(this.getValue()) + "\nDate: " + datePart + ", Time: " + timePart + "\nTracing Number: " + this.getTracingNumber();
     }
 
     @Override
     public String toString() {
-        return  "    ** Value : " + this.getValue() +
-                ", Tracing Number : " + this.getTracingNumber()+
+        return "    ** Value : " + this.getValue() +
+                ", Tracing Number : " + this.getTracingNumber() +
                 "\n    Date and Time :" + this.getDateAndTime();
     }
 

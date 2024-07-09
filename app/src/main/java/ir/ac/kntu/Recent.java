@@ -13,7 +13,6 @@ public class Recent {
     private String receiverInfo;
 
 
-
     public SimpleUser getPerson() {
         return person;
     }

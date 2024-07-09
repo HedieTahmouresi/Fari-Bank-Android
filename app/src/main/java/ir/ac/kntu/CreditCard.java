@@ -8,11 +8,10 @@ import androidx.annotation.NonNull;
 import java.text.DecimalFormat;
 import java.util.Random;
 
-public class CreditCard{
+public class CreditCard {
     private String creditCardId;
     private int password;
     private boolean setPassword;
-
 
 
     public String getCreditCardId() {

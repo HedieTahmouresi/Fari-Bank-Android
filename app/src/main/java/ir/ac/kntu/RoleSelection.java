@@ -29,7 +29,7 @@ public class RoleSelection extends AppCompatActivity {
     }
 
 
-    public void onClick(){
+    public void onClick() {
         nextPage = (Button) findViewById(R.id.button);
         nextPage.setOnClickListener(
                 new View.OnClickListener() {

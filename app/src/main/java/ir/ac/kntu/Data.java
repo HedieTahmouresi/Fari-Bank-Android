@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Data{
+public class Data {
     private List<Request> requests;
     private List<SimpleUser> users;
 
@@ -46,7 +46,7 @@ public class Data{
         return null;
     }
 
-    public Account getAccountByID(String accountID){
+    public Account getAccountByID(String accountID) {
         for (SimpleUser user : this.users) {
             if (user.getAccount().getAccountId().equalsIgnoreCase(accountID)) {
                 return user.getAccount();
@@ -64,7 +64,7 @@ public class Data{
         return null;
     }
 
-    public Account getAccountByCard(String creditID){
+    public Account getAccountByCard(String creditID) {
         for (SimpleUser user : this.users) {
             if (user.getAccount().getCreditCard().getCreditCardId().equalsIgnoreCase(creditID)) {
                 return user.getAccount();
@@ -103,7 +103,6 @@ public class Data{
         }
         return false;
     }
-
 
 
     public int checkPhoneNumber(String phoneNumber, String need) {
@@ -153,7 +152,7 @@ public class Data{
     }
 
 
-    public SimCard getSim(NeoBank neoBank, String phoneNumber){
+    public SimCard getSim(NeoBank neoBank, String phoneNumber) {
         SimCard simCard = neoBank.getManagerData().getSimCard(phoneNumber);
         if (simCard == null) {
             simCard = new SimCard(phoneNumber, false);

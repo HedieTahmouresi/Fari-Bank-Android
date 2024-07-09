@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public enum RequestSection{
+public enum RequestSection {
     AUTHENTICATIONS,
     REPORT,
     FUNDS,
