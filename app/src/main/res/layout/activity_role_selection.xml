@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4C5AA9"
-    android:backgroundTint="#4C5AA9"
+    android:background="#6464B9"
+    android:backgroundTint="#6464B9"
     android:foregroundTint="#E91E63"
     tools:context=".RoleSelection">
 

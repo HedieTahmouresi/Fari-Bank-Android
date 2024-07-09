@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4C5AA9"
-    android:backgroundTint="#4C5AA9"
+    android:background="#6464B9"
+    android:backgroundTint="#6464B9"
     tools:context=".Login">
 
     <TextView
@@ -60,7 +60,7 @@
         android:id="@+id/button2"
         android:layout_width="123dp"
         android:layout_height="55dp"
-        android:backgroundTint="#5299D1"
+        android:backgroundTint="#5783A6"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/login"
         android:textColor="#1C244E"
@@ -102,4 +102,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.529" />
+
+    <ImageButton
+        android:id="@+id/showPass"
+        android:layout_width="40dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.927"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49"
+        app:srcCompat="@drawable/eye_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

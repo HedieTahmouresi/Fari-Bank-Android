@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7F5387"
+    android:background="#6464B9"
     tools:context=".SignUp">
 
     <EditText
@@ -91,7 +91,7 @@
         android:id="@+id/signup"
         android:layout_width="113dp"
         android:layout_height="48dp"
-        android:backgroundTint="#9172C7"
+        android:backgroundTint="#5783A6"
         android:text="@string/sign_up"
         android:textColor="#1B224B"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,7 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Login extends AppCompatActivity {
-
+    private ImageButton show;
     private Button login;
     private EditText phoneNumber;
     private EditText password;
@@ -43,6 +44,7 @@ public class Login extends AppCompatActivity {
         NeoBank fariBank = MainActivity.getFariBank();
         onClickSignUp(centralBank, fariBank);
         onClickLogin(centralBank, fariBank);
+        showPass();
     }
 
     public void onClickSignUp(CentralBank centralBank, NeoBank fariBank) {
@@ -100,6 +102,19 @@ public class Login extends AppCompatActivity {
                         } else if (flag == 3) {
                             Toast.makeText(Login.this, "No user with this phone number exists", Toast.LENGTH_LONG).show();
                         }
+                    }
+                }
+        );
+    }
+
+    public void showPass(){
+        password = (EditText) findViewById(R.id.editTextTextPassword);
+        show = (ImageButton) findViewById(R.id.showPass);
+        show.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(Login.this, password.getText().toString(), Toast.LENGTH_LONG).show();
                     }
                 }
         );
