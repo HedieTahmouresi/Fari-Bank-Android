@@ -15,6 +15,7 @@ runner = "1.6.1"
 core = "1.13.1"
 navigationFragment = "2.6.0"
 navigationUi = "2.6.0"
+gridlayout = "1.0.0"
 
 [libraries]
 checkstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
@@ -33,6 +34,7 @@ runner = { module = "androidx.test:runner", version.ref = "runner" }
 core = { group = "androidx.core", name = "core", version.ref = "core" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

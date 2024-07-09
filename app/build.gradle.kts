@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.core)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.gridlayout)
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit)
     testImplementation(libs.checkstyle)

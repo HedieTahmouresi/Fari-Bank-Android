@@ -1,8 +1,10 @@
 package ir.ac.kntu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -22,6 +24,8 @@ public class DashBoard extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private SeekBar seekBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class DashBoard extends AppCompatActivity {
         accountID = (TextView) findViewById(R.id.accountID);
         balance = (TextView) findViewById(R.id.Balance);
         recyclerView = (RecyclerView) findViewById(R.id.transactionsRecyclerView);
+        seekBar = findViewById(R.id.seekBar3);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new TransactionAdapter(currentUser.getAccount().getTransactions(), this);
@@ -45,7 +50,28 @@ public class DashBoard extends AppCompatActivity {
         fullName.setText(currentUser.getName().concat(" ").concat(currentUser.getLastName()));
         accountID.setText(currentUser.getAccount().getAccountId());
         balance.setText("********");
+        seekBar.setMax(currentUser.getAccount().getTransactions().size() - 1); // Set the maximum value of the SeekBar
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    recyclerView.scrollToPosition(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Do something when start tracking touch
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Do something when stop tracking touch
+            }
+        });
+
         showBalance(currentUser);
+        onClickProfile(currentUser);
     }
 
     public void showBalance(SimpleUser currentUser) {
@@ -54,8 +80,21 @@ public class DashBoard extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         balance.setText(Double.toString(currentUser.getAccount().getBalance()));
+                    }
+                }
+        );
+    }
+
+    public void onClickProfile(SimpleUser currentUser){
+        profile = (ImageButton) findViewById(R.id.profile);
+        profile.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(DashBoard.this, Profile.class);
+                        intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                        startActivity(intent);
                     }
                 }
         );
