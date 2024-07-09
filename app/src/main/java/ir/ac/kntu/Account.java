@@ -99,6 +99,13 @@ public class Account{
         recentList.add(newRecent);
     }
 
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
 
     /*public void chargeAccount(NeoBank neoBank) {
         System.out.println( "How much would you like to charge your account?");

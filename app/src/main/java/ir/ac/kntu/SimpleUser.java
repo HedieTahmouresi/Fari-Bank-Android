@@ -101,6 +101,8 @@ public class SimpleUser extends UserPerson {
         return false;
     }
 
+
+
     public void addContact(Contact newContact) {
         contacts.add(newContact);
     }
@@ -289,7 +291,7 @@ public class SimpleUser extends UserPerson {
         }
         return true;
     }
-
+*/
     public Contact findContact(String phoneNumber) {
         for (Contact contact : contacts) {
             if (contact.getSimCard().getPhoneNumber().equals(phoneNumber)) {
@@ -298,7 +300,7 @@ public class SimpleUser extends UserPerson {
         }
         return null;
     }
-
+/*
     public void showAccountInfo() {
         System.out.println(ColorConsole.PINK + "Your Account ID : " + ColorConsole.PURPLE + this.getAccount().getAccountId() + ColorConsole.RESET);
         System.out.println(ColorConsole.PINK + "Your Credit Card ID : " + ColorConsole.PURPLE + this.getAccount().getCreditCard().getCreditCardId() + ColorConsole.RESET);

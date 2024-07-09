@@ -57,4 +57,5 @@
     <string name="Phone_number">Phone Number</string>
     <string name="sign_up">Sign Up!</string>
     <string name="social_security_number">Social Security Number</string>
+    <string name="textview">TextView</string>
 </resources>

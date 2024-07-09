@@ -6,6 +6,7 @@ public class Helper {
         hedie.getAuthenticated().authenticateUser(neoBank, hedie);
         neoBank.getBankData().addUser(hedie);
         hedie.getAccount().setBalance(9000000.0);
+        hedie.getAccount().addTransaction(new ChargeTransaction(1000.02, 12121212));
         SimpleUser aylin = new SimpleUser("Aylin", "Jabbari", new SimCard("09901917812", false), "0215021470", "A#Jab1384", new Authentication("09901917812"));
         aylin.getAuthenticated().authenticateUser(neoBank, aylin);
         neoBank.getBankData().addUser(aylin);
@@ -21,6 +22,13 @@ public class Helper {
         SimpleUser sepehr = new SimpleUser("Sepehr", "Ghardashi", new SimCard("09111262338", false), "0105213054", "H@tah1384", new Authentication("09111262338"));
         neoBank.getBankData().addUser(sepehr);
         sepehr.getAuthenticated().authenticateUser(neoBank, sepehr);
+
+        hedie.getAccount().addTransaction(new TransferTransaction(100.0, 15454554, sepehr, true, "09111262338", "-", hedie, false));
+        hedie.getAccount().addTransaction(new SimChargeTransaction(12.3, 55225252, "+", "09109056296"));
+        hedie.getAccount().addTransaction(new SimChargeTransaction(14.6, 55225253, "+", "09109056296"));
+        hedie.getAccount().addTransaction(new SimChargeTransaction(17.3, 55335252, "+", "09109056296"));
+        hedie.getAccount().addTransaction(new ChargeTransaction(10.02, 12175212));
+        hedie.getAccount().addTransaction(new ChargeTransaction(151.0, 12126612));
         this.initiateSimCards(neoBank, hedie, aylin, amir);
         this.initiateSimCards(neoBank, neda, sepehr);
         this.initiateContacts(hedie, sepehr);

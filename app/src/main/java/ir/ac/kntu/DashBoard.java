@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DashBoard extends AppCompatActivity {
     private TextView fullName;
@@ -17,6 +19,9 @@ public class DashBoard extends AppCompatActivity {
     private TextView balance;
     private ImageButton show;
     private ImageButton profile;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,11 @@ public class DashBoard extends AppCompatActivity {
         fullName = (TextView) findViewById(R.id.fullName);
         accountID = (TextView) findViewById(R.id.accountID);
         balance = (TextView) findViewById(R.id.Balance);
+        recyclerView = (RecyclerView) findViewById(R.id.transactionsRecyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new TransactionAdapter(currentUser.getAccount().getTransactions(), this);
+        recyclerView.setAdapter(mAdapter);
         fullName.setText(currentUser.getName().concat(" ").concat(currentUser.getLastName()));
         accountID.setText(currentUser.getAccount().getAccountId());
         balance.setText("********");

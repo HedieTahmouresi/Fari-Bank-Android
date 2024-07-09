@@ -55,21 +55,18 @@ public class Transaction {
         setSign(sign);
     }
 
-    public void showInfo(NeoBank neoBank) {
+    public String showInfo(NeoBank neoBank) {
         ZonedDateTime zonedDateTime = dateAndTime.atZone(ZoneId.systemDefault());
         LocalDate datePart = zonedDateTime.toLocalDate();
         LocalTime timePart = zonedDateTime.toLocalTime();
-        System.out.println(ColorConsole.PINK + "Transaction : " + ColorConsole.RESET);
-        System.out.println(ColorConsole.PINK + "Value: " + ColorConsole.PURPLE + this.getSign() + this.getValue() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PINK + "Date: " + ColorConsole.PURPLE + datePart + ColorConsole.PINK + ", Time: " + ColorConsole.PURPLE + timePart + ColorConsole.RESET);
-        System.out.println(ColorConsole.PINK + "Tracing Number: " + ColorConsole.PURPLE + this.getTracingNumber() + ColorConsole.RESET);
+        return "Transaction : \n" + "Value: " + this.getSign() + Double.toString(this.getValue()) + "\nDate: " + datePart + ", Time: "+ timePart + "\nTracing Number: " + this.getTracingNumber();
     }
 
     @Override
     public String toString() {
-        return ColorConsole.PURPLE + ", Date and Time :" + ColorConsole.CYAN + this.getDateAndTime() +
-                ColorConsole.PURPLE + ", Value : " + ColorConsole.CYAN + this.getValue() +
-                ColorConsole.PURPLE + ", Tracing Number : " + ColorConsole.CYAN + this.getTracingNumber() + ColorConsole.RESET;
+        return  "    ** Value : " + this.getValue() +
+                ", Tracing Number : " + this.getTracingNumber()+
+                "\n    Date and Time :" + this.getDateAndTime();
     }
 
     public boolean dateIsBetween(Instant start, Instant end) {

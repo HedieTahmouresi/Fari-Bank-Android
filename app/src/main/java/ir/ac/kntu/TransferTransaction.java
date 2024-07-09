@@ -66,71 +66,71 @@ public class TransferTransaction extends Transaction {
         setReceiverInfo(receiverInfo);
         setReceiver(isReceiver);
     }
-/*
+
     @Override
-    public void showInfo(NeoBank neoBank) {
+    public String showInfo(NeoBank neoBank) {
         ZonedDateTime zonedDateTime = this.getDateAndTime().atZone(ZoneId.systemDefault());
         LocalDate datePart = zonedDateTime.toLocalDate();
         LocalTime timePart = zonedDateTime.toLocalTime();
-        System.out.println(ColorConsole.CYAN + "***\nTransfer Transaction:");
+        String returnValue = "***\nTransfer Transaction:";
         if (!this.isByContact()) {
-            this.showNotContactVersion(neoBank);
+            returnValue = returnValue + this.showNotContactVersion(neoBank);
         } else {
-            this.showContactVersion(neoBank);
+            returnValue = returnValue + this.showContactVersion(neoBank);
         }
-        System.out.println("Value: " + this.getSign() + this.getValue() + ColorConsole.RESET);
-        System.out.println(ColorConsole.CYAN + "Date: " + datePart + "Time: " + timePart);
-        System.out.println("Tracing Number: " + this.getTracingNumber() + ColorConsole.RESET + "\n***");
+        returnValue = returnValue + "\nValue: \n" + this.getSign().toString() + Double.toString(this.getValue());
+        returnValue = returnValue + "\nDate: " + datePart.toString() + "Time: " + timePart.toString();
+        returnValue = returnValue + "\nTracing Number: " + Integer.toString(this.getTracingNumber()) + "\n***";
+        return returnValue;
     }
 
-    public void showContactVersion(NeoBank neoBank) {
+
+    public String showContactVersion(NeoBank neoBank) {
+        String returnValue = "";
         if (!this.isReceiver()) {
-            System.out.println("FullName sender : " + this.getSender().getName() + " " + this.getSender().getLastName());
-            System.out.println("Phone number sender : " + this.getSender().getSimCard().getPhoneNumber());
+            returnValue = returnValue + "\nFullName sender : " + this.getSender().getName() + " " + this.getSender().getLastName();
+            returnValue = returnValue + "\nPhone number sender : " + this.getSender().getSimCard().getPhoneNumber();
             Contact currContact = this.getSender().findContact(this.getReceiverInfo());
-            System.out.println("FullName receiver : " + currContact.getName() + " " + currContact.getLastName());
-            System.out.println("Phone Number receiver : " + this.getReceiverInfo());
+            returnValue = returnValue + "\nFullName receiver : " + currContact.getName() + " " + currContact.getLastName();
+            returnValue = returnValue + "\nPhone Number receiver : " + this.getReceiverInfo();
         } else {
             if (neoBank.getBankData().getUserByPhone(this.getReceiverInfo()).contactExistence(new Contact(" ", " ", this.getSender().getSimCard()))) {
                 Contact currContact = neoBank.getBankData().getUserByPhone(this.getReceiverInfo()).findContact(this.getSender().getSimCard().getPhoneNumber());
-                System.out.println("FullName sender : " + currContact.getName() + " " + currContact.getLastName());
-                System.out.println("Phone number sender : " + this.getSender().getSimCard().getPhoneNumber());
+                returnValue = returnValue + "\nFullName sender : " + currContact.getName() + " " + currContact.getLastName();
+                returnValue = returnValue + "\nPhone number sender : " + this.getSender().getSimCard().getPhoneNumber();
             } else {
-                System.out.println("FullName sender : " + this.getSender().getName() + " " + this.getSender().getLastName());
-                System.out.println("Phone number sender : " + this.getSender().getSimCard().getPhoneNumber());
+                returnValue = returnValue + "\nFullName sender : " + this.getSender().getName() + " " + this.getSender().getLastName();
+                returnValue = returnValue + "\nPhone number sender : " + this.getSender().getSimCard().getPhoneNumber();
             }
-            System.out.println("FullName receiver : " + this.getReceiver().getName() + " " + this.getReceiver().getLastName());
-            System.out.println("Phone Number receiver : " + this.getReceiverInfo());
+            returnValue = returnValue + "\nFullName receiver : " + this.getReceiver().getName() + " " + this.getReceiver().getLastName();
+            returnValue = returnValue + "\nPhone Number receiver : " + this.getReceiverInfo();
         }
+        return returnValue;
     }
 
-    public void showNotContactVersion(NeoBank neoBank) {
+    public String showNotContactVersion(NeoBank neoBank) {
+        String returnValue = "";
         if (!this.isReceiver()) {
-            System.out.println("FullName sender : " + this.getSender().getName() + " " + this.getSender().getLastName());
-            System.out.println("Phone number sender : " + this.getSender().getSimCard().getPhoneNumber());
+            returnValue = returnValue + "\nFullName sender : " + this.getSender().getName() + " " + this.getSender().getLastName();
+            returnValue = returnValue + "\nPhone number sender : " + this.getSender().getSimCard().getPhoneNumber();
         } else {
             if (this.getSender().contactExistence(new Contact(" ", " ", this.getReceiver().getSimCard()))) {
                 Contact currentContact = neoBank.getBankData().getUserByAccountID(this.getReceiverInfo()).findContact(this.getSender().getSimCard().getPhoneNumber());
-                System.out.println("FullName sender : " + currentContact.getName() + " " + currentContact.getLastName());
-                System.out.println("Phone number sender : " + this.getSender().getSimCard().getPhoneNumber());
+                returnValue = returnValue + "\nFullName sender : " + currentContact.getName() + " " + currentContact.getLastName();
+                returnValue = returnValue + "\nPhone number sender : " + this.getSender().getSimCard().getPhoneNumber();
             } else {
-                System.out.println("FullName sender : " + this.getSender().getName() + " " + this.getSender().getLastName());
-                System.out.println("Phone number sender : " + this.getSender().getSimCard().getPhoneNumber());
+                returnValue = returnValue + "FullName sender : " + this.getSender().getName() + " " + this.getSender().getLastName();
+                returnValue = returnValue + "\nPhone number sender : " + this.getSender().getSimCard().getPhoneNumber();
             }
         }
         if (this.getSender().contactExistence(new Contact(" ", " ", this.getReceiver().getSimCard())) && !this.isReceiver() && neoBank.getBankData().getUserByAccountID(this.getReceiverInfo()).isContactOption()) {
             Contact currContact = this.getSender().findContact(neoBank.getBankData().getUserByAccountID(this.getReceiverInfo()).getSimCard().getPhoneNumber());
-            System.out.println("FullName receiver : " + currContact.getName() + " " + currContact.getLastName());
+            returnValue = returnValue + "\nFullName receiver : " + currContact.getName() + " " + currContact.getLastName();
         } else {
-            System.out.println("FullName receiver : " + this.getReceiver().getName() + " " + this.getReceiver().getLastName());
+            returnValue = returnValue + "\nFullName receiver : " + this.getReceiver().getName() + " " + this.getReceiver().getLastName();
         }
-        System.out.println("Account ID receiver : " + this.getReceiverInfo());
+        returnValue = returnValue + "\nAccount ID receiver : " + this.getReceiverInfo();
+        return returnValue;
     }
 
-    @Override
-    public String toString() {
-        return ColorConsole.PURPLE + "Transaction Type :" + ColorConsole.CYAN + "Transfer" + super.toString();
-    }
-
- */
 }

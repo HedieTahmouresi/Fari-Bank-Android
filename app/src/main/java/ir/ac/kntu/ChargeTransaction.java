@@ -13,25 +13,21 @@ public class ChargeTransaction extends Transaction {
     }
 
 
-    /*
+
     @Override
-    public void showInfo(NeoBank neoBank) {
-        System.out.println(ColorConsole.PURPLE + "***" + ColorConsole.RESET);
+    public String showInfo(NeoBank neoBank) {
+        String returnValue = "***";
         ZonedDateTime zonedDateTime = this.getDateAndTime().atZone(ZoneId.systemDefault());
         LocalDate datePart = zonedDateTime.toLocalDate();
         LocalTime timePart = zonedDateTime.toLocalTime();
-        System.out.println(ColorConsole.PURPLE + "Charge Transaction : ");
-        System.out.println("Value: " + ColorConsole.GREEN + this.getSign() + this.getValue() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Date: " + ColorConsole.PINK + datePart + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Time: " + ColorConsole.PINK + timePart + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Tracing Number: " + ColorConsole.PINK + this.getTracingNumber() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "***" + ColorConsole.RESET);
+        returnValue = returnValue +  "\nCharge Transaction : ";
+        returnValue = returnValue + "\nValue: " +this.getSign() + this.getValue() ;
+        returnValue = returnValue +  "\nDate: " +  datePart ;
+        returnValue = returnValue + "\nTime: " + timePart ;
+        returnValue = returnValue +  "\nTracing Number: " + this.getTracingNumber() ;
+        returnValue = returnValue + "\n***" ;
+        return returnValue;
     }
 
-    @Override
-    public String toString() {
-        return ColorConsole.PURPLE + "Transaction Type :" + ColorConsole.CYAN + "Charge" + super.toString();
-    }
 
-     */
 }

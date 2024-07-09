@@ -42,21 +42,18 @@ public class TransferInsideTransaction extends Transaction {
     }
 
     @Override
-    public void showInfo(NeoBank neoBank) {
-        super.showInfo(neoBank);
-        System.out.println(ColorConsole.PINK + "***\n" + "From your : " + ColorConsole.PURPLE + this.getSender() + ColorConsole.RESET);
+    public String showInfo(NeoBank neoBank) {
+        String returnValue = super.showInfo(neoBank);
+        returnValue = returnValue +  "\n***\n" + "From your : " + this.getSender();
         if ("Account".equals(this.getReceiver())) {
-            System.out.println(ColorConsole.PINK + "Fund Id : " + ColorConsole.PURPLE + this.getFundId() + ColorConsole.RESET);
+            returnValue = returnValue + "\nFund Id : " + this.getFundId();
         }
-        System.out.println(ColorConsole.PINK + "To your : " + ColorConsole.PURPLE + this.getReceiver() + ColorConsole.RESET);
+        returnValue = returnValue + "\nTo your : " + this.getReceiver();
         if ("Account".equals(this.getSender())) {
-            System.out.println(ColorConsole.PINK + "Fund Id : " + ColorConsole.PURPLE + this.getFundId() + ColorConsole.RESET);
+            returnValue = returnValue + "\nFund Id : " + this.getFundId();
         }
-        System.out.println(ColorConsole.PINK + "***" + ColorConsole.RESET);
+        returnValue = returnValue + "\n***" ;
+        return returnValue;
     }
 
-    @Override
-    public String toString() {
-        return ColorConsole.PURPLE + "Transaction Type :" + ColorConsole.CYAN + "Inside Transfer" + super.toString();
-    }
 }
