@@ -1,7 +1,9 @@
 package ir.ac.kntu;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -103,6 +105,8 @@ public class SimpleUser extends UserPerson {
     public List<Contact> getContacts(){
         return this.contacts;
     }
+
+
 
 
     public void addContact(Contact newContact) {

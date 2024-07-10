@@ -2,10 +2,16 @@ package ir.ac.kntu;
 
 import static ir.ac.kntu.R.*;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContentInfo;
+import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -13,20 +19,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
+
 public class ContactPage extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private static RecyclerView.Adapter mAdapter;
+    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private SeekBar seekBar;
-
-    public static RecyclerView.Adapter getmAdapter() {
-        return mAdapter;
-    }
-
-    public static void setmAdapter(RecyclerView.Adapter mAdapter) {
-        ContactPage.mAdapter = mAdapter;
-    }
+    private FloatingActionButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,10 @@ public class ContactPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        initialize();
+    }
+
+    public void initialize(){
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         recyclerView = (RecyclerView) findViewById(R.id.contactRecyclerReview);
         layoutManager = new LinearLayoutManager(this);
@@ -62,5 +69,27 @@ public class ContactPage extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+        onClick(currentUser, ContactPage.this);
     }
+
+    public void onClick(SimpleUser currentUser, Context context){
+        button = (FloatingActionButton) findViewById(id.addContact);
+        button.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(ContactPage.this, AddContact.class);
+                        intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                        startActivity(intent);
+                    }
+                }
+        );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialize();
+    }
+
 }
