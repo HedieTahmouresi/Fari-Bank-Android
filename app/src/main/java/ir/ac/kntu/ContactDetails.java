@@ -37,40 +37,30 @@ public class ContactDetails extends AppCompatActivity {
         initialize();
     }
 
-    public void initialize(){
+    public void initialize() {
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("User Number"));
         Contact currentContact = currentUser.findContact(getIntent().getStringExtra("Contact Info"));
         fullName = (TextView) findViewById(R.id.contactName);
         letter = (TextView) findViewById(R.id.contactLetter);
         number = (TextView) findViewById(R.id.numberContact);
         fullName.setText(currentContact.getName().concat(" ").concat(currentContact.getLastName()));
-        letter.setText(currentContact.getName().toUpperCase().substring(0,1));
+        letter.setText(currentContact.getName().toUpperCase().substring(0, 1));
         number.setText(currentContact.getSimCard().getPhoneNumber());
         onClickDelete(currentUser, currentContact);
         onClickEdit(currentUser, currentContact);
     }
 
-    public void onClickDelete(SimpleUser currentUser, Contact currentContact){
+    public void onClickDelete(SimpleUser currentUser, Contact currentContact) {
         delete = (FloatingActionButton) findViewById(R.id.deleteContact);
         delete.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         AlertDialog.Builder warningBuilder = new AlertDialog.Builder(ContactDetails.this);
-                        warningBuilder.setMessage("Are you sure?").setCancelable(false).setPositiveButton("yes",
-                                new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                currentUser.removeContact(currentContact);
-                                finish();
-                            }
-                        })
-                                .setNegativeButton("no", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.cancel();
-                                    }
-                                });
+                        warningBuilder.setMessage("Are you sure?").setCancelable(false).setPositiveButton("yes", (dialogInterface, i) -> {
+                            currentUser.removeContact(currentContact);
+                            finish();
+                        }).setNegativeButton("no", (dialogInterface, i) -> dialogInterface.cancel());
                         AlertDialog warning = warningBuilder.create();
                         warning.setTitle("Warning");
                         warning.show();
@@ -80,7 +70,7 @@ public class ContactDetails extends AppCompatActivity {
         );
     }
 
-    public void onClickEdit(SimpleUser currentUser, Contact currentContact){
+    public void onClickEdit(SimpleUser currentUser, Contact currentContact) {
         edit = (FloatingActionButton) findViewById(R.id.editContact);
         edit.setOnClickListener(
                 new View.OnClickListener() {

@@ -39,7 +39,7 @@ public class ContactPage extends AppCompatActivity {
         initialize();
     }
 
-    public void initialize(){
+    public void initialize() {
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         recyclerView = (RecyclerView) findViewById(R.id.contactRecyclerReview);
         layoutManager = new LinearLayoutManager(this);
@@ -67,7 +67,7 @@ public class ContactPage extends AppCompatActivity {
         onClick(currentUser, ContactPage.this);
     }
 
-    public void onClick(SimpleUser currentUser, Context context){
+    public void onClick(SimpleUser currentUser, Context context) {
         button = (FloatingActionButton) findViewById(id.addContact);
         button.setOnClickListener(
                 new View.OnClickListener() {

@@ -63,7 +63,7 @@ public class Support extends AppCompatActivity {
         onClick(currentUser);
     }
 
-    public void onClick(SimpleUser currentUser){
+    public void onClick(SimpleUser currentUser) {
         button = (FloatingActionButton) findViewById(R.id.addRequest);
         button.setOnClickListener(
                 new View.OnClickListener() {

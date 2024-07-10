@@ -50,17 +50,17 @@ public class AddRequest extends AppCompatActivity {
         });
     }
 
-    public void onClick(SimpleUser currentUser, String selectedItem){
+    public void onClick(SimpleUser currentUser, String selectedItem) {
         add = (Button) findViewById(R.id.addRequestButton);
         problem = (EditText) findViewById(R.id.requestProblem);
         add.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (!problem.getText().toString().isEmpty()){
+                        if (!problem.getText().toString().isEmpty()) {
                             currentUser.addRequest(getSection(selectedItem), problem.getText().toString(), MainActivity.getFariBank(), AddRequest.this);
                             finish();
-                        } else{
+                        } else {
                             Toast.makeText(AddRequest.this, "You can't have an empty field", Toast.LENGTH_LONG).show();
                         }
 

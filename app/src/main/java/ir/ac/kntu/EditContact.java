@@ -40,30 +40,30 @@ public class EditContact extends AppCompatActivity {
         onClick(currentUser, currentContact);
     }
 
-    public boolean checkPhone(String phoneNumber, SimpleUser currentUser, Contact currentContact){
+    public boolean checkPhone(String phoneNumber, SimpleUser currentUser, Contact currentContact) {
         int flag = MainActivity.getFariBank().getBankData().checkPhoneNumber(phoneNumber, "should exist");
         SimCard simCard = MainActivity.getFariBank().getManagerData().getSimCard(phoneNumber);
         if (simCard == null) {
             simCard = new SimCard(phoneNumber, false);
         }
-        if (phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             Toast.makeText(EditContact.this, "You can't leave the phone number field empty", Toast.LENGTH_LONG).show();
             return false;
-        } else if (phoneNumber.equals(currentContact.getSimCard().getPhoneNumber())){
+        } else if (phoneNumber.equals(currentContact.getSimCard().getPhoneNumber())) {
             return true;
-        }else if (flag==1){
+        } else if (flag == 1) {
             Toast.makeText(EditContact.this, "Wrong format", Toast.LENGTH_LONG).show();
             return false;
-        } else if (flag==3){
+        } else if (flag == 3) {
             Toast.makeText(EditContact.this, "This user doesn't have an account in my our bank!", Toast.LENGTH_LONG).show();
             return false;
-        } else if (currentUser.contactExistence(new Contact(" ", " ", simCard))){
+        } else if (currentUser.contactExistence(new Contact(" ", " ", simCard))) {
             Toast.makeText(EditContact.this, "You already have a contact with this number", Toast.LENGTH_LONG).show();
         }
         return true;
     }
 
-    public void onClick(SimpleUser currentUser, Contact currentContact){
+    public void onClick(SimpleUser currentUser, Contact currentContact) {
         name = (EditText) findViewById(R.id.editName);
         lastName = (EditText) findViewById(R.id.editLastName);
         phoneNumber = (EditText) findViewById(R.id.editPhone);
@@ -72,7 +72,7 @@ public class EditContact extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (checkPhone(phoneNumber.getText().toString().trim(), currentUser, currentContact)){
+                        if (checkPhone(phoneNumber.getText().toString().trim(), currentUser, currentContact)) {
                             currentContact.setName(name.getText().toString());
                             currentContact.setLastName(lastName.getText().toString());
                             SimCard simCard = MainActivity.getFariBank().getManagerData().getSimCard(phoneNumber.getText().toString().trim());

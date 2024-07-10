@@ -102,11 +102,11 @@ public class SimpleUser extends UserPerson {
         return false;
     }
 
-    public List<Contact> getContacts(){
+    public List<Contact> getContacts() {
         return this.contacts;
     }
 
-    public List<Request> getRequests(){
+    public List<Request> getRequests() {
         return this.requests;
     }
 
@@ -131,54 +131,7 @@ public class SimpleUser extends UserPerson {
         this.funds.add(fund);
     }
 
-    /*public Contact showContacts() {
-        if (this.contacts == null || this.contacts.isEmpty()) {
-            return null;
-        }
-        Pagination<Contact> contactList = new Pagination<>(this.contacts, 5);
-        String command;
-        do {
-            contactList.showPage();
-            System.out.println(ColorConsole.BLUE + "Enter 'next' to go to the next page, 'previous' to go back or the number of the transaction you want" + ColorConsole.RESET);
-            command = input.nextLine();
-            if (!input.exitPoint(command)) {
-                return null;
-            } else if (command.matches("[0-9]+")) {
-                return this.selectContact(command);
-            } else if ("next".equals(command) || "previous".equals(command)) {
-                contactList.changePage(command);
-            } else {
-                System.out.println(ColorConsole.RED + "No other option! Please try again!" + ColorConsole.RESET);
-            }
-        } while (!"return".equals(command));
-        return null;
-    }
-
-    public Contact selectContact(String answer) {
-        if (Integer.parseInt(answer) > 0 && Integer.parseInt(answer) < contacts.size() + 1) {
-            return this.contacts.get(Integer.parseInt(answer) - 1);
-        }
-        System.out.println(ColorConsole.RED + "Index Out of Bound! Try again!" + ColorConsole.RESET);
-        return null;
-    }
-
-    public void changeSecurityNumber(NeoBank neoBank) {
-        System.out.println(ColorConsole.CYAN_BOLD + "Would you like to change your social security number? (previous phone number : " + ColorConsole.PURPLE + this.getSecurityNumber() + ColorConsole.CYAN_BOLD + ")" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        if ("no".equalsIgnoreCase(answer) || !input.exitPoint(answer)) {
-            return;
-        } else if ("yes".equalsIgnoreCase(answer)) {
-            String securityNumber = input.nextSecurityNumber(neoBank.getBankData());
-            if (securityNumber != null) {
-                this.setSecurityNumber(securityNumber);
-            }
-            return;
-        } else {
-            System.out.println(ColorConsole.RED + "Wrong input! Try again" + ColorConsole.RESET);
-        }
-        this.changeSecurityNumber(neoBank);
-    }
-
+    /*
     public void changePassword() {
         System.out.println(ColorConsole.CYAN_BOLD + "Would you like to change your password? (previous phone number : " + ColorConsole.PURPLE + this.getPassword() + ColorConsole.CYAN_BOLD + ")" + ColorConsole.RESET);
         String answer = input.nextLine();
@@ -354,47 +307,7 @@ public class SimpleUser extends UserPerson {
         Toast.makeText(context, "Request successfully noted!", Toast.LENGTH_LONG).show();
     }
 /*
-    public void showRequests(NeoBank neoBank) {
-        if (requests == null || requests.isEmpty()) {
-            return;
-        }
-        Pagination<Request> requestList = new Pagination<>(requests, 5);
-        String command;
-        do {
-            requestList.showPage();
-            System.out.println(ColorConsole.BLUE + "Enter 'next' to go to the next page, 'previous' to go back or the number of the transaction you want" + ColorConsole.RESET);
-            command = input.nextLine();
-            if (!input.exitPoint(command)) {
-                return;
-            } else if (command.matches("[0-9]+")) {
-                this.selectRequest(command, neoBank);
-            } else if ("next".equals(command) || "previous".equals(command)) {
-                requestList.changePage(command);
-            } else {
-                System.out.println(ColorConsole.RED + "No other option! Please try again!" + ColorConsole.RESET);
-            }
-        } while (!"return".equals(command));
-    }
 
-    public void selectRequest(String answer, NeoBank neoBank) {
-        if (Integer.parseInt(answer) > 0 && Integer.parseInt(answer) <= this.requests.size()) {
-            int index = Integer.parseInt(answer) - 1;
-            this.requests.get(index).showInfo(neoBank.getBankData());
-            return;
-        }
-        System.out.println(ColorConsole.RED + "Wrong input try again!" + ColorConsole.RESET);
-
-    }
-
-
-    public void showUserInfo(NeoBank neoBank) {
-        System.out.println(ColorConsole.PURPLE + "Name : " + ColorConsole.BLUE_BOLD + this.getName() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Last Name : " + ColorConsole.BLUE_BOLD + this.getLastName() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Phone Number : " + ColorConsole.BLUE_BOLD + this.getSimCard().getPhoneNumber() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Account Id : " + ColorConsole.BLUE_BOLD + this.getAccount().getAccountId() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Transactions : " + ColorConsole.RESET);
-        this.getAccount().showTransactionList(neoBank, this.getAccount().addAllTransactions(neoBank));
-    }
 
     public RemainsFund getRemainsFund() {
         for (Fund fund : this.funds) {
@@ -491,11 +404,6 @@ public class SimpleUser extends UserPerson {
             return;
         }
         System.out.println(ColorConsole.RED + "Wrong input try again!" + ColorConsole.RESET);
-    }
-
-    @Override
-    public String toString() {
-        return ColorConsole.CYAN + "Simple User{" + super.toString() + ColorConsole.CYAN + "}" + ColorConsole.RESET;
     }
 
      */

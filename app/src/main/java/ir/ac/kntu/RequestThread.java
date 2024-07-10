@@ -1,6 +1,6 @@
 package ir.ac.kntu;
 
-public class RequestThread implements Runnable{
+public class RequestThread implements Runnable {
     private SimpleUser user;
     private NeoBank neoBank;
     private Request request;

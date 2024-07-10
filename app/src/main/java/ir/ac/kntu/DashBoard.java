@@ -47,7 +47,7 @@ public class DashBoard extends AppCompatActivity {
         initialize();
     }
 
-    public void initialize(){
+    public void initialize() {
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         fullName = (TextView) findViewById(R.id.fullName);
         accountID = (TextView) findViewById(R.id.accountID);
@@ -96,7 +96,7 @@ public class DashBoard extends AppCompatActivity {
         );
     }
 
-    public void onClickProfile(SimpleUser currentUser){
+    public void onClickProfile(SimpleUser currentUser) {
         profile = (ImageButton) findViewById(R.id.profile);
         profile.setOnClickListener(
                 new View.OnClickListener() {

@@ -67,7 +67,7 @@ public class Request {
 
     public String showInfo(Data data) {
         SimpleUser currentUser = data.getUserByPhone(this.getPhoneNumber());
-        return "***" + "\nPhone Number : " + currentUser.getSimCard().getPhoneNumber() + "\nRequest Section : " + this.getSection()  + "\nProblem : " + this.getRequest() +  "\nRequest Status : " +  this.getStatus() + "\nAdmins Answer : " +  this.getAnswer() +"\n***" ;
+        return "***" + "\nPhone Number : " + currentUser.getSimCard().getPhoneNumber() + "\nRequest Section : " + this.getSection() + "\nProblem : " + this.getRequest() + "\nRequest Status : " + this.getStatus() + "\nAdmins Answer : " + this.getAnswer() + "\n***";
     }
 
     public void closeRequest() {

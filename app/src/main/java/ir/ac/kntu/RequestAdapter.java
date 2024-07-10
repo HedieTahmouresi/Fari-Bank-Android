@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 
-public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder>{
+public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder> {
 
     private List<Request> requests;
     private Context context;

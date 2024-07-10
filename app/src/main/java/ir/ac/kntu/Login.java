@@ -40,6 +40,10 @@ public class Login extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        initialize();
+    }
+
+    public void initialize() {
         CentralBank centralBank = MainActivity.getCentralBank();
         NeoBank fariBank = MainActivity.getFariBank();
         onClickSignUp(centralBank, fariBank);
@@ -123,6 +127,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        initialize();
     }
 
 }
