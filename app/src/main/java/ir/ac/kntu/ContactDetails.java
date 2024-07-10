@@ -1,6 +1,7 @@
 package ir.ac.kntu;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ public class ContactDetails extends AppCompatActivity {
     private TextView number;
     private FloatingActionButton delete;
     private FloatingActionButton edit;
+    private FloatingActionButton transfer;
+    private FloatingActionButton chargeSim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,10 @@ public class ContactDetails extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        initialize();
+    }
+
+    public void initialize(){
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("User Number"));
         Contact currentContact = currentUser.findContact(getIntent().getStringExtra("Contact Info"));
         fullName = (TextView) findViewById(R.id.contactName);
@@ -40,6 +47,7 @@ public class ContactDetails extends AppCompatActivity {
         letter.setText(currentContact.getName().toUpperCase().substring(0,1));
         number.setText(currentContact.getSimCard().getPhoneNumber());
         onClickDelete(currentUser, currentContact);
+        onClickEdit(currentUser, currentContact);
     }
 
     public void onClickDelete(SimpleUser currentUser, Contact currentContact){
@@ -70,5 +78,26 @@ public class ContactDetails extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void onClickEdit(SimpleUser currentUser, Contact currentContact){
+        edit = (FloatingActionButton) findViewById(R.id.editContact);
+        edit.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(ContactDetails.this, EditContact.class);
+                        intent.putExtra("Contact Info", currentContact.getSimCard().getPhoneNumber());
+                        intent.putExtra("User Number", currentUser.getSimCard().getPhoneNumber());
+                        startActivity(intent);
+                    }
+                }
+        );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialize();
     }
 }
