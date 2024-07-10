@@ -42,4 +42,9 @@ public class RoleSelection extends AppCompatActivity {
         );
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 }

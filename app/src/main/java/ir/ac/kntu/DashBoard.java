@@ -44,6 +44,10 @@ public class DashBoard extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        initialize();
+    }
+
+    public void initialize(){
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         fullName = (TextView) findViewById(R.id.fullName);
         accountID = (TextView) findViewById(R.id.accountID);
@@ -77,6 +81,7 @@ public class DashBoard extends AppCompatActivity {
 
         showBalance(currentUser);
         onClickProfile(currentUser);
+
     }
 
     public void showBalance(SimpleUser currentUser) {
@@ -103,5 +108,11 @@ public class DashBoard extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialize();
     }
 }
