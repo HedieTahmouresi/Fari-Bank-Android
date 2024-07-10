@@ -60,8 +60,6 @@ public class Request {
         setPhoneNumber(phoneNumber);
     }
 
-
-
     @Override
     public String toString() {
         return "   *status : " + this.getStatus().toString();
@@ -71,53 +69,11 @@ public class Request {
         SimpleUser currentUser = data.getUserByPhone(this.getPhoneNumber());
         return "***" + "\nPhone Number : " + currentUser.getSimCard().getPhoneNumber() + "\nRequest Section : " + this.getSection()  + "\nProblem : " + this.getRequest() +  "\nRequest Status : " +  this.getStatus() + "\nAdmins Answer : " +  this.getAnswer() +"\n***" ;
     }
-    /*
-
-    public void processRequest(NeoBank neoBank) {
-        this.showInfo(neoBank.getBankData());
-        System.out.println(ColorConsole.BLUE + "Would you like to process this request?" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        switch (answer) {
-            case "yes":
-                this.setStatus(RequestStatus.IN_PROCESS);
-                this.closeRequest();
-                return;
-            case "no":
-                return;
-            default:
-                if (!input.exitPoint(answer)) {
-                    return;
-                }
-                System.out.println(ColorConsole.RED + "THERE IS NO OTHER OPTION! Please input something else!" + ColorConsole.RESET);
-                break;
-
-        }
-        this.processRequest(neoBank);
-    }
 
     public void closeRequest() {
-        System.out.println(ColorConsole.BLUE + "Would you like to answer this request?" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        switch (answer) {
-            case "yes":
-                System.out.println(ColorConsole.BLUE + "Please enter your answer!" + ColorConsole.RESET);
-                String text = input.nextLine();
-                if (!input.exitPoint(text)) {
-                    return;
-                }
-                this.setStatus(RequestStatus.PROCESSED);
-                this.setAnswer(answer);
-                return;
-            case "no":
-                return;
-            default:
-                if (!input.exitPoint(answer)) {
-                    return;
-                }
-                System.out.println(ColorConsole.RED + "THERE IS NO OTHER OPTION! Please input something else!" + ColorConsole.RESET);
-        }
-        this.closeRequest();
+        this.setStatus(RequestStatus.IN_PROCESS);
+        this.setAnswer("Our associates will be in touch with you as soon as possible");
+
     }
 
-     */
 }

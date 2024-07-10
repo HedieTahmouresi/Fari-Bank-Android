@@ -350,7 +350,7 @@ public class SimpleUser extends UserPerson {
     public void addRequest(RequestSection section, String text, NeoBank neoBank, Context context) {
         Request newRequest = new Request(text, section, this.getSimCard().getPhoneNumber());
         this.addRequest(newRequest);
-        neoBank.getBankData().addRequest(newRequest);
+        neoBank.getBankData().addRequest(this, newRequest);
         Toast.makeText(context, "Request successfully noted!", Toast.LENGTH_LONG).show();
     }
 /*

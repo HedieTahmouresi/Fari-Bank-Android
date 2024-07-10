@@ -21,8 +21,11 @@ public class Data {
     }
 
 
-    public void addRequest(Request request) {
+    public void addRequest(SimpleUser currentUser, Request request) {
         this.requests.add(request);
+        RequestThread requestThread = new RequestThread(currentUser, MainActivity.getFariBank(), request);
+        Thread thread = new Thread(requestThread);
+        thread.start();
     }
 
     public void addAuthentication(Authentication authentication) {

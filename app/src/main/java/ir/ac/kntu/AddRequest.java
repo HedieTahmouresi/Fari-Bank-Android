@@ -58,7 +58,8 @@ public class AddRequest extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (getSection(selectedItem)!=null && !problem.getText().toString().isEmpty()){
-
+                            currentUser.addRequest(getSection(selectedItem), problem.getText().toString(), MainActivity.getFariBank(), AddRequest.this);
+                            finish();
                         } else{
                             Toast.makeText(AddRequest.this, "You can't have an empty field", Toast.LENGTH_LONG).show();
                         }
