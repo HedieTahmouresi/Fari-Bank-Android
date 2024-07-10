@@ -345,23 +345,15 @@ public class SimpleUser extends UserPerson {
         System.out.println(ColorConsole.RED + "Please enter yes or no! I can't understand this!" + ColorConsole.RESET);
         this.changeContactOption();
     }
+*/
 
-    public void addRequest(NeoBank neoBank) {
-        RequestSection section = input.nextRequestSections();
-        if (section == null) {
-            return;
-        }
-        System.out.println(ColorConsole.BLUE_BOLD + "Please Enter your problem." + ColorConsole.RESET);
-        String text = input.nextLine();
-        if (!input.exitPoint(text)) {
-            return;
-        }
+    public void addRequest(RequestSection section, String text, NeoBank neoBank, Context context) {
         Request newRequest = new Request(text, section, this.getSimCard().getPhoneNumber());
         this.addRequest(newRequest);
         neoBank.getBankData().addRequest(newRequest);
-        System.out.println(ColorConsole.GREEN + "Request successfully noted!" + ColorConsole.RESET);
+        Toast.makeText(context, "Request successfully noted!", Toast.LENGTH_LONG).show();
     }
-
+/*
     public void showRequests(NeoBank neoBank) {
         if (requests == null || requests.isEmpty()) {
             return;
