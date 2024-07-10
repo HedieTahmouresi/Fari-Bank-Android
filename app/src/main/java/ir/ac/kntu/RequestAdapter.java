@@ -1,4 +1,4 @@
-package ir.ac.kntu.util;
+package ir.ac.kntu;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
-import ir.ac.kntu.Contact;
-import ir.ac.kntu.ContactDetails;
-import ir.ac.kntu.MainActivity;
-import ir.ac.kntu.R;
-import ir.ac.kntu.Request;
-import ir.ac.kntu.RequestDetails;
 
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder>{
@@ -42,7 +35,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position) {
         Request request = requests.get(position);
         holder.getSection().setText(" ~".concat(request.getSection().toString()));
-        holder.getRequestInfo().setText(" ");
+        holder.getRequestInfo().setText(request.toString());
         holder.getRequestInfo().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

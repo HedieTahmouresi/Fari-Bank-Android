@@ -19,7 +19,7 @@ public class AddRequest extends AppCompatActivity {
     private Button add;
     private EditText problem;
     private Spinner sections;
-    private String selectedItem;
+    private static String selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class AddRequest extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = parent.getItemAtPosition(position).toString();
+                onClick(currentUser, selectedItem);
             }
 
             @Override
@@ -47,7 +48,6 @@ public class AddRequest extends AppCompatActivity {
                 selectedItem = " ";
             }
         });
-        onClick(currentUser, selectedItem);
     }
 
     public void onClick(SimpleUser currentUser, String selectedItem){
@@ -57,12 +57,14 @@ public class AddRequest extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (getSection(selectedItem)!=null && !problem.getText().toString().isEmpty()){
+                        if (!problem.getText().toString().isEmpty()){
                             currentUser.addRequest(getSection(selectedItem), problem.getText().toString(), MainActivity.getFariBank(), AddRequest.this);
                             finish();
                         } else{
                             Toast.makeText(AddRequest.this, "You can't have an empty field", Toast.LENGTH_LONG).show();
                         }
+
+
                     }
                 }
         );
@@ -70,21 +72,21 @@ public class AddRequest extends AppCompatActivity {
 
     public RequestSection getSection(String item) {
         switch (item) {
-            case "1", "Authentications":
+            case "AUTHENTICATIONS":
                 return RequestSection.AUTHENTICATIONS;
-            case "2", "Report":
+            case "REPORT":
                 return RequestSection.REPORT;
-            case "3", "Funds":
+            case "FUNDS":
                 return RequestSection.FUNDS;
-            case "4", "Contacts":
+            case "CONTACTS":
                 return RequestSection.CONTACTS;
-            case "5", "Transfer":
+            case "TRANSFER":
                 return RequestSection.TRANSFER;
-            case "6", "Sim Charge":
+            case "SIM_CHARGE":
                 return RequestSection.SIM_CHARGE;
-            case "7", "Credit Card":
+            case "CREDIT_CARD":
                 return RequestSection.CREDIT_CARD;
-            case "8", "Settings":
+            case "SETTINGS":
                 return RequestSection.SETTINGS;
             default:
                 Toast.makeText(AddRequest.this, "You have to choose from these options", Toast.LENGTH_LONG).show();

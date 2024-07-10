@@ -1,5 +1,6 @@
 package ir.ac.kntu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
@@ -13,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import ir.ac.kntu.util.RequestAdapter;
 
 public class Support extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -61,6 +60,7 @@ public class Support extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+        onClick(currentUser);
     }
 
     public void onClick(SimpleUser currentUser){
@@ -69,9 +69,17 @@ public class Support extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        Intent intent = new Intent(Support.this, AddRequest.class);
+                        intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                        startActivity(intent);
                     }
                 }
         );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialize();
     }
 }

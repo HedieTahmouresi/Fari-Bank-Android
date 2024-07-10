@@ -22,7 +22,8 @@ public class Helper {
         SimpleUser sepehr = new SimpleUser("Sepehr", "Ghardashi", new SimCard("09111262338", false), "0105213054", "H@tah1384", new Authentication("09111262338"));
         neoBank.getBankData().addUser(sepehr);
         sepehr.getAuthenticated().authenticateUser(neoBank, sepehr);
-
+        hedie.addRequest(new Request("i hate you lotfi", RequestSection.REPORT, hedie.getSimCard().getPhoneNumber()));
+        hedie.addRequest(new Request("mardak kiri", RequestSection.AUTHENTICATIONS, hedie.getSimCard().getPhoneNumber()));
         hedie.getAccount().addTransaction(new TransferTransaction(100.0, 15454554, sepehr, true, "09111262338", "-", hedie, false));
         hedie.getAccount().addTransaction(new SimChargeTransaction(12.3, 55225252, "+", "09109056296"));
         hedie.getAccount().addTransaction(new SimChargeTransaction(14.6, 55225253, "+", "09109056296"));
