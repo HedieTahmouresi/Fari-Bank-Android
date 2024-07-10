@@ -10,8 +10,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contactRecyclerReview"
-        android:layout_width="390dp"
-        android:layout_height="647dp"
+        android:layout_width="357dp"
+        android:layout_height="646dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -20,10 +20,10 @@
         app:layout_constraintVertical_bias="0.333" />
 
     <SeekBar
-        android:id="@+id/seekBar1"
+        android:id="@+id/contactSeekBar"
         android:layout_width="591dp"
         android:layout_height="93dp"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="8dp"
         android:progressDrawable="@drawable/seek_bar"
         android:rotation="90"
@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintVertical_bias="0.557" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addContact"
@@ -43,7 +43,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/contactRecyclerReview"
         app:layout_constraintTop_toTopOf="@+id/contactRecyclerReview"
-        app:layout_constraintVertical_bias="0.02"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_action_plus"
         tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

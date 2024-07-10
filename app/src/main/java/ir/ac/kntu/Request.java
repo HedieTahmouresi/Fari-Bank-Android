@@ -61,26 +61,17 @@ public class Request {
     }
 
 
-    /*
+
     @Override
     public String toString() {
-        return ColorConsole.PURPLE + "Request{" +
-                "phoneNumber='" + this.getPhoneNumber() + '\'' +
-                " Section=" + this.getSection() +
-                ", Status=" + this.getStatus() +
-                '}' + ColorConsole.RESET;
+        return "   *status : " + this.getStatus().toString();
     }
 
-    public void showInfo(Data data) {
+    public String showInfo(Data data) {
         SimpleUser currentUser = data.getUserByPhone(this.getPhoneNumber());
-        System.out.println(ColorConsole.PURPLE + "***" + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Phone Number : " + ColorConsole.CYAN + currentUser.getSimCard().getPhoneNumber() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PURPLE + "Request Section : " + ColorConsole.CYAN + this.getSection());
-        System.out.println(ColorConsole.PURPLE + "Problem : " + ColorConsole.CYAN + this.getRequest());
-        System.out.println(ColorConsole.PURPLE + "Request Status : " + ColorConsole.CYAN + this.getStatus());
-        System.out.println(ColorConsole.PURPLE + "Admins Answer : " + ColorConsole.CYAN + this.getAnswer());
-        System.out.println(ColorConsole.PURPLE + "***" + ColorConsole.RESET);
+        return "***" + "\nPhone Number : " + currentUser.getSimCard().getPhoneNumber() + "\nRequest Section : " + this.getSection()  + "\nProblem : " + this.getRequest() +  "\nRequest Status : " +  this.getStatus() + "\nAdmins Answer : " +  this.getAnswer() +"\n***" ;
     }
+    /*
 
     public void processRequest(NeoBank neoBank) {
         this.showInfo(neoBank.getBankData());

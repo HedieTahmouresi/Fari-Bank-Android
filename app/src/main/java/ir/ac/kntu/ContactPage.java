@@ -5,13 +5,10 @@ import static ir.ac.kntu.R.*;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContentInfo;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,8 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 public class ContactPage extends AppCompatActivity {
 
@@ -51,7 +46,7 @@ public class ContactPage extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new ContactAdapter(currentUser.getContacts(), this, currentUser.getSimCard().getPhoneNumber());
         recyclerView.setAdapter(mAdapter);
-        seekBar = (SeekBar) findViewById(id.seekBar1);
+        seekBar = (SeekBar) findViewById(id.contactSeekBar);
         seekBar.setMax(currentUser.getContacts().size() - 1);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

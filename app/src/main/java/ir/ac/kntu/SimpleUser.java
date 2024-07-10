@@ -106,7 +106,9 @@ public class SimpleUser extends UserPerson {
         return this.contacts;
     }
 
-
+    public List<Request> getRequests(){
+        return this.requests;
+    }
 
 
     public void addContact(Contact newContact) {

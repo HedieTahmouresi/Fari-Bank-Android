@@ -11,20 +11,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class TransactionDetails extends AppCompatActivity {
+public class RequestDetails extends AppCompatActivity {
     private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_transaction_details);
+        setContentView(R.layout.activity_request_details);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        textView = (TextView) findViewById(R.id.infoo);
-        textView.setText(getIntent().getStringExtra("Info"));
+        textView = (TextView) findViewById(id.requestDetails);
+        textView.setText(getIntent().getStringExtra("info"));
     }
 }

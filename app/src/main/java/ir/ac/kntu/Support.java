@@ -1,14 +1,27 @@
 package ir.ac.kntu;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.SeekBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import ir.ac.kntu.util.RequestAdapter;
 
 public class Support extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private SeekBar seekBar;
+    private FloatingActionButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +33,45 @@ public class Support extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        initialize();
+    }
+
+    private void initialize() {
+        SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
+        recyclerView = (RecyclerView) findViewById(R.id.requestRecyclerReview);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new RequestAdapter(currentUser.getRequests(), this, currentUser.getSimCard().getPhoneNumber());
+        recyclerView.setAdapter(mAdapter);
+        seekBar = (SeekBar) findViewById(R.id.seekBarRequest);
+        seekBar.setMax(currentUser.getRequests().size() - 1);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    recyclerView.scrollToPosition(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+    }
+
+    public void onClick(SimpleUser currentUser){
+        button = (FloatingActionButton) findViewById(R.id.addRequest);
+        button.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }
+        );
     }
 }
