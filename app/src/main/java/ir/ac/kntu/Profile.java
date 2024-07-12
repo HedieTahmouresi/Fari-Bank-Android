@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,9 +43,13 @@ public class Profile extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(Profile.this, ContactPage.class);
-                        intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
-                        startActivity(intent);
+                        if (currentUser.isContactOption()) {
+                            Intent intent = new Intent(Profile.this, ContactPage.class);
+                            intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(Profile.this, "Your contact option is off!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
         );

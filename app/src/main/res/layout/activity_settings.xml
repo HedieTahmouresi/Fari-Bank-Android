@@ -8,4 +8,359 @@
     android:background="#7F5387"
     tools:context=".Settings">
 
+    <ImageView
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/arrowAbout"
+        android:layout_width="97dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="194dp"
+        app:layout_constraintBottom_toBottomOf="@+id/about"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/about"
+        app:layout_constraintTop_toTopOf="@+id/about"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_action_arrow" />
+
+    <ImageView
+        android:id="@+id/contactSettings"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/userPass"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactSettings"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/creditPass"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPass"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/infoSign"
+        android:layout_width="74dp"
+        android:layout_height="79dp"
+        app:layout_constraintBottom_toBottomOf="@+id/about"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/about"
+        app:layout_constraintTop_toTopOf="@id/about"
+        app:srcCompat="@drawable/ic_action_info" />
+
+    <TextView
+        android:id="@+id/infoText"
+        android:layout_width="223dp"
+        android:layout_height="45dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="About Account"
+        android:textColor="#3F2343"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/about"
+        app:layout_constraintEnd_toEndOf="@id/about"
+        app:layout_constraintStart_toEndOf="@+id/infoSign"
+        app:layout_constraintTop_toTopOf="@+id/about" />
+
+    <TextView
+        android:id="@+id/contactText"
+        android:layout_width="223dp"
+        android:layout_height="45dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Contact Option"
+        android:textColor="#3F2343"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/contactSettings"
+        app:layout_constraintEnd_toEndOf="@id/contactSettings"
+        app:layout_constraintStart_toEndOf="@+id/contactSign"
+        app:layout_constraintTop_toTopOf="@+id/contactSettings" />
+
+    <ImageView
+        android:id="@+id/contactSign"
+        android:layout_width="74dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/contactSettings"
+        app:layout_constraintEnd_toEndOf="@+id/contactSettings"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/contactSettings"
+        app:layout_constraintTop_toTopOf="@+id/contactSettings"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_action_contact" />
+
+    <Switch
+        android:id="@+id/contactOptionSwitch"
+        android:layout_width="72dp"
+        android:layout_height="48dp"
+        android:text="Switch"
+        app:layout_constraintBottom_toBottomOf="@+id/contactSettings"
+        app:layout_constraintEnd_toEndOf="@id/contactSettings"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toEndOf="@+id/contactSign"
+        app:layout_constraintTop_toTopOf="@+id/contactSettings"
+        app:layout_constraintVertical_bias="0.354" />
+
+    <ImageView
+        android:id="@+id/creditSign"
+        android:layout_width="74dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/creditPass"
+        app:layout_constraintEnd_toEndOf="@id/creditPass"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/creditPass"
+        app:layout_constraintTop_toTopOf="@+id/creditPass"
+        app:srcCompat="@drawable/ic_action_card" />
+
+    <TextView
+        android:id="@+id/creditText"
+        android:layout_width="223dp"
+        android:layout_height="45dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="CreditCard Passcode"
+        android:textColor="#3F2343"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/creditPass"
+        app:layout_constraintEnd_toEndOf="@id/creditPass"
+        app:layout_constraintStart_toEndOf="@+id/creditSign"
+        app:layout_constraintTop_toTopOf="@+id/creditPass" />
+
+    <TextView
+        android:id="@+id/passText"
+        android:layout_width="223dp"
+        android:layout_height="45dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Change Account Password"
+        android:textColor="#3F2343"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/userPass"
+        app:layout_constraintEnd_toEndOf="@id/userPass"
+        app:layout_constraintStart_toEndOf="@+id/passSign"
+        app:layout_constraintTop_toTopOf="@+id/userPass" />
+
+    <ImageView
+        android:id="@+id/passSign"
+        android:layout_width="74dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/userPass"
+        app:layout_constraintEnd_toEndOf="@id/userPass"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/userPass"
+        app:layout_constraintTop_toTopOf="@+id/userPass"
+        app:srcCompat="@drawable/ic_action_pass" />
+
+    <ImageView
+        android:id="@+id/arrowUserPass"
+        android:layout_width="97dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="194dp"
+        app:layout_constraintBottom_toBottomOf="@+id/userPass"
+        app:layout_constraintEnd_toEndOf="@id/userPass"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/userPass"
+        app:layout_constraintTop_toTopOf="@+id/userPass"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_action_arrow" />
+
+    <Switch
+        android:id="@+id/creditPassSwitch"
+        android:layout_width="72dp"
+        android:layout_height="48dp"
+        android:text="Switch"
+        app:layout_constraintBottom_toBottomOf="@+id/creditPass"
+        app:layout_constraintEnd_toEndOf="@id/creditPass"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toEndOf="@+id/creditSign"
+        app:layout_constraintTop_toTopOf="@+id/creditPass"
+        app:layout_constraintVertical_bias="0.354" />
+
+    <LinearLayout
+        android:id="@+id/changingUserPassLayout"
+        android:layout_width="415dp"
+        android:layout_height="254dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPass"
+        app:layout_constraintVertical_bias="0.487">
+
+
+        <EditText
+            android:id="@+id/oldPassUser"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:hint="old password"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="*Your new Password :"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/newPassUser"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="new password"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/changeUserPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change!" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/settingCreditPassLayout"
+        android:layout_width="415dp"
+        android:layout_height="254dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPass"
+        app:layout_constraintVertical_bias="0.487">
+
+
+        <EditText
+            android:id="@+id/passCreditCard"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="new password"
+            android:inputType="numberPassword"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/setCreditPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set!" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/creditCardPasswordChange"
+        android:layout_width="415dp"
+        android:layout_height="254dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creditPass"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <TextView
+            android:id="@+id/changePassCreditButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Change CreditCard PassCode"
+            android:textColor="#3F2343"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/changingCreditPassLayout"
+            android:layout_width="415dp"
+            android:layout_height="254dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userPass"
+            app:layout_constraintVertical_bias="0.487">
+
+
+            <EditText
+                android:id="@+id/oldPassCredit"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:hint="old password"
+                android:inputType="numberPassword"
+                android:minHeight="48dp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="*Your new Password :"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/newPassCredit"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:hint="new password"
+                android:inputType="numberPassword"
+                android:minHeight="48dp" />
+
+            <Button
+                android:id="@+id/changeCreditPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Change!" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
