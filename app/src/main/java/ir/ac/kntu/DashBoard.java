@@ -60,6 +60,7 @@ public class DashBoard extends AppCompatActivity {
     }
 
     public void initialize() {
+        String id = getIntent().getStringExtra("Account Id Out");
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         fullName = (TextView) findViewById(R.id.fullName);
         accountID = (TextView) findViewById(R.id.accountID);
@@ -94,7 +95,7 @@ public class DashBoard extends AppCompatActivity {
         showBalance(currentUser);
         onClickProfile(currentUser);
         onClickCharge(currentUser, balance, recyclerView, seekBar);
-        onClickTransfer(currentUser);
+        onClickTransfer(currentUser, id);
     }
 
     public void onClickCharge(SimpleUser currentUser, TextView balance, RecyclerView recyclerView, SeekBar seekBar){
@@ -155,17 +156,17 @@ public class DashBoard extends AppCompatActivity {
         builder.show();
     }
 
-    public void onClickTransfer(SimpleUser currentUser){
+    public void onClickTransfer(SimpleUser currentUser, String id){
         transfer = (FloatingActionButton) findViewById(R.id.transfer);
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTransferWay(currentUser);
+                showTransferWay(currentUser, id);
             }
         });
     }
 
-    public void showTransferWay(SimpleUser currentUser){
+    public void showTransferWay(SimpleUser currentUser, String id){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("How would you like to transfer the money? ");
         Spinner ways = new Spinner(this);
@@ -181,6 +182,7 @@ public class DashBoard extends AppCompatActivity {
                 intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
                 intent.putExtra("way", selected);
                 intent.putExtra("Info", " ");
+                intent.putExtra("Account Id Out", id);
                 startActivity(intent);
 
             }

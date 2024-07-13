@@ -1,6 +1,8 @@
 package ir.ac.kntu;
 
+import android.content.Context;
 import android.os.Parcel;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -20,25 +22,24 @@ public class WireTransaction extends TransferTransaction {
         setHasBeenDone(false);
     }
 
-    /*public void completeTransaction(CentralBank centralBank, NeoBank neoBank){
+    public void completeTransaction(CentralBank centralBank, NeoBank neoBank, Context context){
         if (this.isHasBeenDone()){
             return;
         }
         double remains = this.getSender().isHasRemainsFund() ? this.getSender().getRemainsFund().calculateRemains(Double.toString(this.getValue())) : 0;
         double removeValue = this.getValue() + neoBank.getManagerData().getWireWage() + remains;
         this.getSender().getAccount().setBalance(this.getSender().getAccount().getBalance() - removeValue);
-        this.getSender().getAccount().addTransaction(new WireTransaction(removeValue, this.getTracingNumber(), this.getReceiver(), this.getReceiverInfo(), this.getSign(), this.getSender(), false), "Transfer");
+        this.getSender().getAccount().addTransaction(new WireTransaction(removeValue, this.getTracingNumber(), this.getReceiver(), this.getReceiverInfo(), this.getSign(), this.getSender(), false));
         this.getSender().getAccount().addRecentCentral(this, this.getReceiver().getSimCard().getPhoneNumber(), centralBank);
         SimpleUser receiver = centralBank.getUserBySim(this.getReceiver().getSimCard().getPhoneNumber());
         receiver.getAccount().setBalance(receiver.getAccount().getBalance() + this.getValue());
-        receiver.getAccount().addTransaction(new WireTransaction(this.getValue(), neoBank.getTracingNumber() + 1, receiver, receiver.getAccount().getAccountId(), "+", this.getSender(), true), "transfer");
+        receiver.getAccount().addTransaction(new WireTransaction(this.getValue(), neoBank.getTracingNumber() + 1, receiver, receiver.getAccount().getAccountId(), "+", this.getSender(), true));
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
         if (this.getSender().isHasRemainsFund()) {
             this.getSender().getRemainsFund().saveRemains(remains, neoBank);
         }
         setHasBeenDone(true);
+        Toast.makeText(context, "Transaction done", Toast.LENGTH_SHORT).show();
     }
 
-
-     */
 }

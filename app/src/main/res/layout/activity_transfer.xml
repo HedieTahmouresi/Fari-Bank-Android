@@ -99,4 +99,164 @@
             android:text="Button" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/TransferByAccountID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:fontFamily="serif-monospace"
+            android:text="Transfer By &quot;Account&quot;"
+            android:textAlignment="center"
+            android:textColor="#2F1035"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Receiver Info"
+            android:textColor="#2F1035"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/accountIDInput"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:ems="10"
+            android:hint="Credit Card ID"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColor="#2F1035"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="\nAmount :"
+            android:textColor="#2F1035"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/valueInputAccount"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="How much would you like to transfer?"
+            android:inputType="numberDecimal"
+            android:textColor="#2F1035"
+            android:textSize="16sp" />
+
+
+        <Spinner
+            android:id="@+id/spinnerWaysAccount"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:dropDownWidth="match_parent"
+            android:spinnerMode="dropdown" />
+
+        <Button
+            android:id="@+id/accountTransferButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/TransferByContact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:fontFamily="serif-monospace"
+            android:text="Transfer By &quot;Contact&quot;"
+            android:textAlignment="center"
+            android:textColor="#2F1035"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Receiver Info"
+            android:textColor="#2F1035"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerContacts"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:dropDownWidth="match_parent"
+            android:spinnerMode="dropdown" />
+
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="\nAmount :"
+            android:textColor="#2F1035"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/valueInputContact"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="How much would you like to transfer?"
+            android:inputType="numberDecimal"
+            android:textColor="#2F1035"
+            android:textSize="16sp" />
+
+
+        <Spinner
+            android:id="@+id/spinnerWaysContact"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:dropDownWidth="match_parent"
+            android:spinnerMode="dropdown" />
+
+        <Button
+            android:id="@+id/contactTransferButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

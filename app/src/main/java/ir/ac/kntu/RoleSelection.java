@@ -25,17 +25,19 @@ public class RoleSelection extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        onClick();
+        String id = getIntent().getStringExtra("Account Id Out");
+        onClick(id);
     }
 
 
-    public void onClick() {
+    public void onClick(String id) {
         nextPage = (Button) findViewById(R.id.button);
         nextPage.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(RoleSelection.this, Login.class);
+                        intent.putExtra("Account Id Out", id);
                         startActivity(intent);
                     }
                 }

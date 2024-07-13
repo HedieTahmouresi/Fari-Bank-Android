@@ -44,10 +44,11 @@ public class Login extends AppCompatActivity {
     }
 
     public void initialize() {
+        String id = getIntent().getStringExtra("Account Id Out");
         CentralBank centralBank = MainActivity.getCentralBank();
         NeoBank fariBank = MainActivity.getFariBank();
         onClickSignUp(centralBank, fariBank);
-        onClickLogin(centralBank, fariBank);
+        onClickLogin(centralBank, fariBank, id);
         showPass();
     }
 
@@ -81,7 +82,7 @@ public class Login extends AppCompatActivity {
         return true;
     }
 
-    public void onClickLogin(CentralBank centralBank, NeoBank fariBank) {
+    public void onClickLogin(CentralBank centralBank, NeoBank fariBank, String id) {
         phoneNumber = (EditText) findViewById(R.id.editTextPhone);
         password = (EditText) findViewById(R.id.editTextTextPassword);
         login = (Button) findViewById(R.id.button2);
@@ -97,6 +98,7 @@ public class Login extends AppCompatActivity {
                                 Toast.makeText(Login.this, "Welcome", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login.this, DashBoard.class);
                                 intent.putExtra("Phone Number", phoneNumber.getText().toString());
+                                intent.putExtra("Account Id Out", id);
                                 startActivity(intent);
                             } else {
                                 getMessage().show();

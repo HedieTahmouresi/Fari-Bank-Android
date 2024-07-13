@@ -79,23 +79,25 @@ public class Helper {
         System.out.println(mohsen.getAccount().getCreditCard().getCreditCardId());
     }
 
-    public void initiateToriUsers(NeoBank neoBank) {
+    public String initiateToriUsers(NeoBank neoBank) {
         SimpleUser aylin = new SimpleUser("Aylin", "Jabbari", new SimCard("09901917812", false), "0215021470", "A#Jab1384", new Authentication("09901917812"));
         aylin.getAuthenticated().authenticateUser(neoBank, aylin);
         neoBank.getBankData().addUser(aylin);
         SimpleUser salman = new SimpleUser("mahdi", "Salman", new SimCard("09938634069", false), "0304050607", "Phoenix#8", new Authentication("09938634069"));
         salman.getAuthenticated().authenticateUser(neoBank, salman);
         neoBank.getBankData().addUser(salman);
+        return salman.getAccount().getAccountId();
     }
 
-    public void initiateCentralBank(CentralBank centralBank, NeoBank neoBank) {
+    public String initiateCentralBank(CentralBank centralBank, NeoBank neoBank) {
         NeoBank toriBank = new NeoBank("63621411");
-        this.initiateToriUsers(toriBank);
+        String id = this.initiateToriUsers(toriBank);
         NeoBank hediBank = new NeoBank("50221314");
         this.initiateHediUsers(hediBank);
         centralBank.addBank(neoBank);
         centralBank.addBank(toriBank);
         centralBank.addBank(hediBank);
+        return id;
         //neoBank.launchBank(centralBank);
         //System.out.println(hediBank.getBankData().getUserByPhone("09122153905").getAccount().getBalance());
     }

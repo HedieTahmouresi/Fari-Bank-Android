@@ -56,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         getHelper().initiateFari(getFariBank());
-        getHelper().initiateCentralBank(getCentralBank(), getFariBank());
-        countDown();
+        String id = getHelper().initiateCentralBank(getCentralBank(), getFariBank());
+        countDown(id);
     }
 
-    public void countDown() {
+    public void countDown(String id) {
         progressBar = findViewById(R.id.progressBar);
         int duration = 10000000 / 6000;
 
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 progressStatus = 100;
                 progressBar.setProgress(progressStatus);
                 Intent intent = new Intent(MainActivity.this, RoleSelection.class);
+                intent.putExtra("Account Id Out", id);
                 startActivity(intent);
                 finish();
             }

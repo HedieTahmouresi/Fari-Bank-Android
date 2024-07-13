@@ -1,10 +1,11 @@
 package ir.ac.kntu;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -90,29 +91,18 @@ public class CentralBank {
 
 
     public void wireTransfer(SimpleUser sender, SimpleUser receiver, String value, Context context){
-        if (receiver==null){
-            return;
-        }
-        if (value==null){
-            return;
-        }
-        /*if (!input.nextConfirmation(receiver, value)){
-            System.out.println(ColorConsole.RED + "Transfer failed" + ColorConsole.RESET);
-            return;
-        }
+
         double remains = sender.isHasRemainsFund() ? sender.getRemainsFund().calculateRemains(value) : 0;
-        if (Double.parseDouble(value) + neoBank.getManagerData().getCardWage() + remains > sender.getAccount().getBalance()) {
-            System.out.println(ColorConsole.RED + "transfer failed! you don't have enough money!" + ColorConsole.RESET);
+        if (Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getCardWage() + remains > sender.getAccount().getBalance()) {
+            Toast.makeText(context, "transfer failed! you don't have enough money!", Toast.LENGTH_SHORT).show();
             return;
         }
-        WireTransaction newTransaction = new WireTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), receiver, receiver.getAccount().getAccountId(),"-", sender, false);
-        neoBank.getManagerData().addTransaction(newTransaction);
-        System.out.println(ColorConsole.GREEN + "Transaction is on hold" + ColorConsole.RESET);
-        TransactionThread thread = new TransactionThread(this, neoBank, newTransaction);
+        WireTransaction newTransaction = new WireTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber(), receiver, receiver.getAccount().getAccountId(),"-", sender, false);
+        MainActivity.getFariBank().getManagerData().addTransaction(newTransaction);
+        Toast.makeText(context, "Transaction is on hold", Toast.LENGTH_SHORT).show();
+        TransactionThread thread = new TransactionThread(this, MainActivity.getFariBank(), newTransaction, context);
         Thread newThread = new Thread(thread);
         newThread.start();
-
-         */
     }
 
     public void cardToCard(SimpleUser sender, SimpleUser receiver, String value, Context context){
@@ -148,7 +138,7 @@ public class CentralBank {
     public void transferBetweenBanks(SimpleUser sender, Account receiver, String value, NeoBank neoBank){
         double remains = sender.isHasRemainsFund() ? sender.getRemainsFund().calculateRemains(value) : 0;
         receiver.setBalance(receiver.getBalance() + Double.parseDouble(value));
-        receiver.addTransaction(new TransferTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, receiver.getOwner(), false, receiver.getCreditCard().getCreditCardId(), "+", sender, true));
+        receiver.addTransaction(new TransferTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, receiver.getOwner(), false, receiver.getAccountId(), "+", sender, true));
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
         if (sender.isHasRemainsFund()) {
             sender.getRemainsFund().saveRemains(remains, neoBank);
@@ -178,7 +168,7 @@ public class CentralBank {
 
     public void completeTransferInfo(SimpleUser currentUser, SimpleUser receiver,String[] info, Context context){
         String value = info[0];
-        String way = info[21];
+        String way = info[1];
         Account receiverAccount = receiver.getAccount();
         if (receiverAccount ==null){
             Toast.makeText(context, "There is no user with this credit card ID", Toast.LENGTH_SHORT).show();
@@ -200,6 +190,9 @@ public class CentralBank {
                         return;
                     }
                 }
+                Intent intent = new Intent(context, DashBoard.class);
+                intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                startActivity(context, intent, Bundle.EMPTY);
             }
         });
         builder.setNegativeButton("Noo!", new DialogInterface.OnClickListener() {
@@ -212,28 +205,27 @@ public class CentralBank {
         warning.setTitle("Transfer");
         warning.show();
 
-
     }
-    public boolean checkWays(NeoBank neoBank, String creditID, String value, String way){
-        String creditCardStarter = creditID.substring(0, 8);
+    public boolean checkWays(String id, String value, String way, boolean byCredit){
+        String creditCardStarter = id.substring(0, 8);
         NeoBank bankReceiver = this.findBankByCreditCard(creditCardStarter);
         if ("Fari Transfer".equals(way)) {
-            if (neoBank.equals(bankReceiver)) {
+            if (MainActivity.getFariBank().equals(bankReceiver)) {
                 return true;
             }
             return false;
         }else if ("Bridge Transfer".equals(way) && checkBridge(value)){
-            if (neoBank.equals(bankReceiver)) {
+            if (MainActivity.getFariBank().equals(bankReceiver)) {
                 return false;
             }
             return true;
-        }else if ("Card to Card".equals(way) && checkCard(value, true)){
-            if (neoBank.equals(bankReceiver)) {
+        }else if ("Card to Card".equals(way) && checkCard(value, byCredit)){
+            if (MainActivity.getFariBank().equals(bankReceiver)) {
                 return false;
             }
             return true;
         }else if ("Wire Transfer".equals(way) && checkWire(value)){
-            if (neoBank.equals(bankReceiver)) {
+            if (MainActivity.getFariBank().equals(bankReceiver)) {
                 return false;
             }
             return true;
