@@ -165,6 +165,15 @@ public class SimpleUser extends UserPerson {
         return null;
     }
 
+    public Fund findFund(String fundID){
+        for (Fund fund : funds){
+            if (fund.getFundID().equals(fundID)){
+                return fund;
+            }
+        }
+        return null;
+    }
+
     public void addRequest(RequestSection section, String text, NeoBank neoBank, Context context) {
         Request newRequest = new Request(text, section, this.getSimCard().getPhoneNumber());
         this.addRequest(newRequest);
@@ -208,6 +217,7 @@ public class SimpleUser extends UserPerson {
     public void createBonusFund( Context context, String value, String numOfMonths) {
         BonusFund newFund = new BonusFund(this, MainActivity.getFariBank(), Integer.parseInt(numOfMonths));
         this.addFund(newFund);
+        newFund.setBalance(Double.parseDouble(value));
         MainActivity.getFariBank().getManagerData().addBonusFund(newFund);
         BonusThread thread = new BonusThread(MainActivity.getFariBank(), newFund);
         Thread newThread = new Thread(thread);

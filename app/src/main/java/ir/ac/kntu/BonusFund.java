@@ -1,6 +1,10 @@
 package ir.ac.kntu;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.widget.Toast;
 
@@ -51,8 +55,8 @@ public class BonusFund extends Fund {
         setLastDeposit(now);
     }
 
-    public void dissolveFund(Context context) {
-        NeoBank neoBank = MainActivity.getFariBank();
+    @Override
+    public void dissolveFund(NeoBank neoBank, Context context) {
         if (Calendar.now().isBefore(this.getExpiration())) {
             ZonedDateTime zonedDateTime = this.getExpiration().atZone(ZoneId.systemDefault());
             LocalDate datePart = zonedDateTime.toLocalDate();
@@ -74,6 +78,9 @@ public class BonusFund extends Fund {
             this.getOwner().getRemainsFund().saveRemains(remains, neoBank);
         }
         this.getOwner().removeFund(this);
+        Intent intent = new Intent(context, FundsPage.class);
+        intent.putExtra("Phone Number", this.getOwner().getSimCard().getPhoneNumber());
+        startActivity(context, intent, Bundle.EMPTY);
     }
 
     public void transferBonus(NeoBank neoBank) {
@@ -100,6 +107,7 @@ public class BonusFund extends Fund {
         Transaction newTransaction = new TransferInsideTransaction(bonus, neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
         neoBank.setTracingNumber(neoBank.getTracingNumber()+1);
         this.getOwner().getAccount().addTransaction(newTransaction);
+        this.addTransaction(newTransaction);
         return true;
     }
 }

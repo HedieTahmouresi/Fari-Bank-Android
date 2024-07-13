@@ -2,6 +2,7 @@ package ir.ac.kntu;
 
 import android.content.Context;
 import android.os.Parcel;
+import android.widget.TextView;
 
 public class SavingsFund extends Fund {
 
@@ -11,13 +12,13 @@ public class SavingsFund extends Fund {
     }
 
     @Override
-    public void transferFromFund(NeoBank neoBank, String fundType, String value, Context context) {
-        super.transferFromFund(neoBank, "Savings Fund", value, context);
+    public void transferFromFund(String fundType, String value, Context context, TextView textView) {
+        super.transferFromFund("Savings Fund", value, context, textView);
     }
 
     @Override
-    public void transferToFund(NeoBank neoBank, String fundType, String value, Context context) {
-        super.transferToFund(neoBank, "Savings Fund", value, context);
+    public void transferToFund(String fundType, String value, Context context, TextView textView) {
+        super.transferToFund( "Savings Fund", value, context, textView);
     }
 
 }

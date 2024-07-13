@@ -3,6 +3,7 @@ package ir.ac.kntu;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.TextView;
 
 public class RemainsFund extends Fund {
 
@@ -33,13 +34,13 @@ public class RemainsFund extends Fund {
     }
 
     @Override
-    public void transferFromFund(NeoBank neoBank, String fundType, String value, Context context) {
-        super.transferFromFund(neoBank, "Remains Fund", value, context);
+    public void transferFromFund(String fundType, String value, Context context, TextView textView) {
+        super.transferFromFund("Remains Fund", value, context, textView);
     }
 
     @Override
-    public void transferToFund(NeoBank neoBank, String fundType, String value, Context context) {
-        super.transferToFund(neoBank, "Remains Fund", value, context);
+    public void transferToFund(String fundType, String value, Context context, TextView textView) {
+        super.transferToFund("Remains Fund", value, context, textView);
     }
 
     @Override
