@@ -55,57 +55,5 @@ public class CreditCard {
         setSetPassword(false);
     }
 
-/*
-    public boolean enterPreviousPassCode() {
-        System.out.println(ColorConsole.BLUE + "Please enter passcode!" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        if (!input.exitPoint(answer)) {
-            return false;
-        } else if (!answer.matches("\\d+")) {
-            System.out.println(ColorConsole.RED + "Wrong format! You should enter a number made of 4 digits!" + ColorConsole.RESET);
-        } else if (answer.length() != 4) {
-            System.out.println(ColorConsole.RED + "Wrong format! You should enter a number made of 4 digits!" + ColorConsole.RESET);
-        } else if (Integer.parseInt(answer) == this.getPassword()) {
-            return true;
-        }else {
-            System.out.println(ColorConsole.RED + "Wrong password!" + ColorConsole.RESET);
-        }
-        return this.enterPreviousPassCode();
-    }
 
-    public void changePassCode() {
-        System.out.println(ColorConsole.PINK + "Since you already have set a password first you have to enter that passcode!" + ColorConsole.RESET);
-        if (!enterPreviousPassCode()) {
-            return;
-        }
-        String answer;
-        do {
-            System.out.println(ColorConsole.BLUE + "Please enter the new passcode!" + ColorConsole.RESET);
-            answer = input.nextLine();
-            if (!input.exitPoint(answer)) {
-                return;
-            } else if (!answer.matches("\\d{4}")) {
-                System.out.println(ColorConsole.RED + "Wrong format! You should enter a number made of 4 digits!" + ColorConsole.RESET);
-            }
-        } while (!answer.matches("\\d{4}"));
-        this.setPassword(Integer.parseInt(answer));
-    }
-
-    public void setPassCode() {
-        System.out.println(ColorConsole.PINK + "You haven't set a password before!" + ColorConsole.RESET);
-        String answer;
-        do {
-            System.out.println(ColorConsole.BLUE + "Please enter the new passcode!" + ColorConsole.RESET);
-            answer = input.nextLine();
-            if (!input.exitPoint(answer)) {
-                return;
-            } else if (!answer.matches("\\d{4}")) {
-                System.out.println(ColorConsole.RED + "Wrong format! You should enter a number made of 4 digits!" + ColorConsole.RESET);
-            }
-        } while (!answer.matches("\\d{4}"));
-        this.setPassword(Integer.parseInt(answer));
-        this.setSetPassword(true);
-    }
-
- */
 }

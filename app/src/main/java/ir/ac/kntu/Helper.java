@@ -28,25 +28,6 @@ public class Helper {
         this.initiateSimCards(neoBank, hedie, aylin, sepehr);
         this.initiateContacts(hedie, sepehr);
     }
-/*
-    public void initiateFariAdmins(NeoBank neoBank) {
-        Admin second = new Admin("Shahrzad"," Oroji", "Sh_Taji", "Sh@oroj1384", neoBank.getBankData());
-        neoBank.getManagerData().addAdmin(second);
-        Admin third = new Admin("Mahdi"," Salman", "phoenix", "MS1384", neoBank.getBankData());
-        neoBank.getManagerData().addAdmin(third);
-        Admin fourth = new Admin("Ghazale"," Roostaei", "Ghazal12", "GH9122562348", neoBank.getBankData());
-        neoBank.getManagerData().addAdmin(fourth);
-        Admin fifth = new Admin("Toranj"," Ebrahimi", "Tori1397", "T.Eb1397", neoBank.getBankData());
-        neoBank.getManagerData().addAdmin(fifth);
-        fifth.getAbilities().setAuthentications(false);
-    }
-
-    public void initiateManager(NeoBank neoBank){
-        Manager mainManager = new Manager("Hedieh", "Tahmouresi", "H_e_die", "H@tah1384", neoBank.getManagerData(), 0);
-        neoBank.getManagerData().addManager(mainManager);
-    }
-
- */
 
     public void initiateContacts(SimpleUser firstUser, SimpleUser secondUser) {
         firstUser.addContact(new Contact("Sepi", "<>.<>", new SimCard("09111262338", true)));
