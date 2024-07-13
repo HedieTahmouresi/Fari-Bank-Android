@@ -80,13 +80,7 @@ public class BonusFund extends Fund {
         double bonus = (this.getBalance() * neoBank.getManagerData().getBonusPercentage()) / 100;
         this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + bonus);
     }
-/*
-    @Override
-    public void manageFund(NeoBank neoBank) {
-        this.dissolveFund(neoBank);
-    }
 
-*/
     public boolean depositBonus(NeoBank neoBank){
         Instant now = Calendar.now();
         Duration oneDay = Duration.ofDays(1);

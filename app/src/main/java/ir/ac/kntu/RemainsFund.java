@@ -1,5 +1,6 @@
 package ir.ac.kntu;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -30,40 +31,22 @@ public class RemainsFund extends Fund {
         Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Account", "Remains Fund", this.getFundID());
         this.getOwner().getAccount().addTransaction(newTransaction);
     }
-/*
+
     @Override
-    public String toString() {
-        return ColorConsole.PURPLE + "Remains " + ColorConsole.RESET + super.toString();
+    public void transferFromFund(NeoBank neoBank, String fundType, String value, Context context) {
+        super.transferFromFund(neoBank, "Remains Fund", value, context);
     }
 
     @Override
-    public void transfer(NeoBank neoBank) {
-        System.out.println(ColorConsole.BLUE + "What would you like to do?" + ColorConsole.RESET);
-        System.out.println(ColorConsole.BLUE + "  1. Transfer from your Fund" + ColorConsole.RESET);
-        System.out.println(ColorConsole.BLUE + "  1. Transfer to your Fund" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        switch (answer) {
-            case "1", "Transfer from your Fund":
-                this.transferFromFund(neoBank, "Remains Fund");
-                break;
-            case "2", "Transfer to your Fund":
-                this.transferToFund(neoBank, "Remains Fund");
-                break;
-            default:
-                if (!input.exitPoint(answer)) {
-                    return;
-                }
-                System.out.println(ColorConsole.RED + "No other Option! Try again! " + ColorConsole.RESET);
-                break;
-        }
-        this.transfer(neoBank);
+    public void transferToFund(NeoBank neoBank, String fundType, String value, Context context) {
+        super.transferToFund(neoBank, "Remains Fund", value, context);
     }
 
     @Override
-    public void dissolveFund(NeoBank neoBank) {
-        super.dissolveFund(neoBank);
+    public void dissolveFund(NeoBank neoBank, Context context) {
+        super.dissolveFund(neoBank, context);
         this.getOwner().setHasRemainsFund(false);
     }
 
- */
+
 }

@@ -1,9 +1,17 @@
 package ir.ac.kntu;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import java.text.DecimalFormat;
 
@@ -48,147 +56,97 @@ public class Fund {
         setOwner(owner);
     }
 
-    /*
 
-    public void transfer(NeoBank neoBank) {
-        System.out.println(ColorConsole.BLUE + "What would you like to do?" + ColorConsole.RESET);
-        System.out.println(ColorConsole.BLUE + "  1. Transfer from your Fund" + ColorConsole.RESET);
-        System.out.println(ColorConsole.BLUE + "  1. Transfer to your Fund" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        switch (answer) {
-            case "1", "Transfer from your Fund":
-                this.transferFromFund(neoBank, " ");
-                break;
-            case "2", "Transfer to your Fund":
-                this.transferToFund(neoBank, " ");
-                break;
-            default:
-                if (!input.exitPoint(answer)) {
-                    return;
-                }
-                System.out.println(ColorConsole.RED + "No other Option! Try again! " + ColorConsole.RESET);
-                break;
-        }
-        this.transfer(neoBank);
-    }
-
-    public void transferToFund(NeoBank neoBank, String fundType) {
-        System.out.println(ColorConsole.BLUE + "How much would you like to transfer to your " + fundType + "?" + ColorConsole.RESET);
-        String value = input.nextLine();
-        if (!input.exitPoint(value)) {
-            return;
-        } else if (!value.matches("\\d+\\.?\\d*")) {
-            System.out.println(ColorConsole.RED + "Wrong format! Try again!" + ColorConsole.RESET);
-        } else {
-            double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(value) : 0;
-            if (this.getOwner().getAccount().getBalance() >= Double.parseDouble(value) + remains) {
-                if (input.nextConfirmation(fundType, "Account", value)) {
-                    this.setBalance(this.getBalance() + Double.parseDouble(value));
-                    this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() - Double.parseDouble(value) - remains);
-                    this.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), "Account", fundType, this.getFundID()), "Inside Transfer");
+    public void transferToFund(NeoBank neoBank, String fundType, String value, Context context) {
+        Fund currentFund = this;
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation!");
+        builder.setMessage("Are you sure?\n Receiver : Your " + fundType + "\n Amount : " + value);
+        builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                double remains = currentFund.getOwner().isHasRemainsFund() ? currentFund.getOwner().getRemainsFund().calculateRemains(value) : 0;
+                if (currentFund.getOwner().getAccount().getBalance() >= Double.parseDouble(value) + remains) {
+                    currentFund.setBalance(currentFund.getBalance() + Double.parseDouble(value));
+                    currentFund.getOwner().getAccount().setBalance(currentFund.getOwner().getAccount().getBalance() - Double.parseDouble(value) - remains);
+                    currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), "Account", fundType, currentFund.getFundID()));
                     neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
-                    if (this.getOwner().isHasRemainsFund()) {
-                        this.getOwner().getRemainsFund().saveRemains(remains, neoBank);
+                    if (currentFund.getOwner().isHasRemainsFund()) {
+                        currentFund.getOwner().getRemainsFund().saveRemains(remains, neoBank);
                     }
-                    System.out.println(ColorConsole.GREEN + "Transfer Completed" + ColorConsole.RESET);
-                } else {
-                    System.out.println(ColorConsole.RED + "Transfer failed!" + ColorConsole.RESET);
+                    Toast.makeText(context, "Transfer Completed", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(context, "You don't have enough money!", Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
-            System.out.println(ColorConsole.RED + "You don't have enough money!" + ColorConsole.RESET);
-        }
-        this.transferToFund(neoBank, fundType);
+        });
+        builder.setNegativeButton("Noo!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog warning = builder.create();
+        warning.setTitle("Transfer");
+        warning.show();
     }
 
-    public void transferFromFund(NeoBank neoBank, String fundType) {
-        System.out.println(ColorConsole.BLUE + "How much would you like to transfer from your " + fundType + "fund to your account?" + ColorConsole.RESET);
-        String value = input.nextLine();
-        if (!input.exitPoint(value)) {
-            return;
-        } else if (!value.matches("\\d+\\.?\\d*")) {
-            System.out.println(ColorConsole.RED + "Wrong format! Try again!" + ColorConsole.RESET);
-        } else {
-            double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(value) : 0;
-            if (this.getBalance() >= Double.parseDouble(value) + remains) {
-                if (input.nextConfirmation("Account", fundType, value)) {
-                    this.setBalance(this.getBalance() - Double.parseDouble(value) - remains);
-                    this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + Double.parseDouble(value));
-                    this.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), fundType, "Account", this.getFundID()), "Inside Transfer");
+    public void transferFromFund(NeoBank neoBank, String fundType, String value, Context context) {
+        Fund currentFund = this;
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation!");
+        builder.setMessage("Are you sure?\n Receiver : Your Account" + "\n Amount : " + value);
+        builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                double remains = currentFund.getOwner().isHasRemainsFund() ? currentFund.getOwner().getRemainsFund().calculateRemains(value) : 0;
+                if (currentFund.getOwner().getAccount().getBalance() >= Double.parseDouble(value) + remains) {
+                    currentFund.setBalance(currentFund.getBalance() - Double.parseDouble(value) - remains);
+                    currentFund.getOwner().getAccount().setBalance(currentFund.getOwner().getAccount().getBalance() + Double.parseDouble(value));
+                    currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), fundType, "Account", currentFund.getFundID()));
                     neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
-                    if (this.getOwner().isHasRemainsFund()) {
-                        this.getOwner().getRemainsFund().saveRemains(remains, neoBank);
+                    if (currentFund.getOwner().isHasRemainsFund()) {
+                        currentFund.getOwner().getRemainsFund().saveRemains(remains, neoBank);
                     }
-                    System.out.println(ColorConsole.GREEN + "Transfer Completed" + ColorConsole.RESET);
-                } else {
-                    System.out.println(ColorConsole.RED + "Transfer failed!" + ColorConsole.RESET);
+                    Toast.makeText(context, "Transfer Completed", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(context, "You don't have enough money!", Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
-            System.out.println(ColorConsole.RED + "You don't have enough money!" + ColorConsole.RESET);
-        }
-        this.transferFromFund(neoBank, fundType);
-    }
-
-    public void checkBalance() {
-        System.out.println(ColorConsole.GREEN + "This is your Balance : " + ColorConsole.YELLOW + this.getBalance() + ColorConsole.GREEN + "$" + ColorConsole.RESET);
-    }
-
-    public void manageFund(NeoBank neoBank) {
-        System.out.println(ColorConsole.BLUE + "How can we help you?" + ColorConsole.RESET);
-        System.out.println(ColorConsole.BLUE + "   1. Transfer" + ColorConsole.RESET);
-        System.out.println(ColorConsole.BLUE + "   2. Check Balance" + ColorConsole.RESET);
-        System.out.println(ColorConsole.BLUE + "   3. Delete Fund" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        switch (answer) {
-            case "1", "Transfer":
-                this.transfer(neoBank);
-                break;
-            case "2", "Check Balance":
-                this.checkBalance();
-                break;
-            case "3", "Delete Fund":
-                this.dissolveFund(neoBank);
-                return;
-            default:
-                if (!input.exitPoint(answer)) {
-                    return;
-                }
-                System.out.println(ColorConsole.RED + "No other Option! Try again! " + ColorConsole.RESET);
-                break;
-        }
-        this.manageFund(neoBank);
-    }
-
-    @Override
-    public String toString() {
-        return ColorConsole.PURPLE + "Fund{" +
-                ColorConsole.PINK + this.getOwner() +
-                ColorConsole.PURPLE + ", fundID='" + ColorConsole.PINK + this.getFundID() + '\'' + ColorConsole.PURPLE +
-                '}' + ColorConsole.RESET;
-    }
-
-    public void dissolveFund(NeoBank neoBank) {
-        System.out.println(ColorConsole.PINK + "Are you sure?" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        if ("no".equalsIgnoreCase(answer) || !input.exitPoint(answer)) {
-            return;
-        } else if (!"yes".equalsIgnoreCase(answer)) {
-            this.dissolveFund(neoBank);
-        }
-        this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + this.getBalance());
-        this.getOwner().removeFund(this);
-        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Fund", "Account", this.getFundID());
-        this.getOwner().getAccount().addTransaction(newTransaction, "Inside Transfer");
-        neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
-        double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(Double.toString(this.getBalance())) : 0;
-        if (this.getOwner().isHasRemainsFund()) {
-            this.getOwner().getRemainsFund().saveRemains(remains, neoBank);
-        }
-        System.out.println(ColorConsole.GREEN + "Fund successfully deleted" + ColorConsole.RESET);
+        });
+        builder.setNegativeButton("Noo!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog warning = builder.create();
+        warning.setTitle("Transfer");
+        warning.show();
     }
 
 
 
-     */
+    public void dissolveFund(NeoBank neoBank, Context context) {
+        AlertDialog.Builder warningBuilder = new AlertDialog.Builder(context);
+        warningBuilder.setMessage("Are you sure?").setCancelable(false).setPositiveButton("yes", (dialogInterface, i) -> {
+            this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + this.getBalance());
+            this.getOwner().removeFund(this);
+            Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Fund", "Account", this.getFundID());
+            this.getOwner().getAccount().addTransaction(newTransaction);
+            neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
+            double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(Double.toString(this.getBalance())) : 0;
+            if (this.getOwner().isHasRemainsFund()) {
+                this.getOwner().getRemainsFund().saveRemains(remains, neoBank);
+            }
+            Toast.makeText(context, "Fund successfully deleted", Toast.LENGTH_SHORT).show();
+        }).setNegativeButton("no", (dialogInterface, i) -> dialogInterface.cancel());
+        AlertDialog warning = warningBuilder.create();
+        warning.setTitle("Warning");
+        warning.show();
+
+    }
+
+
+
 }
