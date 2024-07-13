@@ -166,7 +166,7 @@ public class CentralBank {
 
    */
 
-    public void completeTransferInfo(SimpleUser currentUser, SimpleUser receiver,String[] info, Context context){
+    public void completeTransferInfoCredit(SimpleUser currentUser, SimpleUser receiver,String[] info, Context context){
         String value = info[0];
         String way = info[1];
         Account receiverAccount = receiver.getAccount();
@@ -174,7 +174,6 @@ public class CentralBank {
             Toast.makeText(context, "There is no user with this credit card ID", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(context, receiver.getName(), Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirmation!");
         builder.setMessage("Are you sure?\n Receiver Name : " + receiver.getName() + " " + receiver.getLastName() + "\n Amount : " + value);
@@ -206,6 +205,80 @@ public class CentralBank {
         warning.show();
 
     }
+
+    public void completeTransferInfoAccount(SimpleUser currentUser, SimpleUser receiver,String[] info, Context context){
+        String value = info[0];
+        String way = info[1];
+        Account receiverAccount = receiver.getAccount();
+        if (receiverAccount ==null){
+            Toast.makeText(context, "There is no user with this credit card ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation!");
+        builder.setMessage("Are you sure?\n Receiver Name : " + receiver.getName() + " " + receiver.getLastName() + "\n Amount : " + value);
+        builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (way){
+                    case "Card to Card"->cardToCard(currentUser, receiver, value, context);
+                    case "Bridge Transfer" -> bridgeTransfer(currentUser, receiver, value, context);
+                    case "Wire Transfer" -> wireTransfer(currentUser, receiver, value, context);
+                    case "Fari Transfer" -> currentUser.transferByAccountID(receiver, value, context);
+                    default -> {
+                        return;
+                    }
+                }
+                Intent intent = new Intent(context, DashBoard.class);
+                intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                startActivity(context, intent, Bundle.EMPTY);
+            }
+        });
+        builder.setNegativeButton("Noo!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog warning = builder.create();
+        warning.setTitle("Transfer");
+        warning.show();
+
+    }
+
+    public void completeTransferInfoContact(SimpleUser currentUser, SimpleUser receiver,String[] info, Context context){
+        String value = info[0];
+        String way = info[1];
+        Account receiverAccount = receiver.getAccount();
+        if (receiverAccount ==null){
+            Toast.makeText(context, "There is no user with this credit card ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation!");
+        builder.setMessage("Are you sure?\n Receiver Name : " + receiver.getName() + " " + receiver.getLastName() + "\n Amount : " + value);
+        builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                currentUser.transferByContact(receiver, value, context);
+                Intent intent = new Intent(context, DashBoard.class);
+                intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                startActivity(context, intent, Bundle.EMPTY);
+            }
+        });
+        builder.setNegativeButton("Noo!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog warning = builder.create();
+        warning.setTitle("Transfer");
+        warning.show();
+
+    }
+
+
     public boolean checkWays(String id, String value, String way, boolean byCredit){
         String creditCardStarter = id.substring(0, 8);
         NeoBank bankReceiver = this.findBankByCreditCard(creditCardStarter);

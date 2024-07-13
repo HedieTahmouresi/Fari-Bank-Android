@@ -182,39 +182,21 @@ public class SimpleUser extends UserPerson {
         facts.add(false);
         this.getAccount().transfer( value, receiver, facts, context);
     }
-    /*
-    public void transferByAccountID(NeoBank neoBank, String value, String accountID) {
-        if (accountID == null) {
-            return;
-        }
-        SimpleUser receiver = neoBank.getBankData().getUserByAccountID(accountID);
-        boolean confirmed = input.nextConfirmation(receiver, value);
-        if (!confirmed) {
-            System.out.println(ColorConsole.RED + "Transfer failed!" + ColorConsole.RESET);
-            return;
-        }
+
+    public void transferByAccountID(SimpleUser receiver, String value, Context context) {
         List<Boolean> facts = new ArrayList<>();
         facts.add(false);
         facts.add(false);
-        this.getAccount().transfer(neoBank, value, receiver, facts);
+        this.getAccount().transfer( value, receiver, facts, context);
     }
 
-    public void transferByContact(NeoBank neoBank) {
-        Contact receiverContact = showContacts();
-        if (receiverContact == null) {
-            return;
-        }
-        SimpleUser receiver = neoBank.getBankData().getUserByPhone(receiverContact.getSimCard().getPhoneNumber());
-        if (!this.checkContactForTransfer(receiver)) {
-            return;
-        }
-        String value = input.nextValue(receiver, 8000000.0);
-        if (value == null) {
-            return;
-        }
-        this.getAccount().showOnlyFari(neoBank, value, receiver, true);
+    public void transferByContact(SimpleUser receiver, String value, Context context) {
+        List<Boolean> facts = new ArrayList<>();
+        facts.add(false);
+        facts.add(false);
+        this.getAccount().transfer(value, receiver, facts, context);
     }
-
+/*
     public void transferByRecent(NeoBank neoBank, CentralBank centralBank) {
         Recent recent = this.getAccount().showRecentList(neoBank);
         if (recent == null) {

@@ -59,6 +59,9 @@ public class Transfer extends AppCompatActivity {
         layout = (LinearLayout) findViewById(R.id.TransferByContact);
         value = (EditText) findViewById(R.id.valueInputContact);
         ways = (Spinner) findViewById(R.id.spinnerWaysContact);
+        ArrayAdapter<CharSequence> mAdapter = ArrayAdapter.createFromResource(this, R.array.transfer_options, android.R.layout.simple_spinner_item);
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ways.setAdapter(mAdapter);
         done = (Button) findViewById(R.id.contactTransferButton);
         layout.setVisibility(View.VISIBLE);
         options = (Spinner) findViewById(R.id.spinnerContacts);
@@ -68,7 +71,19 @@ public class Transfer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Contact contact = (Contact) options.getSelectedItem();
-                Toast.makeText(Transfer.this, contact.getName(), Toast.LENGTH_SHORT).show();
+                String way = (String) ways.getSelectedItem();
+                if (value.getText().toString().isEmpty()){
+                    Toast.makeText(Transfer.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
+                } else if (!"Fari Transfer".equals(way)){
+                    Toast.makeText(Transfer.this, "You can't choose "+ way, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    SimpleUser receiver = MainActivity.getCurrentUser(contact.getSimCard().getPhoneNumber());
+                    String[] info = new String[2];
+                    info[0] = value.getText().toString();
+                    info[1] = "Fari Transfer";
+                    MainActivity.getCentralBank().completeTransferInfoContact(currentUser, receiver, info, Transfer.this);
+                }
             }
         });
 
@@ -118,7 +133,7 @@ public class Transfer extends AppCompatActivity {
             info[1] = selectedItem;
             SimpleUser receiver = centralBank.existsCreditCardId(id).getOwner();
             if (receiver != null) {
-                centralBank.completeTransferInfo(currentUser, receiver, info, Transfer.this);
+                centralBank.completeTransferInfoCredit(currentUser, receiver, info, Transfer.this);
             } else {
                 Toast.makeText(Transfer.this, "There is no user with this credit card id", Toast.LENGTH_SHORT).show();
             }
@@ -170,6 +185,7 @@ public class Transfer extends AppCompatActivity {
 
     }
 
+
     public void completeTransferAccount(Spinner ways, SimpleUser currentUser, String id, String value) {
         String selectedItem = (String) ways.getSelectedItem();
         if (MainActivity.getCentralBank().checkWays(id, value, selectedItem, false)) {
@@ -178,7 +194,7 @@ public class Transfer extends AppCompatActivity {
             info[1] = selectedItem;
             SimpleUser receiver = MainActivity.getCentralBank().existsAccountId(id).getOwner();
             if (receiver != null) {
-                MainActivity.getCentralBank().completeTransferInfo(currentUser, receiver, info, Transfer.this);
+                MainActivity.getCentralBank().completeTransferInfoAccount(currentUser, receiver, info, Transfer.this);
             } else {
                 Toast.makeText(Transfer.this, "There is no user with this credit card id", Toast.LENGTH_SHORT).show();
             }
