@@ -179,16 +179,13 @@ public class CentralBank {
     public void completeTransferInfo(SimpleUser currentUser, SimpleUser receiver,String[] info, Context context){
         String value = info[0];
         String way = info[21];
-        //Account receiverAccount = receiver.getAccount();
-        //if (receiverAccount ==null){
-            //Toast.makeText(context, "There is no user with this credit card ID", Toast.LENGTH_SHORT).show();
-            //return;
-        //}
-        //this.getUserByCard(creditCardID, context);
-
-
-        //Toast.makeText(context, receiverAccount.getCreditCard().getCreditCardId(), Toast.LENGTH_SHORT).show();
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        Account receiverAccount = receiver.getAccount();
+        if (receiverAccount ==null){
+            Toast.makeText(context, "There is no user with this credit card ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(context, receiver.getName(), Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirmation!");
         builder.setMessage("Are you sure?\n Receiver Name : " + receiver.getName() + " " + receiver.getLastName() + "\n Amount : " + value);
         builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
@@ -215,7 +212,7 @@ public class CentralBank {
         warning.setTitle("Transfer");
         warning.show();
 
-         */
+
     }
     public boolean checkWays(NeoBank neoBank, String creditID, String value, String way){
         String creditCardStarter = creditID.substring(0, 8);

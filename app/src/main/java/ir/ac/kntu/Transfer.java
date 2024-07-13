@@ -1,5 +1,6 @@
 package ir.ac.kntu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,18 +45,19 @@ public class Transfer extends AppCompatActivity {
     }
 
     public void checkWay() {
+        CentralBank centralBank = MainActivity.getCentralBank();
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         String way = getIntent().getStringExtra("way");
         String info = getIntent().getStringExtra("Info");
         switch (way) {
-            case "by CreditCard ID" -> transferByCreditCard(currentUser);
+            case "by CreditCard ID" -> transferByCreditCard(currentUser, centralBank);
             case "by Account ID" -> System.out.println("hell");
             case "by Contact List" -> System.out.println("hel");
             case "by Recent List" -> System.out.println("he");
         }
     }
 
-    public void transferByCreditCard(SimpleUser currentUser) {
+    public void transferByCreditCard(SimpleUser currentUser, CentralBank centralBank) {
         layout = (LinearLayout) findViewById(R.id.TransferByCreditCard);
         id = (EditText) findViewById(R.id.creditIDInput);
         value = (EditText) findViewById(R.id.valueInputCredit);
@@ -78,10 +80,10 @@ public class Transfer extends AppCompatActivity {
                 } else if (checkCreditID(id.getText().toString())){
                     if (currentUser.getAccount().getCreditCard().hasSetPassword()){
                         if (checkPass(currentUser, pass.getText().toString())){
-                            completeTransfer(ways, currentUser, id.getText().toString(), value.getText().toString());
+                            completeTransfer(ways, currentUser, id.getText().toString(), value.getText().toString(), centralBank);
                         }
                     } else{
-                        completeTransfer(ways, currentUser, id.getText().toString(), value.getText().toString());
+                        completeTransfer(ways, currentUser, id.getText().toString(), value.getText().toString(), centralBank);
                     }
 
                 }
@@ -90,14 +92,19 @@ public class Transfer extends AppCompatActivity {
 
     }
 
-    public void completeTransfer(Spinner ways, SimpleUser currentUser, String id, String value){
+    public void completeTransfer(Spinner ways, SimpleUser currentUser, String id, String value, CentralBank centralBank){
         String selectedItem =(String) ways.getSelectedItem();
         if (MainActivity.getCentralBank().checkWays(MainActivity.getFariBank(), id, value, selectedItem)){
             String[] info = new String[2];
             info[0] = value;
             info[1] = selectedItem;
-            SimpleUser receiver = MainActivity.getCurrentUserByCard(id);
-            MainActivity.getCentralBank().completeTransferInfo(currentUser,receiver,info, Transfer.this);
+            SimpleUser receiver = centralBank.existsCreditCardId(id).getOwner();
+            if (receiver!=null) {
+                centralBank.completeTransferInfo(currentUser, receiver, info, Transfer.this);
+                finish();
+            }else {
+                Toast.makeText(Transfer.this, "There is no user with this credit card id", Toast.LENGTH_SHORT).show();
+            }
         } else{
             Toast.makeText(Transfer.this, "You can't choose " + selectedItem, Toast.LENGTH_SHORT).show();
         }
