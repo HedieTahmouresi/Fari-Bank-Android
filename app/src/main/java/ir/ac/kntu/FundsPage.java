@@ -1,12 +1,16 @@
 package ir.ac.kntu;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -62,19 +66,55 @@ public class FundsPage extends AppCompatActivity {
             }
         });
 
-
+        onClick(currentUser, mAdapter);
     }
 
-    public void onClick(SimpleUser currentUser, Context context) {
-        button = (FloatingActionButton) findViewById(R.id.addContact);
+    public void onClick(SimpleUser currentUser ,RecyclerView.Adapter mAdapter) {
+        button = (FloatingActionButton) findViewById(R.id.addFund);
         button.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        showBonusKinds(currentUser, mAdapter);
                     }
                 }
         );
+    }
+
+    public void showBonusKinds(SimpleUser currentUser, RecyclerView.Adapter mAdapter){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("What kind of fund do you want to create?");
+        Spinner ways = new Spinner(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.fund_kinds, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ways.setAdapter(adapter);
+        builder.setView(ways);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selected = (String) ways.getSelectedItem();
+                if ("Bonus Fund".equals(selected)){
+                    Intent intent = new Intent(FundsPage.this, AddFund.class);
+                    intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                    startActivity(intent);
+                    mAdapter.notifyDataSetChanged();
+                }else{
+                    currentUser.addFund(selected, FundsPage.this);
+                    mAdapter.notifyDataSetChanged();
+                }
+
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog warning = builder.create();
+        warning.setTitle("Add Fubd");
+        warning.show();
     }
 
     @Override

@@ -65,7 +65,7 @@ public class FundAdapter extends RecyclerView.Adapter<FundAdapter.FundViewHolder
         holder.getKind().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ContactDetails.class);
+                Intent intent = new Intent(context, FundDetails.class);
                 intent.putExtra("fund ID", fund.getFundID());
                 intent.putExtra("User Number", phoneNumberUser);
                 context.startActivity(intent);

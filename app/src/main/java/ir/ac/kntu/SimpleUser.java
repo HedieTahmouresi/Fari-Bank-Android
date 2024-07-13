@@ -134,50 +134,6 @@ public class SimpleUser extends UserPerson {
         this.funds.add(fund);
     }
 
-    /*
-    public void changePassword() {
-        System.out.println(ColorConsole.CYAN_BOLD + "Would you like to change your password? (previous phone number : " + ColorConsole.PURPLE + this.getPassword() + ColorConsole.CYAN_BOLD + ")" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        if ("no".equalsIgnoreCase(answer) || !input.exitPoint(answer)) {
-            return;
-        } else if ("yes".equalsIgnoreCase(answer)) {
-            String password = input.nextPassword();
-            if (password != null) {
-                this.setPassword(password);
-            }
-            return;
-        } else {
-            System.out.println(ColorConsole.RED + "Wrong input! Try again" + ColorConsole.RESET);
-        }
-        this.changePassword();
-    }
-
-    public void editSignUpInfo(NeoBank neoBank) {
-        neoBank.getBankData().removeAuthentication(this);
-        this.changeName();
-        this.changeLastName();
-        this.changePhoneNumber(neoBank, this, "user");
-        this.changeSecurityNumber(neoBank);
-        this.changePassword();
-        neoBank.getBankData().addAuthentication(new Authentication(this.getSimCard().getPhoneNumber()));
-        this.setAuthenticated(new Authentication(this.getSimCard().getPhoneNumber()));
-        System.out.println(ColorConsole.GREEN + "Sign Up info changed!" + ColorConsole.RESET);
-    }
-
-    public void changeInfo(NeoBank neoBank) {
-        System.out.println(ColorConsole.BLUE + "Do you want to change your information?" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        if ("no".equalsIgnoreCase(answer) || !input.exitPoint(answer)) {
-            return;
-        } else if ("yes".equalsIgnoreCase(answer)) {
-            this.editSignUpInfo(neoBank);
-            return;
-        } else {
-            System.out.println(ColorConsole.RED + "Wrong input! Try again!" + ColorConsole.RESET);
-        }
-        this.changeInfo(neoBank);
-    }
-*/
 
     public void transferByCreditID(SimpleUser receiver, String value, Context context) {
         List<Boolean> facts = new ArrayList<>();
@@ -200,37 +156,6 @@ public class SimpleUser extends UserPerson {
         this.getAccount().transfer(value, receiver, facts, context);
     }
 
-    /*
-        public void transferByRecent(NeoBank neoBank, CentralBank centralBank) {
-            Recent recent = this.getAccount().showRecentList(neoBank);
-            if (recent == null) {
-                return;
-            }
-            SimpleUser receiver = recent.getPerson();
-            boolean byContact = recent.isByContact();
-            if (byContact) {
-                if (!checkContactForTransfer(receiver)) {
-                    return;
-                }
-            }
-            String value = input.nextValue(receiver, 8000000.0);
-            if (value == null) {
-                return;
-            }
-            this.getAccount().showTransferOptionsForRecent(value, receiver, neoBank, centralBank);
-        }
-
-        public boolean checkContactForTransfer(SimpleUser receiver) {
-            if (!receiver.contactExistence(new Contact(" ", " ", this.getSimCard()))) {
-                System.out.println(ColorConsole.RED + "You can't transfer to a contact if they don't have you as a contact!" + ColorConsole.RESET);
-                return false;
-            } else if (!receiver.isContactOption()) {
-                System.out.println(ColorConsole.RED + "You can't transfer money to this user by contact!" + ColorConsole.RESET);
-                return false;
-            }
-            return true;
-        }
-    */
     public Contact findContact(String phoneNumber) {
         for (Contact contact : contacts) {
             if (contact.getSimCard().getPhoneNumber().equals(phoneNumber)) {
@@ -256,59 +181,39 @@ public class SimpleUser extends UserPerson {
         }
         return null;
     }
-/*
-    public void addFund(NeoBank neoBank) {
-        String fundType = input.nextFundType();
-        if (fundType == null) {
-            return;
-        }
+
+    public void addFund(String fundType, Context context) {
         switch (fundType) {
             case "1", "Savings Fund" -> {
-                SavingsFund newFund = new SavingsFund(this, neoBank);
+                SavingsFund newFund = new SavingsFund(this, MainActivity.getFariBank());
                 this.addFund(newFund);
-                System.out.println(ColorConsole.GREEN + "Fund successfully created!" + ColorConsole.RESET);
-                newFund.transferToFund(neoBank, "Savings Fund");
+                Toast.makeText(context, "Fund successfully created!", Toast.LENGTH_SHORT).show();
             }
             case "2", "Remains Fund" -> {
                 if (this.isHasRemainsFund()) {
-                    System.out.println(ColorConsole.RED + "You can't have 2 remains funds" + ColorConsole.RESET);
+                    Toast.makeText(context, "You can't have 2 remains funds", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                RemainsFund newFund = new RemainsFund(this, neoBank);
+                RemainsFund newFund = new RemainsFund(this, MainActivity.getFariBank());
                 this.addFund(newFund);
                 this.setHasRemainsFund(true);
-                System.out.println(ColorConsole.GREEN + "Fund successfully created!" + ColorConsole.RESET);
+                Toast.makeText(context, "Fund successfully created!", Toast.LENGTH_SHORT).show();
             }
             case "3", "Bonus Fund" -> {
-                this.createBonusFund(neoBank);
             }
             default -> System.out.println("haha");
         }
     }
 
-    public void createBonusFund(NeoBank neoBank) {
-        System.out.println(ColorConsole.BLUE + "How long would you like to have this fund for?" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        if (!input.exitPoint(answer)) {
-            return;
-        } else if (!answer.matches("[0-9]+")) {
-            System.out.println(ColorConsole.RED + "Wrong format!" + ColorConsole.RESET);
-            this.createBonusFund(neoBank);
-        }
-        BonusFund newFund = new BonusFund(this, neoBank, Integer.parseInt(answer));
-        newFund.transferToFund(neoBank, "Bonus Fund");
-        if (newFund.getBalance() == 0) {
-            System.out.println(ColorConsole.RED + "You can't have an empty bonus fund!" + ColorConsole.RESET);
-            return;
-        }
+    public void createBonusFund( Context context, String value, String numOfMonths) {
+        BonusFund newFund = new BonusFund(this, MainActivity.getFariBank(), Integer.parseInt(numOfMonths));
         this.addFund(newFund);
-        neoBank.getManagerData().addBonusFund(newFund);
-        BonusThread thread = new BonusThread(neoBank, newFund);
+        MainActivity.getFariBank().getManagerData().addBonusFund(newFund);
+        BonusThread thread = new BonusThread(MainActivity.getFariBank(), newFund);
         Thread newThread = new Thread(thread);
         newThread.start();
-        System.out.println(ColorConsole.GREEN + "Fund successfully created" + ColorConsole.RESET);
     }
-
+/*
     public void showFunds(NeoBank neoBank) {
         if (this.funds == null || this.funds.isEmpty()) {
             System.out.println(ColorConsole.RED + "There are no funds" + ColorConsole.RESET);

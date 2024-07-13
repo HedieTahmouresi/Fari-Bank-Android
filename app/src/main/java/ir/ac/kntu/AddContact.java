@@ -1,6 +1,5 @@
 package ir.ac.kntu;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -56,7 +55,7 @@ public class AddContact extends AppCompatActivity {
     }
 
     public void onClick(SimpleUser currentUser) {
-        button = (Button) findViewById(R.id.addButton);
+        button = (Button) findViewById(R.id.addBonus);
         name = (EditText) findViewById(R.id.editTextText);
         lastName = (EditText) findViewById(R.id.editTextText2);
         phoneNumber = (EditText) findViewById(R.id.editTextPhone2);

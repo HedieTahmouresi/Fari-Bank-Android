@@ -1,8 +1,11 @@
 package ir.ac.kntu;
 
+import android.content.Context;
 import android.os.Parcel;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import ir.ac.kntu.util.Calendar;
 
@@ -48,23 +51,24 @@ public class BonusFund extends Fund {
         setLastDeposit(now);
     }
 
-    /*@Override
-    public void dissolveFund(NeoBank neoBank) {
+    public void dissolveFund(Context context) {
+        NeoBank neoBank = MainActivity.getFariBank();
         if (Calendar.now().isBefore(this.getExpiration())) {
             ZonedDateTime zonedDateTime = this.getExpiration().atZone(ZoneId.systemDefault());
             LocalDate datePart = zonedDateTime.toLocalDate();
             ZonedDateTime nowZonedDateTime = Calendar.now().atZone(ZoneId.systemDefault());
             LocalDate nowDate = nowZonedDateTime.toLocalDate();
-            System.out.println(ColorConsole.PINK + "You can't do anything with this fund!" + ColorConsole.RESET);
-            System.out.println(ColorConsole.CYAN + "The expiration date : " + ColorConsole.PURPLE + datePart + ColorConsole.RESET);
-            System.out.println(ColorConsole.CYAN + "Today : " + ColorConsole.PURPLE + nowDate + ColorConsole.RESET);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Account Info").setMessage("You can't do anything with this fund!" + "\nThe expiration date : " + datePart + "\nToday : " + nowDate).setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+            AlertDialog alert = builder.create();
+            alert.show();
             return;
         }
-        System.out.println(ColorConsole.RED + "The expiration is due!" + ColorConsole.RESET);
+        Toast.makeText(context, "The expiration is due!", Toast.LENGTH_SHORT).show();
         this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + this.getBalance());
-        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
+        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(),neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
         neoBank.setTracingNumber(neoBank.getTracingNumber()+1);
-        this.getOwner().getAccount().addTransaction(newTransaction, "Inside Transfer");
+        this.getOwner().getAccount().addTransaction(newTransaction);
         double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(Double.toString(this.getBalance())) : 0;
         if (this.getOwner().isHasRemainsFund()) {
             this.getOwner().getRemainsFund().saveRemains(remains, neoBank);
@@ -76,17 +80,13 @@ public class BonusFund extends Fund {
         double bonus = (this.getBalance() * neoBank.getManagerData().getBonusPercentage()) / 100;
         this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + bonus);
     }
-
+/*
     @Override
     public void manageFund(NeoBank neoBank) {
         this.dissolveFund(neoBank);
     }
 
-    @Override
-    public String toString() {
-        return ColorConsole.PURPLE + "Bonus " + super.toString();
-    }
-
+*/
     public boolean depositBonus(NeoBank neoBank){
         Instant now = Calendar.now();
         Duration oneDay = Duration.ofDays(1);
@@ -105,9 +105,7 @@ public class BonusFund extends Fund {
         setLastDeposit(nextDeposit);
         Transaction newTransaction = new TransferInsideTransaction(bonus, neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
         neoBank.setTracingNumber(neoBank.getTracingNumber()+1);
-        this.getOwner().getAccount().addTransaction(newTransaction, "Inside Transfer");
+        this.getOwner().getAccount().addTransaction(newTransaction);
         return true;
     }
-
-     */
 }

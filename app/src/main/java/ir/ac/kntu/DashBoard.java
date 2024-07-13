@@ -37,6 +37,7 @@ public class DashBoard extends AppCompatActivity {
     private SeekBar seekBar;
     private FloatingActionButton chargeAccount;
     private FloatingActionButton transfer;
+    private ImageButton funds;
 
     public static RecyclerView.Adapter getmAdapter() {
         return mAdapter;
@@ -96,6 +97,19 @@ public class DashBoard extends AppCompatActivity {
         onClickProfile(currentUser);
         onClickCharge(currentUser, balance, recyclerView, seekBar);
         onClickTransfer(currentUser, id);
+        onClickFunds(currentUser);
+    }
+
+    public void onClickFunds(SimpleUser currentUser){
+        funds = (ImageButton) findViewById(R.id.funds);
+        funds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashBoard.this, FundsPage.class);
+                intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                startActivity(intent);
+            }
+        });
     }
 
     public void onClickCharge(SimpleUser currentUser, TextView balance, RecyclerView recyclerView, SeekBar seekBar) {
