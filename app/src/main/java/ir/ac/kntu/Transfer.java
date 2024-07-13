@@ -51,7 +51,7 @@ public class Transfer extends AppCompatActivity {
             case "by CreditCard ID" -> transferByCreditCard(currentUser, centralBank, id);
             case "by Account ID" -> transferByAccount(currentUser, centralBank, id);
             case "by Contact List" -> transferByContact(currentUser);
-            case "by Recent List" -> System.out.println("he");
+            case "by Recent List" -> transferByRecent(currentUser);
         }
     }
 
@@ -89,6 +89,33 @@ public class Transfer extends AppCompatActivity {
 
     }
 
+    public void transferByRecent(SimpleUser currentUser){
+        layout = (LinearLayout) findViewById(R.id.TransferByRecent);
+        value = (EditText) findViewById(R.id.valueInputRecent);
+        ways = (Spinner) findViewById(R.id.spinnerWaysRecent);
+        ArrayAdapter<CharSequence> mAdapter = ArrayAdapter.createFromResource(this, R.array.transfer_options, android.R.layout.simple_spinner_item);
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ways.setAdapter(mAdapter);
+        done = (Button) findViewById(R.id.recentTransferButton);
+        layout.setVisibility(View.VISIBLE);
+        options = (Spinner) findViewById(R.id.spinnerRecents);
+        RecentSpinnerAdapter adapter = new RecentSpinnerAdapter(Transfer.this, currentUser.getAccount().getRecentList());
+        options.setAdapter(adapter);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Recent recent = (Recent) options.getSelectedItem();
+                String way = (String) ways.getSelectedItem();
+                if (value.getText().toString().isEmpty()){
+                    Toast.makeText(Transfer.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
+                } else {
+                    completeTransferRecent(ways, currentUser, recent, value.getText().toString());
+                }
+            }
+        });
+
+    }
+
     public void transferByCreditCard(SimpleUser currentUser, CentralBank centralBank, String accId) {
         layout = (LinearLayout) findViewById(R.id.TransferByCreditCard);
         id = (EditText) findViewById(R.id.creditIDInput);
@@ -113,10 +140,10 @@ public class Transfer extends AppCompatActivity {
                 } else if (checkCreditID(id.getText().toString())) {
                     if (currentUser.getAccount().getCreditCard().hasSetPassword()) {
                         if (checkPass(currentUser, pass.getText().toString())) {
-                            completeTransferCard(ways, currentUser, id.getText().toString(), value.getText().toString(), centralBank);
+                            completeTransferCard(ways, currentUser, id.getText().toString(), value.getText().toString());
                         }
                     } else {
-                        completeTransferCard(ways, currentUser, id.getText().toString(), value.getText().toString(), centralBank);
+                        completeTransferCard(ways, currentUser, id.getText().toString(), value.getText().toString());
                     }
 
                 }
@@ -125,15 +152,29 @@ public class Transfer extends AppCompatActivity {
 
     }
 
-    public void completeTransferCard(Spinner ways, SimpleUser currentUser, String id, String value, CentralBank centralBank) {
+    public void completeTransferRecent(Spinner ways, SimpleUser currentUser, Recent recent,String value){
+        String selectedItem = (String) ways.getSelectedItem();
+        SimpleUser receiver = recent.getPerson();
+        if (MainActivity.getCentralBank().checkWays(receiver.getAccount().getCreditCard().getCreditCardId(), value, selectedItem, true)) {
+            String[] info = new String[2];
+            info[0] = value;
+            info[1] = selectedItem;
+                MainActivity.getCentralBank().completeTransferInfoRecent(currentUser, receiver, info, Transfer.this);
+
+        } else {
+            Toast.makeText(Transfer.this, "You can't choose " + selectedItem, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void completeTransferCard(Spinner ways, SimpleUser currentUser, String id, String value) {
         String selectedItem = (String) ways.getSelectedItem();
         if (MainActivity.getCentralBank().checkWays(id, value, selectedItem, true)) {
             String[] info = new String[2];
             info[0] = value;
             info[1] = selectedItem;
-            SimpleUser receiver = centralBank.existsCreditCardId(id).getOwner();
+            SimpleUser receiver = MainActivity.getCentralBank().existsCreditCardId(id).getOwner();
             if (receiver != null) {
-                centralBank.completeTransferInfoCredit(currentUser, receiver, info, Transfer.this);
+                MainActivity.getCentralBank().completeTransferInfoCredit(currentUser, receiver, info, Transfer.this);
             } else {
                 Toast.makeText(Transfer.this, "There is no user with this credit card id", Toast.LENGTH_SHORT).show();
             }
@@ -188,16 +229,15 @@ public class Transfer extends AppCompatActivity {
 
     public void completeTransferAccount(Spinner ways, SimpleUser currentUser, String id, String value) {
         String selectedItem = (String) ways.getSelectedItem();
-        if (MainActivity.getCentralBank().checkWays(id, value, selectedItem, false)) {
+        SimpleUser receiver = MainActivity.getCentralBank().existsAccountId(id).getOwner();
+        if (receiver==null){
+            Toast.makeText(Transfer.this, "There is no user with this credit card id", Toast.LENGTH_SHORT).show();
+        }else if (MainActivity.getCentralBank().checkWays(receiver.getAccount().getCreditCard().getCreditCardId(), value, selectedItem, false)) {
             String[] info = new String[2];
             info[0] = value;
             info[1] = selectedItem;
-            SimpleUser receiver = MainActivity.getCentralBank().existsAccountId(id).getOwner();
-            if (receiver != null) {
                 MainActivity.getCentralBank().completeTransferInfoAccount(currentUser, receiver, info, Transfer.this);
-            } else {
-                Toast.makeText(Transfer.this, "There is no user with this credit card id", Toast.LENGTH_SHORT).show();
-            }
+
         } else {
             Toast.makeText(Transfer.this, "You can't choose " + selectedItem, Toast.LENGTH_SHORT).show();
         }

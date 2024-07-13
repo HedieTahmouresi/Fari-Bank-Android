@@ -24,6 +24,7 @@ public class SimpleUser extends UserPerson {
     private boolean blocked;
 
 
+
     public String getSecurityNumber() {
         return securityNumber;
     }

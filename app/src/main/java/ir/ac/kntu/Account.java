@@ -22,6 +22,9 @@ public class Account {
     private List<Transaction> transactions;
     private List<Recent> recentList;
 
+    public List<Recent> getRecentList() {
+        return recentList;
+    }
 
     public CreditCard getCreditCard() {
         return creditCard;

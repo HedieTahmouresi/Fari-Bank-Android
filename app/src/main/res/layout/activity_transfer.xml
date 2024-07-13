@@ -259,4 +259,83 @@
             android:text="Button" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/TransferByRecent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:fontFamily="serif-monospace"
+            android:text="Transfer By &quot;Recents&quot;"
+            android:textAlignment="center"
+            android:textColor="#2F1035"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Receiver Info"
+            android:textColor="#2F1035"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerRecents"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:dropDownWidth="match_parent"
+            android:spinnerMode="dropdown" />
+
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="\nAmount :"
+            android:textColor="#2F1035"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/valueInputRecent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="How much would you like to transfer?"
+            android:inputType="numberDecimal"
+            android:textColor="#2F1035"
+            android:textSize="16sp" />
+
+
+        <Spinner
+            android:id="@+id/spinnerWaysRecent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:dropDownWidth="match_parent"
+            android:spinnerMode="dropdown" />
+
+        <Button
+            android:id="@+id/recentTransferButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

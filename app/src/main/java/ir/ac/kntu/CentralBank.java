@@ -243,10 +243,53 @@ public class CentralBank {
         AlertDialog warning = builder.create();
         warning.setTitle("Transfer");
         warning.show();
+    }
+
+    public void completeTransferInfoRecent(SimpleUser currentUser, SimpleUser receiver, String[] info, Context context) {
+        String value = info[0];
+        String way = info[1];
+        Account receiverAccount = receiver.getAccount();
+        if (receiverAccount ==null){
+            Toast.makeText(context, "There is no user with this credit card ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation!");
+        builder.setMessage("Are you sure?\n Receiver Name : " + receiver.getName() + " " + receiver.getLastName() + "\n Amount : " + value);
+        builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (way){
+                    case "Card to Card"->cardToCard(currentUser, receiver, value, context);
+                    case "Bridge Transfer" -> bridgeTransfer(currentUser, receiver, value, context);
+                    case "Wire Transfer" -> wireTransfer(currentUser, receiver, value, context);
+                    case "Fari Transfer" -> currentUser.transferByAccountID(receiver, value, context);
+                    default -> {
+                        return;
+                    }
+                }
+                Intent intent = new Intent(context, DashBoard.class);
+                intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                startActivity(context, intent, Bundle.EMPTY);
+            }
+        });
+        builder.setNegativeButton("Noo!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog warning = builder.create();
+        warning.setTitle("Transfer");
+        warning.show();
 
     }
 
     public void completeTransferInfoContact(SimpleUser currentUser, SimpleUser receiver,String[] info, Context context){
+        if (!receiver.isContactOption()){
+            Toast.makeText(context, "You can't transfer money to this contact", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String value = info[0];
         String way = info[1];
         Account receiverAccount = receiver.getAccount();
@@ -305,6 +348,7 @@ public class CentralBank {
         }
         return false;
     }
+
     /*
 
     public void transferByAccount(NeoBank neoBank, SimpleUser currentUser, CentralBank centralBank){
@@ -418,6 +462,8 @@ public class CentralBank {
     public boolean checkWire(String value){
         return !(Double.parseDouble(value) > 5000000.0);
     }
+
+
 /*
     public void showTransferOptionsForAccount(String value, List<SimpleUser> senderReceiver, NeoBank neoBank, CentralBank centralBank){
         String answer = this.displayTransferOptions();
