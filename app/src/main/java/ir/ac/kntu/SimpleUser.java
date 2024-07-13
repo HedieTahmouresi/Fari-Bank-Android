@@ -23,6 +23,9 @@ public class SimpleUser extends UserPerson {
     private List<Fund> funds;
     private boolean blocked;
 
+    public List<Fund> getFunds() {
+        return funds;
+    }
 
     public String getSecurityNumber() {
         return securityNumber;

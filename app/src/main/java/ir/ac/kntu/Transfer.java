@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,10 +48,12 @@ public class Transfer extends AppCompatActivity {
         CentralBank centralBank = MainActivity.getCentralBank();
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         String way = getIntent().getStringExtra("way");
+        String info = getIntent().getStringExtra("Info");
+
         switch (way) {
             case "by CreditCard ID" -> transferByCreditCard(currentUser, centralBank, id);
             case "by Account ID" -> transferByAccount(currentUser, centralBank, id);
-            case "by Contact List" -> transferByContact(currentUser);
+            case "by Contact List" -> transferByContact(currentUser, info);
             case "by Recent List" -> transferByRecent(currentUser);
             default -> {
                 return;
@@ -58,7 +61,7 @@ public class Transfer extends AppCompatActivity {
         }
     }
 
-    public void transferByContact(SimpleUser currentUser) {
+    public void transferByContact(SimpleUser currentUser, String info) {
         layout = (LinearLayout) findViewById(R.id.TransferByContact);
         value = (EditText) findViewById(R.id.valueInputContact);
         ways = (Spinner) findViewById(R.id.spinnerWaysContact);
@@ -70,6 +73,11 @@ public class Transfer extends AppCompatActivity {
         options = (Spinner) findViewById(R.id.spinnerContacts);
         ContactSpinnerAdapter adapter = new ContactSpinnerAdapter(Transfer.this, currentUser.getContacts());
         options.setAdapter(adapter);
+        if (!" ".equals(info)){
+            Contact contact = currentUser.findContact(info);
+            int index = Arrays.asList(currentUser.getContacts()).indexOf(contact);
+            options.setSelection(index);
+        }
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

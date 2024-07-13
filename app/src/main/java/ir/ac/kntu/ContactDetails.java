@@ -93,7 +93,7 @@ public class ContactDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ContactDetails.this, Transfer.class);
                 intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
-                intent.putExtra("way", "by CreditCard ID");
+                intent.putExtra("way", "by Contact List");
                 intent.putExtra("Info", currentContact.getSimCard().getPhoneNumber());
                 startActivity(intent);
             }

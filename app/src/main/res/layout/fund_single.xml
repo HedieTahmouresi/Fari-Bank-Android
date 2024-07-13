@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fundKind"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:fontFamily="serif-monospace"
+        android:text="@string/textview"
+        android:textColor="#DCD5E9"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fundID"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/textview"
+        android:textColor="#D6C0FF"
+        android:textSize="16sp" />
+
+</LinearLayout>
