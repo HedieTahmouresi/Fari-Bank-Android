@@ -5,13 +5,13 @@ import android.content.Context;
 import java.time.Duration;
 import java.time.Instant;
 
-public class TransactionThread implements Runnable{
+public class TransactionThread implements Runnable {
     private CentralBank centralBank;
     private NeoBank neoBank;
     private WireTransaction transaction;
     private Context context;
 
-    public TransactionThread(CentralBank centralBank, NeoBank neoBank, WireTransaction transaction, Context context){
+    public TransactionThread(CentralBank centralBank, NeoBank neoBank, WireTransaction transaction, Context context) {
         setCentralBank(centralBank);
         setNeoBank(neoBank);
         setTransaction(transaction);
@@ -47,11 +47,11 @@ public class TransactionThread implements Runnable{
         Duration oneDay = Duration.ofDays(3);
         Instant endTime = this.getTransaction().getDateAndTime().plus(oneDay);
         Duration duration = Duration.between(this.getTransaction().getDateAndTime(), endTime);
-        long time = duration.toMillis()/6000;
-        try{
+        long time = duration.toMillis() / 6000;
+        try {
             Thread.sleep(time);
             this.getTransaction().completeTransaction(this.getCentralBank(), this.getNeoBank(), this.context);
-        }catch (InterruptedException error){
+        } catch (InterruptedException error) {
             System.out.println(ColorConsole.RED + "Thread Error" + ColorConsole.RESET);
         }
     }

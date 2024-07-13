@@ -24,7 +24,6 @@ public class SimpleUser extends UserPerson {
     private boolean blocked;
 
 
-
     public String getSecurityNumber() {
         return securityNumber;
     }
@@ -177,18 +176,18 @@ public class SimpleUser extends UserPerson {
     }
 */
 
-    public void transferByCreditID(SimpleUser receiver, String value, Context context){
+    public void transferByCreditID(SimpleUser receiver, String value, Context context) {
         List<Boolean> facts = new ArrayList<>();
         facts.add(false);
         facts.add(false);
-        this.getAccount().transfer( value, receiver, facts, context);
+        this.getAccount().transfer(value, receiver, facts, context);
     }
 
     public void transferByAccountID(SimpleUser receiver, String value, Context context) {
         List<Boolean> facts = new ArrayList<>();
         facts.add(false);
         facts.add(false);
-        this.getAccount().transfer( value, receiver, facts, context);
+        this.getAccount().transfer(value, receiver, facts, context);
     }
 
     public void transferByContact(SimpleUser receiver, String value, Context context) {
@@ -197,37 +196,38 @@ public class SimpleUser extends UserPerson {
         facts.add(false);
         this.getAccount().transfer(value, receiver, facts, context);
     }
-/*
-    public void transferByRecent(NeoBank neoBank, CentralBank centralBank) {
-        Recent recent = this.getAccount().showRecentList(neoBank);
-        if (recent == null) {
-            return;
-        }
-        SimpleUser receiver = recent.getPerson();
-        boolean byContact = recent.isByContact();
-        if (byContact) {
-            if (!checkContactForTransfer(receiver)) {
+
+    /*
+        public void transferByRecent(NeoBank neoBank, CentralBank centralBank) {
+            Recent recent = this.getAccount().showRecentList(neoBank);
+            if (recent == null) {
                 return;
             }
+            SimpleUser receiver = recent.getPerson();
+            boolean byContact = recent.isByContact();
+            if (byContact) {
+                if (!checkContactForTransfer(receiver)) {
+                    return;
+                }
+            }
+            String value = input.nextValue(receiver, 8000000.0);
+            if (value == null) {
+                return;
+            }
+            this.getAccount().showTransferOptionsForRecent(value, receiver, neoBank, centralBank);
         }
-        String value = input.nextValue(receiver, 8000000.0);
-        if (value == null) {
-            return;
-        }
-        this.getAccount().showTransferOptionsForRecent(value, receiver, neoBank, centralBank);
-    }
 
-    public boolean checkContactForTransfer(SimpleUser receiver) {
-        if (!receiver.contactExistence(new Contact(" ", " ", this.getSimCard()))) {
-            System.out.println(ColorConsole.RED + "You can't transfer to a contact if they don't have you as a contact!" + ColorConsole.RESET);
-            return false;
-        } else if (!receiver.isContactOption()) {
-            System.out.println(ColorConsole.RED + "You can't transfer money to this user by contact!" + ColorConsole.RESET);
-            return false;
+        public boolean checkContactForTransfer(SimpleUser receiver) {
+            if (!receiver.contactExistence(new Contact(" ", " ", this.getSimCard()))) {
+                System.out.println(ColorConsole.RED + "You can't transfer to a contact if they don't have you as a contact!" + ColorConsole.RESET);
+                return false;
+            } else if (!receiver.isContactOption()) {
+                System.out.println(ColorConsole.RED + "You can't transfer money to this user by contact!" + ColorConsole.RESET);
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-*/
+    */
     public Contact findContact(String phoneNumber) {
         for (Contact contact : contacts) {
             if (contact.getSimCard().getPhoneNumber().equals(phoneNumber)) {
@@ -236,44 +236,6 @@ public class SimpleUser extends UserPerson {
         }
         return null;
     }
-/*
-    public void showAccountInfo() {
-        System.out.println(ColorConsole.PINK + "Your Account ID : " + ColorConsole.PURPLE + this.getAccount().getAccountId() + ColorConsole.RESET);
-        System.out.println(ColorConsole.PINK + "Your Credit Card ID : " + ColorConsole.PURPLE + this.getAccount().getCreditCard().getCreditCardId() + ColorConsole.RESET);
-    }
-
-    public void changeOrSetPassCode() {
-        if (this.getAccount().getCreditCard().hasSetPassword()) {
-            this.getAccount().getCreditCard().changePassCode();
-        } else {
-            this.getAccount().getCreditCard().setPassCode();
-        }
-    }
-
-    public void changeContactOption() {
-        String changeCondition = "";
-        if (this.isContactOption()) {
-            changeCondition = "off";
-        } else {
-            changeCondition = "on";
-        }
-        System.out.println(ColorConsole.BLUE + "Would you like to turn it " + ColorConsole.PURPLE_BOLD + changeCondition + ColorConsole.BLUE + "?" + ColorConsole.RESET);
-        String answer = input.nextLine();
-        if (!input.exitPoint(answer)) {
-            return;
-        } else if ("yes".equalsIgnoreCase(answer) && this.isContactOption()) {
-            this.setContactOption(false);
-            return;
-        } else if ("yes".equalsIgnoreCase(answer)) {
-            this.setContactOption(true);
-            return;
-        } else if ("no".equalsIgnoreCase(answer)) {
-            return;
-        }
-        System.out.println(ColorConsole.RED + "Please enter yes or no! I can't understand this!" + ColorConsole.RESET);
-        this.changeContactOption();
-    }
-*/
 
     public void addRequest(RequestSection section, String text, NeoBank neoBank, Context context) {
         Request newRequest = new Request(text, section, this.getSimCard().getPhoneNumber());
@@ -281,7 +243,6 @@ public class SimpleUser extends UserPerson {
         neoBank.getBankData().addRequest(this, newRequest);
         Toast.makeText(context, "Request successfully noted!", Toast.LENGTH_LONG).show();
     }
-
 
 
     public RemainsFund getRemainsFund() {

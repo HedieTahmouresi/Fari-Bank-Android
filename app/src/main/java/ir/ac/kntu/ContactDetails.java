@@ -86,7 +86,7 @@ public class ContactDetails extends AppCompatActivity {
         );
     }
 
-    public void onClickTransfer(SimpleUser currentUser, Contact currentContact){
+    public void onClickTransfer(SimpleUser currentUser, Contact currentContact) {
         transfer = (FloatingActionButton) findViewById(R.id.transferToContact);
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override

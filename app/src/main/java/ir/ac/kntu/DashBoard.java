@@ -98,7 +98,7 @@ public class DashBoard extends AppCompatActivity {
         onClickTransfer(currentUser, id);
     }
 
-    public void onClickCharge(SimpleUser currentUser, TextView balance, RecyclerView recyclerView, SeekBar seekBar){
+    public void onClickCharge(SimpleUser currentUser, TextView balance, RecyclerView recyclerView, SeekBar seekBar) {
         chargeAccount = (FloatingActionButton) findViewById(R.id.charge);
         chargeAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +108,7 @@ public class DashBoard extends AppCompatActivity {
         });
     }
 
-    public void updateTransactions(SimpleUser currentUser, RecyclerView view, SeekBar seekBar){
+    public void updateTransactions(SimpleUser currentUser, RecyclerView view, SeekBar seekBar) {
         mAdapter = new TransactionAdapter(currentUser.getAccount().getTransactions(), this);
         view.setAdapter(mAdapter);
         seekBar.setMax(currentUser.getAccount().getTransactions().size() - 1); // Set the maximum value of the SeekBar
@@ -156,7 +156,7 @@ public class DashBoard extends AppCompatActivity {
         builder.show();
     }
 
-    public void onClickTransfer(SimpleUser currentUser, String id){
+    public void onClickTransfer(SimpleUser currentUser, String id) {
         transfer = (FloatingActionButton) findViewById(R.id.transfer);
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +166,7 @@ public class DashBoard extends AppCompatActivity {
         });
     }
 
-    public void showTransferWay(SimpleUser currentUser, String id){
+    public void showTransferWay(SimpleUser currentUser, String id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("How would you like to transfer the money? ");
         Spinner ways = new Spinner(this);

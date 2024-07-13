@@ -261,7 +261,7 @@ public class Account {
         System.out.println(ColorConsole.RED_BOLD + "Index Out of Bound! Try again!" + ColorConsole.RESET);
     }
 */
-    public void transfer(String value, SimpleUser receiver,List<Boolean> facts, Context context) {
+    public void transfer(String value, SimpleUser receiver, List<Boolean> facts, Context context) {
         double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(value) : 0;
         if (Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getFariWage() + remains > this.getBalance()) {
             Toast.makeText(context, "transfer failed! you don't have enough money!", Toast.LENGTH_SHORT).show();
@@ -280,7 +280,7 @@ public class Account {
         if (this.getOwner().isHasRemainsFund()) {
             this.getOwner().getRemainsFund().saveRemains(remains, MainActivity.getFariBank());
         }
-        if (!facts.get(1)){
+        if (!facts.get(1)) {
             this.addRecent(newTransaction, receiver.getSimCard().getPhoneNumber(), MainActivity.getFariBank());
         }
         Toast.makeText(context, "Transfer completed!", Toast.LENGTH_SHORT).show();

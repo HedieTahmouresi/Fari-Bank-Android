@@ -22,8 +22,8 @@ public class WireTransaction extends TransferTransaction {
         setHasBeenDone(false);
     }
 
-    public void completeTransaction(CentralBank centralBank, NeoBank neoBank, Context context){
-        if (this.isHasBeenDone()){
+    public void completeTransaction(CentralBank centralBank, NeoBank neoBank, Context context) {
+        if (this.isHasBeenDone()) {
             return;
         }
         double remains = this.getSender().isHasRemainsFund() ? this.getSender().getRemainsFund().calculateRemains(Double.toString(this.getValue())) : 0;
