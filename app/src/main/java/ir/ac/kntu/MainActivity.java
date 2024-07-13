@@ -87,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
         return fariBank.getBankData().getUserByPhone(phoneNumber);
     }
 
+    public static SimpleUser getCurrentUserByCard(String cardID) {
+        return fariBank.getBankData().getUserByCreditID(cardID);
+    }
+
+
     private static void main(String[] args) {
         System.out.println("hello");
     }

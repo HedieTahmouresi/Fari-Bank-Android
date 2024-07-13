@@ -1,12 +1,15 @@
 package ir.ac.kntu;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CentralBank {
@@ -57,13 +60,23 @@ public class CentralBank {
         return null;
     }
 
-    public Account existsCreditCardId(String creditID) {
+    public Account existsCreditCardId(String creditID ) {
         for (NeoBank bank : banks) {
             if (bank.getBankData().existsCreditCard(creditID)) {
                 return bank.getBankData().getAccountByCard(creditID);
             }
         }
         return null;
+    }
+
+    public void getUserByCard(String creditID, Context context) {
+        for (NeoBank bank : banks) {
+            if (bank.getBankData().existsCreditCard(creditID)) {
+                SimpleUser user = bank.getBankData().getUserByCreditID(creditID);
+                Toast.makeText(context, user.getName(), Toast.LENGTH_SHORT).show();
+            }
+        }
+        return;
     }
 
     public SimpleUser getUserBySim(String phoneNumber) {
@@ -75,17 +88,15 @@ public class CentralBank {
         return null;
     }
 
-/*
-    public void wireTransfer(NeoBank neoBank, List<SimpleUser> users, String value, CentralBank centralBank){
-        SimpleUser receiver = users.get(1);
-        SimpleUser sender = users.get(0);
+
+    public void wireTransfer(SimpleUser sender, SimpleUser receiver, String value, Context context){
         if (receiver==null){
             return;
         }
         if (value==null){
             return;
         }
-        if (!input.nextConfirmation(receiver, value)){
+        /*if (!input.nextConfirmation(receiver, value)){
             System.out.println(ColorConsole.RED + "Transfer failed" + ColorConsole.RESET);
             return;
         }
@@ -97,78 +108,53 @@ public class CentralBank {
         WireTransaction newTransaction = new WireTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), receiver, receiver.getAccount().getAccountId(),"-", sender, false);
         neoBank.getManagerData().addTransaction(newTransaction);
         System.out.println(ColorConsole.GREEN + "Transaction is on hold" + ColorConsole.RESET);
-        TransactionThread thread = new TransactionThread(centralBank, neoBank, newTransaction);
+        TransactionThread thread = new TransactionThread(this, neoBank, newTransaction);
         Thread newThread = new Thread(thread);
         newThread.start();
+
+         */
     }
 
-    public void cardToCard(NeoBank neoBank, SimpleUser sender, SimpleUser receiver, String value){
-        if (receiver==null){
-            return;
-        }
-        if (value==null){
-            return;
-        }
-        if (!input.nextConfirmation(receiver, value)){
-            System.out.println(ColorConsole.RED + "Transfer failed" + ColorConsole.RESET);
-            return;
-        }
-        if (receiver.getAccount().getCreditCard().hasSetPassword()) {
-            if (!receiver.getAccount().getCreditCard().enterPreviousPassCode()) {
-                return;
-            }
-        }
+    public void cardToCard(SimpleUser sender, SimpleUser receiver, String value, Context context){
         double remains = sender.isHasRemainsFund() ? sender.getRemainsFund().calculateRemains(value) : 0;
-        if (Double.parseDouble(value) + neoBank.getManagerData().getCardWage() + remains > sender.getAccount().getBalance()) {
-            System.out.println(ColorConsole.RED + "transfer failed! you don't have enough money!" + ColorConsole.RESET);
+        if (Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getCardWage() + remains > sender.getAccount().getBalance()) {
+            Toast.makeText(context, "transfer failed! you don't have enough money!", Toast.LENGTH_SHORT).show();
             return;
         }
-        System.out.println(neoBank.getManagerData().getCardWage());
-        Double removeValue = Double.parseDouble(value) + neoBank.getManagerData().getCardWage();
+        double removeValue = Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getCardWage();
         sender.getAccount().setBalance(sender.getAccount().getBalance() - removeValue);
-        TransferTransaction newTransaction = new TransferTransaction(removeValue, neoBank.getTracingNumber(), receiver, false, receiver.getAccount().getCreditCard().getCreditCardId(), "-", sender, false);
-        sender.getAccount().addTransaction(newTransaction, "Transfer");
+        TransferTransaction newTransaction = new TransferTransaction(removeValue, MainActivity.getFariBank().getTracingNumber(), receiver, false, receiver.getAccount().getCreditCard().getCreditCardId(), "-", sender, false);
+        sender.getAccount().addTransaction(newTransaction);
         sender.getAccount().addRecentCentral(newTransaction, receiver.getSimCard().getPhoneNumber(), this);
-        this.transferBetweenBanks(sender, receiver.getAccount(), value, neoBank);
-        System.out.println(ColorConsole.GREEN_BOLD + "Transfer Completed!" + ColorConsole.RESET);
+        this.transferBetweenBanks(sender, receiver.getAccount(), value, MainActivity.getFariBank());
+        Toast.makeText(context, "Transfer completed!", Toast.LENGTH_SHORT).show();
     }
 
-    public void bridgeTransfer(NeoBank neoBank, SimpleUser sender, SimpleUser receiver, String value){
-        if (receiver==null){
-            return;
-        }
-        if (value==null){
-            return;
-        }
-        if (!input.nextConfirmation(receiver, value)){
-            System.out.println(ColorConsole.RED + "Transfer failed" + ColorConsole.RESET);
-            return;
-        }
+    public void bridgeTransfer( SimpleUser sender, SimpleUser receiver, String value, Context context){
         double remains = sender.isHasRemainsFund() ? sender.getRemainsFund().calculateRemains(value) : 0;
-        double removeValue = (Double.parseDouble(value)*(neoBank.getManagerData().getBridgePercentage()+100))/100 + remains;
+        double removeValue = (Double.parseDouble(value)*(MainActivity.getFariBank().getManagerData().getBridgePercentage()+100))/100 + remains;
         if (removeValue > sender.getAccount().getBalance()) {
-            System.out.println(ColorConsole.RED + "transfer failed! you don't have enough money!" + ColorConsole.RESET);
+            Toast.makeText(context, "transfer failed! you don't have enough money!", Toast.LENGTH_SHORT).show();
             return;
         }
         sender.getAccount().setBalance(sender.getAccount().getBalance() - removeValue);
-        TransferTransaction newTransaction = new TransferTransaction(removeValue, neoBank.getTracingNumber(), receiver, false, receiver.getAccount().getAccountId(), "-", sender, false);
-        sender.getAccount().addTransaction(newTransaction, "Transfer");
+        TransferTransaction newTransaction = new TransferTransaction(removeValue, MainActivity.getFariBank().getTracingNumber(), receiver, false, receiver.getAccount().getAccountId(), "-", sender, false);
+        sender.getAccount().addTransaction(newTransaction);
         sender.getAccount().addRecentCentral(newTransaction, receiver.getSimCard().getPhoneNumber(), this);
-        this.transferBetweenBanks(sender, receiver.getAccount(), value, neoBank);
-        System.out.println(ColorConsole.GREEN_BOLD + "Transfer Completed!" + ColorConsole.RESET);
-
+        this.transferBetweenBanks(sender, receiver.getAccount(), value, MainActivity.getFariBank());
+        Toast.makeText(context, "Transfer completed!", Toast.LENGTH_SHORT).show();
     }
 
     public void transferBetweenBanks(SimpleUser sender, Account receiver, String value, NeoBank neoBank){
         double remains = sender.isHasRemainsFund() ? sender.getRemainsFund().calculateRemains(value) : 0;
         receiver.setBalance(receiver.getBalance() + Double.parseDouble(value));
-        receiver.addTransaction(new TransferTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, receiver.getOwner(), false, receiver.getCreditCard().getCreditCardId(), "+", sender, true), "transfer");
+        receiver.addTransaction(new TransferTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, receiver.getOwner(), false, receiver.getCreditCard().getCreditCardId(), "+", sender, true));
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
         if (sender.isHasRemainsFund()) {
             sender.getRemainsFund().saveRemains(remains, neoBank);
         }
     }
-
+/*
     public void transferByCard(NeoBank neoBank, SimpleUser currentUser, CentralBank centralBank){
         String creditCardID = input.nextCreditCardID(this);
         if (creditCardID==null){
@@ -187,6 +173,77 @@ public class CentralBank {
         }
         this.showTransferOptionsForCard(value, new ArrayList<>(Arrays.asList(currentUser, receiver)), neoBank, centralBank);
     }
+
+   */
+
+    public void completeTransferInfo(SimpleUser currentUser, SimpleUser receiver,String[] info, Context context){
+        String value = info[0];
+        String way = info[21];
+        //Account receiverAccount = receiver.getAccount();
+        //if (receiverAccount ==null){
+            //Toast.makeText(context, "There is no user with this credit card ID", Toast.LENGTH_SHORT).show();
+            //return;
+        //}
+        //this.getUserByCard(creditCardID, context);
+
+
+        //Toast.makeText(context, receiverAccount.getCreditCard().getCreditCardId(), Toast.LENGTH_SHORT).show();
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation!");
+        builder.setMessage("Are you sure?\n Receiver Name : " + receiver.getName() + " " + receiver.getLastName() + "\n Amount : " + value);
+        builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (way){
+                    case "Card to Card"->cardToCard(currentUser, receiver, value, context);
+                    case "Bridge Transfer" -> bridgeTransfer(currentUser, receiver, value, context);
+                    case "Wire Transfer" -> wireTransfer(currentUser, receiver, value, context);
+                    case "Fari Transfer" -> currentUser.transferByCreditID(receiver, value, context);
+                    default -> {
+                        return;
+                    }
+                }
+            }
+        });
+        builder.setNegativeButton("Noo!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog warning = builder.create();
+        warning.setTitle("Transfer");
+        warning.show();
+
+         */
+    }
+    public boolean checkWays(NeoBank neoBank, String creditID, String value, String way){
+        String creditCardStarter = creditID.substring(0, 8);
+        NeoBank bankReceiver = this.findBankByCreditCard(creditCardStarter);
+        if ("Fari Transfer".equals(way)) {
+            if (neoBank.equals(bankReceiver)) {
+                return true;
+            }
+            return false;
+        }else if ("Bridge Transfer".equals(way) && checkBridge(value)){
+            if (neoBank.equals(bankReceiver)) {
+                return false;
+            }
+            return true;
+        }else if ("Card to Card".equals(way) && checkCard(value, true)){
+            if (neoBank.equals(bankReceiver)) {
+                return false;
+            }
+            return true;
+        }else if ("Wire Transfer".equals(way) && checkWire(value)){
+            if (neoBank.equals(bankReceiver)) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    /*
 
     public void transferByAccount(NeoBank neoBank, SimpleUser currentUser, CentralBank centralBank){
         String accountID = input.nextAccountID(this);
@@ -283,31 +340,23 @@ public class CentralBank {
         }
         this.showTransferOptionsForCard(value, senderReceiver, neoBank, centralBank);
     }
-
+*/
     public boolean checkCard(String value, boolean byCard){
         if (!byCard || Double.parseDouble(value)>100000.0){
-            System.out.println(ColorConsole.RED + "You can't choose this");
             return false;
         }
         return true;
     }
 
+
     public boolean checkBridge(String value){
-        if (Double.parseDouble(value)>5000000.0){
-            System.out.println(ColorConsole.RED + "Higher than the maximum limit" + ColorConsole.RESET);
-            return false;
-        }
-        return true;
+        return !(Double.parseDouble(value) > 5000000.0);
     }
 
     public boolean checkWire(String value){
-        if (Double.parseDouble(value)>5000000.0){
-            System.out.println(ColorConsole.RED + "Higher than the maximum limit" + ColorConsole.RESET);
-            return false;
-        }
-        return true;
+        return !(Double.parseDouble(value) > 5000000.0);
     }
-
+/*
     public void showTransferOptionsForAccount(String value, List<SimpleUser> senderReceiver, NeoBank neoBank, CentralBank centralBank){
         String answer = this.displayTransferOptions();
         switch (answer){

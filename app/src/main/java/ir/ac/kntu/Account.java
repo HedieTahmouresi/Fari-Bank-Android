@@ -257,37 +257,32 @@ public class Account {
         }
         System.out.println(ColorConsole.RED_BOLD + "Index Out of Bound! Try again!" + ColorConsole.RESET);
     }
-
-    public void transfer(NeoBank neoBank, String value, SimpleUser receiver,List<Boolean> facts) {
-        boolean confirmed = input.nextConfirmation(receiver, value);
-        if (!confirmed) {
-            System.out.println(ColorConsole.RED + "Transfer failed!" + ColorConsole.RESET);
-            return;
-        }
+*/
+    public void transfer(String value, SimpleUser receiver,List<Boolean> facts, Context context) {
         double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(value) : 0;
-        if (Double.parseDouble(value) + neoBank.getManagerData().getFariWage() + remains > this.getBalance()) {
-            System.out.println(ColorConsole.RED + "transfer failed! you don't have enough money!" + ColorConsole.RESET);
+        if (Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getFariWage() + remains > this.getBalance()) {
+            Toast.makeText(context, "transfer failed! you don't have enough money!", Toast.LENGTH_SHORT).show();
             return;
         }
-        this.setBalance(this.getBalance() - Double.parseDouble(value) - neoBank.getManagerData().getFariWage() - remains);
+        this.setBalance(this.getBalance() - Double.parseDouble(value) - MainActivity.getFariBank().getManagerData().getFariWage() - remains);
         receiver.getAccount().setBalance(receiver.getAccount().getBalance() + Double.parseDouble(value));
         String info = receiver.getAccount().getAccountId();
         if (facts.get(1)) {
             info = receiver.getSimCard().getPhoneNumber();
         }
-        TransferTransaction newTransaction = new TransferTransaction(Double.parseDouble(value) + neoBank.getManagerData().getFariWage(), neoBank.getTracingNumber(), receiver, facts.get(1), info, "-", this.getOwner(), false);
-        this.addTransaction(newTransaction, "transfer");
-        receiver.getAccount().addTransaction(new TransferTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, receiver, facts.get(1), info, "+", this.getOwner(), true), "transfer");
-        neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
+        TransferTransaction newTransaction = new TransferTransaction(Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getFariWage(), MainActivity.getFariBank().getTracingNumber(), receiver, facts.get(1), info, "-", this.getOwner(), false);
+        this.addTransaction(newTransaction);
+        receiver.getAccount().addTransaction(new TransferTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber() + 1, receiver, facts.get(1), info, "+", this.getOwner(), true));
+        MainActivity.getFariBank().setTracingNumber(MainActivity.getFariBank().getTracingNumber() + 2);
         if (this.getOwner().isHasRemainsFund()) {
-            this.getOwner().getRemainsFund().saveRemains(remains, neoBank);
+            this.getOwner().getRemainsFund().saveRemains(remains, MainActivity.getFariBank());
         }
         if (!facts.get(1)){
-            this.addRecent(newTransaction, receiver.getSimCard().getPhoneNumber(), neoBank);
+            this.addRecent(newTransaction, receiver.getSimCard().getPhoneNumber(), MainActivity.getFariBank());
         }
-        System.out.println(ColorConsole.GREEN_BOLD + "Transfer Completed!" + ColorConsole.RESET);
+        Toast.makeText(context, "Transfer completed!", Toast.LENGTH_SHORT).show();
     }
-
+/*
     public Recent showRecentList(NeoBank neoBank) {
         if (this.recentList == null || this.recentList.isEmpty() ) {
             String message = this.recentList.isEmpty()? "Recent List is empty" : "";

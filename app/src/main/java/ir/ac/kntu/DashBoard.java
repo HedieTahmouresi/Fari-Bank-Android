@@ -168,7 +168,7 @@ public class DashBoard extends AppCompatActivity {
     public void showTransferWay(SimpleUser currentUser){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("How would you like to transfer the money? ");
-        final Spinner ways = new Spinner(this);
+        Spinner ways = new Spinner(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.transfer_ways, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ways.setAdapter(adapter);
@@ -176,21 +176,13 @@ public class DashBoard extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ways.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String selectedItem = parent.getItemAtPosition(position).toString();
-                        Intent intent = new Intent(DashBoard.this, Transfer.class);
-                        intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
-                        intent.putExtra("way", selectedItem);
-                        intent.putExtra("Info", " ");
-                        startActivity(intent);
-                    }
+                String selected = (String) ways.getSelectedItem();
+                Intent intent = new Intent(DashBoard.this, Transfer.class);
+                intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                intent.putExtra("way", selected);
+                intent.putExtra("Info", " ");
+                startActivity(intent);
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -199,7 +191,9 @@ public class DashBoard extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-        builder.show();
+        AlertDialog warning = builder.create();
+        warning.setTitle("Transfer");
+        warning.show();
     }
 
 

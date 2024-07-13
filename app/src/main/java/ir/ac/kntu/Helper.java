@@ -1,5 +1,7 @@
 package ir.ac.kntu;
 
+import android.content.Context;
+
 public class Helper {
     public void initiateFariUsers(NeoBank neoBank) {
         SimpleUser hedie = new SimpleUser("Hedie", "Tahmouresi", new SimCard("09109056296", false), "0025755900", "H@tah1384", new Authentication("09109056296"));

@@ -28,6 +28,15 @@
         <item>by Recent List</item>
     </string-array>
 
+    <string-array name="transfer_options">
+        <item>Card to Card</item>
+        <item>Wire Transfer</item>
+        <item>Bridge Transfer</item>
+        <item>Fari Transfer</item>
+    </string-array>
+
+
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

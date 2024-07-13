@@ -1,7 +1,9 @@
 package ir.ac.kntu;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -70,7 +72,9 @@ public class Data {
     public Account getAccountByCard(String creditID) {
         for (SimpleUser user : this.users) {
             if (user.getAccount().getCreditCard().getCreditCardId().equalsIgnoreCase(creditID)) {
+
                 return user.getAccount();
+
             }
         }
         return null;

@@ -174,23 +174,15 @@ public class SimpleUser extends UserPerson {
         }
         this.changeInfo(neoBank);
     }
+*/
 
-    public void transferByCreditID(NeoBank neoBank, String value, String creditCardId){
-        if (creditCardId==null){
-            return;
-        }
-        SimpleUser receiver = neoBank.getBankData().getUserByCreditID(creditCardId);
-        boolean confirmed = input.nextConfirmation(receiver, value);
-        if (!confirmed){
-            System.out.println(ColorConsole.RED + "Transfer failed!" + ColorConsole.RESET);
-            return;
-        }
+    public void transferByCreditID(SimpleUser receiver, String value, Context context){
         List<Boolean> facts = new ArrayList<>();
         facts.add(false);
         facts.add(false);
-        this.getAccount().transfer(neoBank, value, receiver, facts);
+        this.getAccount().transfer( value, receiver, facts, context);
     }
-
+    /*
     public void transferByAccountID(NeoBank neoBank, String value, String accountID) {
         if (accountID == null) {
             return;
@@ -306,7 +298,7 @@ public class SimpleUser extends UserPerson {
         neoBank.getBankData().addRequest(this, newRequest);
         Toast.makeText(context, "Request successfully noted!", Toast.LENGTH_LONG).show();
     }
-/*
+
 
 
     public RemainsFund getRemainsFund() {
@@ -317,7 +309,7 @@ public class SimpleUser extends UserPerson {
         }
         return null;
     }
-
+/*
     public void addFund(NeoBank neoBank) {
         String fundType = input.nextFundType();
         if (fundType == null) {

@@ -48,6 +48,7 @@ public class ContactDetails extends AppCompatActivity {
         number.setText(currentContact.getSimCard().getPhoneNumber());
         onClickDelete(currentUser, currentContact);
         onClickEdit(currentUser, currentContact);
+        onClickTransfer(currentUser, currentContact);
     }
 
     public void onClickDelete(SimpleUser currentUser, Contact currentContact) {
@@ -83,6 +84,20 @@ public class ContactDetails extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void onClickTransfer(SimpleUser currentUser, Contact currentContact){
+        transfer = (FloatingActionButton) findViewById(R.id.transferToContact);
+        transfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContactDetails.this, Transfer.class);
+                intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                intent.putExtra("way", "by CreditCard ID");
+                intent.putExtra("Info", currentContact.getSimCard().getPhoneNumber());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
