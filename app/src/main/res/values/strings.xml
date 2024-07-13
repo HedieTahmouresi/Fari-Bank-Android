@@ -21,6 +21,14 @@
         <item>SETTINGS</item>
     </string-array>
 
+    <string-array name="transfer_ways">
+        <item>by CreditCard ID</item>
+        <item>by Account ID</item>
+        <item>by Contact List</item>
+        <item>by Recent List</item>
+    </string-array>
+
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

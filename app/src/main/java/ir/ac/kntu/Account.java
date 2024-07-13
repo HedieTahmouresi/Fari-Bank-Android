@@ -1,7 +1,9 @@
 package ir.ac.kntu;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -107,25 +109,14 @@ public class Account {
         this.transactions = transactions;
     }
 
-    /*public void chargeAccount(NeoBank neoBank) {
-        System.out.println( "How much would you like to charge your account?");
-        String answer;
-        answer = input.nextLine();
-        if (!input.exitPoint(answer)) {
-            return;
-        } else if (!answer.matches("[0-9]+\\.?[0-9]*")) {
-            System.out.println(ColorConsole.RED_BOLD + "Wrong input! Try again!" + ColorConsole.RESET);
-        } else {
-            this.setBalance(this.getBalance() + Double.parseDouble(answer));
-            this.addTransaction(new ChargeTransaction(Double.parseDouble(answer), neoBank.getTracingNumber()), "charge");
-            neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
-            System.out.println(ColorConsole.GREEN_BOLD + "Account successfully charged!" + ColorConsole.RESET);
-            return;
-        }
-        this.chargeAccount(neoBank);
+    public void chargeAccount(NeoBank neoBank, String answer, Context context) {
+        this.setBalance(this.getBalance() + Double.parseDouble(answer));
+        this.addTransaction(new ChargeTransaction(Double.parseDouble(answer), neoBank.getTracingNumber()));
+        neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
+        Toast.makeText(context, "Account successfully charged!", Toast.LENGTH_SHORT).show();
     }
 
-    public void showBalance() {
+    /*public void showBalance() {
         System.out.println(ColorConsole.GREEN + "Here is your Balance: " + ColorConsole.RESET);
         System.out.println(ColorConsole.GREEN_BOLD + "~" + this.getBalance() + "$" + ColorConsole.RESET);
     }

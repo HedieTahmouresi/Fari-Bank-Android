@@ -1,19 +1,29 @@
 package ir.ac.kntu;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DashBoard extends AppCompatActivity {
     private TextView fullName;
@@ -25,6 +35,8 @@ public class DashBoard extends AppCompatActivity {
     private static RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private SeekBar seekBar;
+    private FloatingActionButton chargeAccount;
+    private FloatingActionButton transfer;
 
     public static RecyclerView.Adapter getmAdapter() {
         return mAdapter;
@@ -81,8 +93,115 @@ public class DashBoard extends AppCompatActivity {
 
         showBalance(currentUser);
         onClickProfile(currentUser);
-
+        onClickCharge(currentUser, balance, recyclerView, seekBar);
+        onClickTransfer(currentUser);
     }
+
+    public void onClickCharge(SimpleUser currentUser, TextView balance, RecyclerView recyclerView, SeekBar seekBar){
+        chargeAccount = (FloatingActionButton) findViewById(R.id.charge);
+        chargeAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showValueDialog(currentUser, balance, recyclerView, seekBar);
+            }
+        });
+    }
+
+    public void updateTransactions(SimpleUser currentUser, RecyclerView view, SeekBar seekBar){
+        mAdapter = new TransactionAdapter(currentUser.getAccount().getTransactions(), this);
+        view.setAdapter(mAdapter);
+        seekBar.setMax(currentUser.getAccount().getTransactions().size() - 1); // Set the maximum value of the SeekBar
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    recyclerView.scrollToPosition(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+    }
+
+    private void showValueDialog(SimpleUser currentUser, TextView balance, RecyclerView view, SeekBar seekBar) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("How much would you like to charge your account? ");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String userInput = input.getText().toString();
+                currentUser.getAccount().chargeAccount(MainActivity.getFariBank(), userInput, DashBoard.this);
+                balance.setText(Double.toString(currentUser.getAccount().getBalance()));
+                updateTransactions(currentUser, view, seekBar);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void onClickTransfer(SimpleUser currentUser){
+        transfer = (FloatingActionButton) findViewById(R.id.transfer);
+        transfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTransferWay(currentUser);
+            }
+        });
+    }
+
+    public void showTransferWay(SimpleUser currentUser){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("How would you like to transfer the money? ");
+        final Spinner ways = new Spinner(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.transfer_ways, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ways.setAdapter(adapter);
+        builder.setView(ways);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ways.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String selectedItem = parent.getItemAtPosition(position).toString();
+                        Intent intent = new Intent(DashBoard.this, Transfer.class);
+                        intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                        intent.putExtra("way", selectedItem);
+                        intent.putExtra("Info", " ");
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
 
     public void showBalance(SimpleUser currentUser) {
         show = (ImageButton) findViewById(R.id.showBalance);
