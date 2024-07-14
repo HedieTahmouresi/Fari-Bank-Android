@@ -14,6 +14,7 @@ public class NeoBank {
     private String creditCardStarter;
     private int baseFundID;
     private ManagerData managerData;
+    private int baseLoanID;
 
 
     public NeoBank(String creditCardStarter) {
@@ -24,7 +25,15 @@ public class NeoBank {
         setTracingNumber(random.nextInt(8999999) + 1000000);
         setBaseFundID(random.nextInt(999999999));
         setCreditCardStarter(creditCardStarter);
+        setBaseLoanID(random.nextInt(10000000));
+    }
 
+    public int getBaseLoanID() {
+        return baseLoanID;
+    }
+
+    public void setBaseLoanID(int baseLoanID) {
+        this.baseLoanID = baseLoanID;
     }
 
     public String getCreditCardStarter() {

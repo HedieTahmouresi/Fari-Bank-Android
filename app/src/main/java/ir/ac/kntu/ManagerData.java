@@ -18,6 +18,7 @@ public class ManagerData {
     private double cardWage;
     private int bridgePercentage;
     private double wireWage;
+    private double loanBenefits;
     private List<WireTransaction> wireTransactions;
 
 
@@ -78,8 +79,16 @@ public class ManagerData {
         setBridgePercentage(2);
         setWireWage(2000);
         setBonusPercentage(10);
+        setLoanBenefits(10);
     }
 
+    public double getLoanBenefits() {
+        return loanBenefits;
+    }
+
+    public void setLoanBenefits(double loanBenefits) {
+        this.loanBenefits = loanBenefits;
+    }
 
     public double getFariWage() {
         return fariWage;
@@ -114,28 +123,4 @@ public class ManagerData {
         return null;
     }
 
-/*
-
-
-    public void depositBonuses(NeoBank neoBank) {
-        if (this.bonusFunds.isEmpty()) {
-            System.out.println(ColorConsole.PURPLE + "No bonus fund!" + ColorConsole.RESET);
-            return;
-        }
-        boolean depositedOneFund = false;
-        for (BonusFund fund : this.bonusFunds) {
-            boolean flag = fund.depositBonus(neoBank);
-            if (flag) {
-                depositedOneFund = true;
-            }
-        }
-        if (depositedOneFund) {
-            System.out.println(ColorConsole.GREEN + "All bonuses were deposited");
-            return;
-        }
-        System.out.println(ColorConsole.PURPLE + "No available fund to deposit (the time hadn't come or they were expired!)" + ColorConsole.RESET);
-    }
-
-
- */
 }

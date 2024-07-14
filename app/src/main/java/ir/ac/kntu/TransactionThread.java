@@ -1,6 +1,7 @@
 package ir.ac.kntu;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -52,7 +53,7 @@ public class TransactionThread implements Runnable {
             Thread.sleep(time);
             this.getTransaction().completeTransaction(this.getCentralBank(), this.getNeoBank(), this.context);
         } catch (InterruptedException error) {
-            System.out.println(ColorConsole.RED + "Thread Error" + ColorConsole.RESET);
+            Toast.makeText(context, "Thread Error", Toast.LENGTH_SHORT).show();
         }
     }
 }

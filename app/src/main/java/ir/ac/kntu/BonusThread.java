@@ -48,7 +48,7 @@ public class BonusThread implements Runnable {
                 this.run();
             }
         } catch (InterruptedException error) {
-            System.out.println(ColorConsole.RED + "Thread Error" + ColorConsole.RESET);
+            System.out.println("Thread Error" );
         }
     }
 }

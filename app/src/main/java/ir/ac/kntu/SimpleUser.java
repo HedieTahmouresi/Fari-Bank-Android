@@ -22,6 +22,8 @@ public class SimpleUser extends UserPerson {
     private List<Request> requests;
     private List<Fund> funds;
     private boolean blocked;
+    private List<Loan> loans;
+    private int negativePoints;
 
     public List<Fund> getFunds() {
         return funds;

@@ -44,7 +44,7 @@ public class SimCard {
     }
 
     public void showCharge() {
-        System.out.println(ColorConsole.GREEN + "This is your charge : " + ColorConsole.YELLOW + this.getCharge() + ColorConsole.RESET);
+        System.out.println( "This is your charge : " + this.getCharge() );
     }
 
     @Override

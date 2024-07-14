@@ -33,7 +33,7 @@ public class Authenticate implements Runnable {
             Thread.sleep(60000);
             this.getUser().getAuthenticated().authenticateUser(this.getNeoBank(), this.getUser());
         } catch (InterruptedException error) {
-            System.out.println(ColorConsole.RED + "Thread Error" + ColorConsole.RESET);
+            System.out.println( "Thread Error" );
         }
     }
 }

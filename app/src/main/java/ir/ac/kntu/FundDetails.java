@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,14 +15,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FundDetails extends AppCompatActivity {
     private TextView id;
     private TextView balance;
+    private RecyclerView recyclerView;
+    private static RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private SeekBar seekBar;
     private FloatingActionButton delete;
     private FloatingActionButton transfer;
+
+    public static RecyclerView.Adapter getmAdapter() {
+        return mAdapter;
+    }
+
+    public static void setmAdapter(RecyclerView.Adapter mAdapter) {
+        FundDetails.mAdapter = mAdapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +48,7 @@ public class FundDetails extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
-        Fund currentFund = currentUser.findFund(getIntent().getStringExtra("fund ID"));
-        id = (TextView) findViewById(R.id.fundIDText);
-        balance = (TextView) findViewById(R.id.fundBalance);
-        id.setText(currentFund.getFundID());
-        balance.setText(Double.toString(currentFund.getBalance()));
-        onClickDelete(currentUser, currentFund);
-        onClickTransferTo(currentUser, currentFund);
-        onClickTransferFrom(currentUser, currentFund);
+
     }
 
     public boolean transferAbility(Fund fund){
@@ -78,7 +85,7 @@ public class FundDetails extends AppCompatActivity {
         return null;
     }
 
-    public void onClickTransferTo(SimpleUser currentUser, Fund currentFund){
+    public void onClickTransferTo(SimpleUser currentUser, Fund currentFund, RecyclerView.Adapter mAdapter){
         transfer = (FloatingActionButton) findViewById(R.id.transferToFund);
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +104,7 @@ public class FundDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String userInput = input.getText().toString();
                         currentFund.transferToFund( getKindString(currentFund),userInput , FundDetails.this, balance);
-                        balance.setText(Double.toString(currentFund.getBalance()));
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -112,7 +119,7 @@ public class FundDetails extends AppCompatActivity {
 
     }
 
-    public void onClickTransferFrom(SimpleUser currentUser, Fund currentFund){
+    public void onClickTransferFrom(SimpleUser currentUser, Fund currentFund, RecyclerView.Adapter mAdapter){
         transfer = (FloatingActionButton) findViewById(R.id.transferFromFund);
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +138,7 @@ public class FundDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String userInput = input.getText().toString();
                         currentFund.transferFromFund(getKindString(currentFund),userInput , FundDetails.this, balance);
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -142,6 +150,48 @@ public class FundDetails extends AppCompatActivity {
                 builder.show();
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialize();
+    }
+
+    private void initialize() {
+        SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
+        Fund currentFund = currentUser.findFund(getIntent().getStringExtra("fund ID"));
+        recyclerView = (RecyclerView) findViewById(R.id.transactionRecyclerView);
+        seekBar = findViewById(R.id.seekBarTransaction);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        setmAdapter(new TransactionAdapter(currentFund.getTransactions(), this));
+        recyclerView.setAdapter(getmAdapter());
+        id = (TextView) findViewById(R.id.fundIDText);
+        balance = (TextView) findViewById(R.id.fundBalance);
+        id.setText(currentFund.getFundID());
+        seekBar.setMax(currentFund.getTransactions().size() - 1); // Set the maximum value of the SeekBar
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    recyclerView.scrollToPosition(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        balance.setText(Double.toString(currentFund.getBalance()));
+        onClickDelete(currentUser, currentFund);
+        onClickTransferTo(currentUser, currentFund, getmAdapter());
+        onClickTransferFrom(currentUser, currentFund, getmAdapter());
 
     }
 }

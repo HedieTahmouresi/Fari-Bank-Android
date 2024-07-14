@@ -48,9 +48,7 @@ public class Helper {
     }
 
     public void initiateFari(NeoBank neoBank) {
-        //this.initiateManager(neoBank);
         this.initiateFariUsers(neoBank);
-        //this.initiateFariAdmins(neoBank);
     }
 
     public void initiateHediUsers(NeoBank neoBank) {
@@ -79,7 +77,5 @@ public class Helper {
         centralBank.addBank(toriBank);
         centralBank.addBank(hediBank);
         return id;
-        //neoBank.launchBank(centralBank);
-        //System.out.println(hediBank.getBankData().getUserByPhone("09122153905").getAccount().getBalance());
     }
 }

@@ -108,6 +108,7 @@ public class BonusFund extends Fund {
         neoBank.setTracingNumber(neoBank.getTracingNumber()+1);
         this.getOwner().getAccount().addTransaction(newTransaction);
         this.addTransaction(newTransaction);
+        FundDetails.getmAdapter().notifyDataSetChanged();
         return true;
     }
 }

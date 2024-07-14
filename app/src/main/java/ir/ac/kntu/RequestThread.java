@@ -41,7 +41,7 @@ public class RequestThread implements Runnable {
             Thread.sleep(120000);
             this.getRequest().closeRequest();
         } catch (InterruptedException error) {
-            System.out.println(ColorConsole.RED + "Thread Error" + ColorConsole.RESET);
+            System.out.println("Thread Error");
         }
     }
 }

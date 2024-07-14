@@ -101,4 +101,30 @@
         app:layout_constraintVertical_bias="0.927"
         app:srcCompat="@drawable/ic_action_transferfrom"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transactionRecyclerView"
+        android:layout_width="370dp"
+        android:layout_height="282dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.341"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fundBalance" />
+
+    <SeekBar
+        android:id="@+id/seekBarTransaction"
+        android:layout_width="300dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="8dp"
+        android:progressDrawable="@drawable/seek_bar"
+        android:rotation="90"
+        android:thumb="@drawable/thumb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.653" />
 </androidx.constraintlayout.widget.ConstraintLayout>

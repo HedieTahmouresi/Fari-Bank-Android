@@ -77,7 +77,6 @@ public class CentralBank {
                 Toast.makeText(context, user.getName(), Toast.LENGTH_SHORT).show();
             }
         }
-        return;
     }
 
     public SimpleUser getUserBySim(String phoneNumber) {
