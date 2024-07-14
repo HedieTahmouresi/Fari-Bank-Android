@@ -64,6 +64,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             return " ~Inside Transfer";
         } else if (transaction instanceof TransferTransaction) {
             return " ~Transfer";
+        } else if (transaction instanceof PaymentTransfer){
+            return " ~Loan Payment";
         }
         return " ~Wire Transfer";
     }

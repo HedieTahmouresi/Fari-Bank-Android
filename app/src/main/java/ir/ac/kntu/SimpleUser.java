@@ -225,42 +225,5 @@ public class SimpleUser extends UserPerson {
         Thread newThread = new Thread(thread);
         newThread.start();
     }
-/*
-    public void showFunds(NeoBank neoBank) {
-        if (this.funds == null || this.funds.isEmpty()) {
-            System.out.println(ColorConsole.RED + "There are no funds" + ColorConsole.RESET);
-            return;
-        }
-        Pagination<Fund> fundList = new Pagination<>(this.funds, 5);
-        String command;
-        do {
-            if (this.funds.isEmpty()) {
-                System.out.println(ColorConsole.RED + "There are no funds" + ColorConsole.RESET);
-                return;
-            }
-            fundList.showPage();
-            System.out.println(ColorConsole.BLUE + "Enter 'next' to go to the next page, 'previous' to go back or the number of the transaction you want" + ColorConsole.RESET);
-            command = input.nextLine();
-            if (!input.exitPoint(command)) {
-                return;
-            } else if (command.matches("[0-9]+")) {
-                this.selectFund(command, neoBank);
-            } else if ("next".equals(command) || "previous".equals(command)) {
-                fundList.changePage(command);
-            } else {
-                System.out.println(ColorConsole.RED + "No other option! Please try again!" + ColorConsole.RESET);
-            }
-        } while (!"return".equals(command));
-    }
 
-    public void selectFund(String answer, NeoBank neoBank) {
-        if (Integer.parseInt(answer) > 0 && Integer.parseInt(answer) <= this.funds.size()) {
-            int index = Integer.parseInt(answer) - 1;
-            this.funds.get(index).manageFund(neoBank);
-            return;
-        }
-        System.out.println(ColorConsole.RED + "Wrong input try again!" + ColorConsole.RESET);
-    }
-
-     */
 }
