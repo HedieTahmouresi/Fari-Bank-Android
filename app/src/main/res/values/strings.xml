@@ -36,9 +36,14 @@
     </string-array>
 
     <string-array name="fund_kinds">
-    <item>Savings Fund</item>
-    <item>Bonus Fund</item>
-    <item>Remains Fund</item>
+        <item>Savings Fund</item>
+        <item>Bonus Fund</item>
+        <item>Remains Fund</item>
+    </string-array>
+
+    <string-array name="loan_services">
+        <item>Loan Request</item>
+        <item>Loan Management and Payment</item>
     </string-array>
 
     <string name="lorem_ipsum">

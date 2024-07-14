@@ -23,7 +23,32 @@ public class SimpleUser extends UserPerson {
     private List<Fund> funds;
     private boolean blocked;
     private List<Loan> loans;
+    private List<LoanRequest> loanRequests;
     private int negativePoints;
+
+    public List<Loan> getLoans() {
+        return loans;
+    }
+
+    public void addLoanRequest(LoanRequest loanRequest){
+        this.loanRequests.add(loanRequest);
+    }
+
+    public List<LoanRequest> getLoanRequests() {
+        return loanRequests;
+    }
+
+    public void addLoan(Loan loan){
+        this.loans.add(loan);
+    }
+
+    public int getNegativePoints() {
+        return negativePoints;
+    }
+
+    public void setNegativePoints(int negativePoints) {
+        this.negativePoints = negativePoints;
+    }
 
     public List<Fund> getFunds() {
         return funds;
@@ -96,6 +121,9 @@ public class SimpleUser extends UserPerson {
         this.funds = new ArrayList<>();
         setHasRemainsFund(false);
         setBlocked(false);
+        setNegativePoints(0);
+        this.loanRequests = new ArrayList<>();
+        this.loans = new ArrayList<>();
     }
 
     public boolean contactExistence(Contact currentContact) {

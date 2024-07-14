@@ -12,6 +12,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import java.time.Instant;
 
+import ir.ac.kntu.util.Calendar;
+
 public class Payment {
     private int id;
     private double amount;
@@ -86,7 +88,7 @@ public class Payment {
         AlertDialog warning = builder.create();
         warning.setTitle("Loan Payment");
         warning.show();
-        if (this.hasBeenPayed()){
+        if (this.hasBeenPayed() && Calendar.now().isAfter(this.getDueDate())){
             return this.getLoan().getPayments().get(this.getId() + 1);
         }
         return this;

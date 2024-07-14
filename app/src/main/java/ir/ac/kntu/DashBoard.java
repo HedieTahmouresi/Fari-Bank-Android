@@ -38,6 +38,7 @@ public class DashBoard extends AppCompatActivity {
     private FloatingActionButton chargeAccount;
     private FloatingActionButton transfer;
     private ImageButton funds;
+    private ImageButton loans;
 
     public static RecyclerView.Adapter getmAdapter() {
         return mAdapter;
@@ -98,6 +99,7 @@ public class DashBoard extends AppCompatActivity {
         onClickCharge(currentUser, balance, recyclerView, seekBar);
         onClickTransfer(currentUser, id);
         onClickFunds(currentUser);
+        onClickLoans(currentUser);
     }
 
     public void onClickFunds(SimpleUser currentUser){
@@ -110,6 +112,47 @@ public class DashBoard extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void onClickLoans(SimpleUser currentUser){
+        loans = (ImageButton) findViewById(R.id.loans);
+        loans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLoanServices(currentUser);
+            }
+        });
+    }
+
+    public void showLoanServices(SimpleUser currentUser){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Loan Services :");
+        Spinner services = new Spinner(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.loan_services, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        services.setAdapter(adapter);
+        builder.setView(services);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selected = (String) services.getSelectedItem();
+                switch(selected){
+                    case "Loan Request"-> System.out.println("hello");
+                    case "Loan Management and Payment"-> System.out.println("hell");
+                    default -> {
+                        return;
+                    }
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog warning = builder.create();
+        warning.show();
     }
 
     public void onClickCharge(SimpleUser currentUser, TextView balance, RecyclerView recyclerView, SeekBar seekBar) {
@@ -146,7 +189,7 @@ public class DashBoard extends AppCompatActivity {
 
     private void showValueDialog(SimpleUser currentUser, TextView balance, RecyclerView view, SeekBar seekBar) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("How much would you like to charge your account? ");
+        builder.setTitle("Transfer");
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -166,7 +209,7 @@ public class DashBoard extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-
+        builder.setMessage("How much would you like to charge your account? ");
         builder.show();
     }
 

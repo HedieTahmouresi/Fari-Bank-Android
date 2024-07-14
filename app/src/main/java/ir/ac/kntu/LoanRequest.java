@@ -1,18 +1,26 @@
 package ir.ac.kntu;
 
+import androidx.annotation.NonNull;
+
 public class LoanRequest {
     private double amount;
     private int numOfMonths;
     private SimpleUser owner;
     private LoanStatus status;
+    private String reason;
 
+    @NonNull
     @Override
     public String toString() {
-        return "LoanRequest{" +
-                "status= " + status +
-                ", numOfMonths= " + numOfMonths +
-                ", amount= " + amount +
-                '}';
+        return "  *Status : " + status + ", Num Of Months : " + numOfMonths + ", Amount : " + amount ;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public double getAmount() {
@@ -51,5 +59,10 @@ public class LoanRequest {
         this.amount = amount;
         this.numOfMonths = numOfMonths;
         this.owner = owner;
+        this.reason = "Pending...";
+        LoanRequestThread loanRequestThread = new LoanRequestThread(this);
+        Thread thread = new Thread(loanRequestThread);
+        thread.start();
     }
+
 }

@@ -127,7 +127,7 @@
         android:layout_height="59dp"
         android:backgroundTint="#F9D3FF"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toStartOf="@+id/services"
+        app:layout_constraintEnd_toStartOf="@+id/loans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView3"
         app:layout_constraintVertical_bias="0.333"
@@ -136,7 +136,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
-        android:id="@+id/services"
+        android:id="@+id/loans"
         android:layout_width="78dp"
         android:layout_height="59dp"
         android:backgroundTint="#F9D3FF"
@@ -146,7 +146,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView3"
         app:layout_constraintVertical_bias="0.384"
-        app:srcCompat="@drawable/ic_action_services"
+        app:srcCompat="@drawable/ic_action_loan"
         app:tint="#614495"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -158,7 +158,7 @@
         android:backgroundTint="#F9D3FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/services"
+        app:layout_constraintStart_toEndOf="@+id/loans"
         app:srcCompat="@drawable/ic_action_home"
         app:tint="#614495"
         tools:ignore="SpeakableTextPresentCheck" />

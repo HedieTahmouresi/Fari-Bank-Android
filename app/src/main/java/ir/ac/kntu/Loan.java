@@ -87,13 +87,7 @@ public class Loan {
         this.id = loanID;
         this.owner = owner;
         this.creation = Calendar.now();
-        this.payments = new ArrayList<>();
-    }
-
-    public Loan createLoan(double amount, int numOfMonths, SimpleUser owner){
-        Loan newLoan = new Loan(amount, numOfMonths, owner);
-        newLoan.setPayments(createPayments(amount, numOfMonths, newLoan));
-        return newLoan;
+        this.payments = createPayments(amount, numOfMonths, this);
     }
 
     public List<Payment> createPayments(double loanAmount, int numOfMonths, Loan loan){
@@ -107,8 +101,16 @@ public class Loan {
             due = due.plusMonths(1);
             Instant dueDate = due.toInstant();
             Payment newPayment = new Payment(i, paymentAmount, dueDate, loan);
+            PaymentThread paymentThread = new PaymentThread(newPayment);
+            Thread thread = new Thread(paymentThread);
+            thread.start();
             paymentsList.add(newPayment);
         }
         return paymentsList;
+    }
+
+    @Override
+    public String toString() {
+        return "Amount : " + amount + ", Num OfMonths : " + numOfMonths;
     }
 }
