@@ -6,10 +6,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import org.w3c.dom.Text;
+
+import java.time.Duration;
 import java.time.Instant;
 
 import ir.ac.kntu.util.Calendar;
@@ -69,7 +74,11 @@ public class Payment {
         this.loan = loan;
     }
 
-    public Payment pay(Context context){
+    public void pay(Context context, TextView textView){
+        if (this.hasBeenPayed()){
+            Toast.makeText(context, "This has already been payed", Toast.LENGTH_SHORT).show();
+            return;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirmation!");
         builder.setMessage("Are you sure?\n The Payment Amount : " + this.getAmount());
@@ -77,6 +86,7 @@ public class Payment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 completePayment(context);
+
             }
         });
         builder.setNegativeButton("Noo!", new DialogInterface.OnClickListener() {
@@ -88,10 +98,12 @@ public class Payment {
         AlertDialog warning = builder.create();
         warning.setTitle("Loan Payment");
         warning.show();
-        if (this.hasBeenPayed() && Calendar.now().isAfter(this.getDueDate())){
-            return this.getLoan().getPayments().get(this.getId() + 1);
+        if (this.getId()==this.getLoan().getPayments().size() && this.hasBeenPayed()){
+            LoanDetails.getFullPay().setText("This Loan has been fully paid");
+            this.getLoan().setBeenFullyPaid(true);
+        }else if (this.hasBeenPayed() && Calendar.now().isAfter(this.getDueDate())){
+            this.getLoan().setCurrentPayment(this.getLoan().getPayments().get(this.getId()));
         }
-        return this;
     }
 
     public void completePayment(Context context){
@@ -101,13 +113,27 @@ public class Payment {
             return;
         }
         this.getLoan().getOwner().getAccount().setBalance(this.getLoan().getOwner().getAccount().getBalance()-this.getAmount()-remains);
-        Transaction newTransaction = new PaymentTransfer(this.getLoan().getOwner().getAccount().getBalance()-this.getAmount()-remains, MainActivity.getFariBank().getTracingNumber(), "-");
+        Transaction newTransaction = new PaymentTransfer(this.getAmount() + remains, MainActivity.getFariBank().getTracingNumber(), "-");
         this.getLoan().getOwner().getAccount().addTransaction(newTransaction);
         if (this.getLoan().getOwner().isHasRemainsFund()) {
             this.getLoan().getOwner().getRemainsFund().saveRemains(remains, MainActivity.getFariBank());
         }
         this.setBeenPayed(true);
-        return;
+        Instant now = Calendar.now();
+        Duration duration = Duration.between(this.getDueDate(), now);
+        long numOfDays = duration.toDays();
+        if (numOfDays>=0 && this.getId()<this.getLoan().getPayments().size()){
+            this.getLoan().setCurrentPayment(this.getLoan().getPayments().get(this.getId()));
+        } else if (numOfDays<0){
+            this.getLoan().setCurrentPayment(this);
+        } else{
+            this.getLoan().setCurrentPayment(this);
+            this.getLoan().setBeenFullyPaid(true);
+        }
+        final String newText = "Updated Text";
+        Message msg = LoanDetails.getHandler().obtainMessage();
+        msg.obj = newText;
+        LoanDetails.getHandler().sendMessage(msg);
     }
 
 }

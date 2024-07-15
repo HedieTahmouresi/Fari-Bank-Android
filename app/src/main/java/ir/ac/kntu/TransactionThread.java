@@ -1,6 +1,7 @@
 package ir.ac.kntu;
 
 import android.content.Context;
+import android.os.Message;
 import android.widget.Toast;
 
 import java.time.Duration;
@@ -45,15 +46,19 @@ public class TransactionThread implements Runnable {
 
     @Override
     public void run() {
-        Duration oneDay = Duration.ofDays(3);
+        Duration oneDay = Duration.ofDays(2);
         Instant endTime = this.getTransaction().getDateAndTime().plus(oneDay);
         Duration duration = Duration.between(this.getTransaction().getDateAndTime(), endTime);
         long time = duration.toMillis() / 6000;
         try {
             Thread.sleep(time);
-            this.getTransaction().completeTransaction(this.getCentralBank(), this.getNeoBank(), this.context);
+            this.getTransaction().completeTransaction(this.getCentralBank(), this.getNeoBank());
+            final String newText = "Updated Text";
+            Message msg = DashBoard.getHandler().obtainMessage();
+            msg.obj = newText;
+            DashBoard.getHandler().sendMessage(msg);
         } catch (InterruptedException error) {
-            Toast.makeText(context, "Thread Error", Toast.LENGTH_SHORT).show();
+            System.out.println("error");
         }
     }
 }

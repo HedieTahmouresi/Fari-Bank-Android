@@ -30,6 +30,15 @@ public class SimpleUser extends UserPerson {
         return loans;
     }
 
+    public Loan findLoan(String id){
+        for (Loan loan : this.loans){
+            if (id.equals(loan.getId())){
+                return loan;
+            }
+        }
+        return null;
+    }
+
     public void addLoanRequest(LoanRequest loanRequest){
         this.loanRequests.add(loanRequest);
     }

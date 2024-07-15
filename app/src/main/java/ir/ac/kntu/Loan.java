@@ -18,6 +18,24 @@ public class Loan {
     private SimpleUser owner;
     private Instant creation;
     private List<Payment> payments;
+    private Payment currentPayment;
+    private boolean beenFullyPaid;
+
+    public boolean hasBeenFullyPaid() {
+        return beenFullyPaid;
+    }
+
+    public void setBeenFullyPaid(boolean beenFullyPaid) {
+        this.beenFullyPaid = beenFullyPaid;
+    }
+
+    public Payment getCurrentPayment() {
+        return currentPayment;
+    }
+
+    public void setCurrentPayment(Payment currentPayment) {
+        this.currentPayment = currentPayment;
+    }
 
     public String getId() {
         return id;
@@ -88,6 +106,8 @@ public class Loan {
         this.owner = owner;
         this.creation = Calendar.now();
         this.payments = createPayments(amount, numOfMonths, this);
+        this.beenFullyPaid = false;
+        this.currentPayment = this.payments.get(0);
     }
 
     public List<Payment> createPayments(double loanAmount, int numOfMonths, Loan loan){
@@ -111,6 +131,6 @@ public class Loan {
 
     @Override
     public String toString() {
-        return "Amount : " + amount + ", Num OfMonths : " + numOfMonths;
+        return "  ~Amount : " + amount + ", Num OfMonths : " + numOfMonths;
     }
 }

@@ -103,8 +103,12 @@ public class FundDetails extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String userInput = input.getText().toString();
-                        currentFund.transferToFund( getKindString(currentFund),userInput , FundDetails.this, balance);
-                        mAdapter.notifyDataSetChanged();
+                        if (userInput.isEmpty()){
+                            Toast.makeText(FundDetails.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
+                        }else {
+                            currentFund.transferToFund(getKindString(currentFund), userInput, FundDetails.this, balance);
+                            mAdapter.notifyDataSetChanged();
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -137,8 +141,12 @@ public class FundDetails extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String userInput = input.getText().toString();
-                        currentFund.transferFromFund(getKindString(currentFund),userInput , FundDetails.this, balance);
-                        mAdapter.notifyDataSetChanged();
+                        if (!userInput.isEmpty()) {
+                            currentFund.transferFromFund(getKindString(currentFund), userInput, FundDetails.this, balance);
+                            mAdapter.notifyDataSetChanged();
+                        } else{
+                            Toast.makeText(FundDetails.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

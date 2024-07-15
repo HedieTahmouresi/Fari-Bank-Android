@@ -13,7 +13,6 @@ public class Helper {
         aylin.getAuthenticated().authenticateUser(neoBank, aylin);
         neoBank.getBankData().addUser(aylin);
         aylin.setContactOption(false);
-
         SimpleUser sepehr = new SimpleUser("Sepehr", "Ghardashi", new SimCard("09111262338", false), "0105213054", "H@tah1384", new Authentication("09111262338"));
         neoBank.getBankData().addUser(sepehr);
         sepehr.getAuthenticated().authenticateUser(neoBank, sepehr);

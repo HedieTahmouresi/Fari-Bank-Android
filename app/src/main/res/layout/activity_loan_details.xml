@@ -87,6 +87,37 @@
         app:layout_constraintVertical_bias="0.043" />
 
     <TextView
+        android:id="@+id/paymentsLeft"
+        android:layout_width="235dp"
+        android:layout_height="43dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="TextView"
+        android:textColor="#D4A0DC"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toEndOf="@+id/TextView35"
+        app:layout_constraintTop_toBottomOf="@+id/loanAmount"
+        app:layout_constraintVertical_bias="0.052" />
+
+    <TextView
+        android:id="@+id/TextView35"
+        android:layout_width="124dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Payments left : "
+        android:textColor="#D4A0DC"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextView25"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <TextView
         android:id="@+id/textView26"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -99,11 +130,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loanAmount"
-        app:layout_constraintVertical_bias="0.16" />
+        app:layout_constraintTop_toBottomOf="@+id/paymentsLeft"
+        app:layout_constraintVertical_bias="0.122" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/payLoan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#C89CD0"
@@ -215,7 +246,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Delay num : "
+        android:text="been delayed :"
         android:textColor="#D4A0DC"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -239,5 +270,21 @@
         app:layout_constraintStart_toEndOf="@+id/textView30"
         app:layout_constraintTop_toBottomOf="@+id/textView29"
         app:layout_constraintVertical_bias="0.081" />
+
+    <TextView
+        android:id="@+id/fullPayment"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="37dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#CA88D5"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymentDelays"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

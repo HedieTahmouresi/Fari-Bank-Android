@@ -22,7 +22,7 @@ public class WireTransaction extends TransferTransaction {
         setHasBeenDone(false);
     }
 
-    public void completeTransaction(CentralBank centralBank, NeoBank neoBank, Context context) {
+    public void completeTransaction(CentralBank centralBank, NeoBank neoBank) {
         if (this.isHasBeenDone()) {
             return;
         }
@@ -39,7 +39,6 @@ public class WireTransaction extends TransferTransaction {
             this.getSender().getRemainsFund().saveRemains(remains, neoBank);
         }
         setHasBeenDone(true);
-        Toast.makeText(context, "Transaction done", Toast.LENGTH_SHORT).show();
     }
 
 }

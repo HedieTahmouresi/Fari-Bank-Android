@@ -3,6 +3,9 @@ package ir.ac.kntu;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -24,6 +28,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.lang.ref.WeakReference;
 
 public class DashBoard extends AppCompatActivity {
     private TextView fullName;
@@ -39,6 +45,15 @@ public class DashBoard extends AppCompatActivity {
     private FloatingActionButton transfer;
     private ImageButton funds;
     private ImageButton loans;
+    private static DashboardHandler handler;
+
+    public static DashboardHandler getHandler() {
+        return handler;
+    }
+
+    public static void setHandler(DashboardHandler handler) {
+        DashBoard.handler = handler;
+    }
 
     public static RecyclerView.Adapter getmAdapter() {
         return mAdapter;
@@ -58,6 +73,9 @@ public class DashBoard extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setHandler(new DashboardHandler(this));
+        SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
+        showBalance(currentUser);
         initialize();
     }
 
@@ -94,7 +112,6 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-        showBalance(currentUser);
         onClickProfile(currentUser);
         onClickCharge(currentUser, balance, recyclerView, seekBar);
         onClickTransfer(currentUser, id);
@@ -137,8 +154,16 @@ public class DashBoard extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String selected = (String) services.getSelectedItem();
                 switch(selected){
-                    case "Loan Request"-> System.out.println("hello");
-                    case "Loan Management and Payment"-> System.out.println("hell");
+                    case "Loan Request"-> {
+                        Intent intent = new Intent(DashBoard.this, LoanRequestPage.class);
+                        intent.putExtra("Phone number", currentUser.getSimCard().getPhoneNumber());
+                        startActivity(intent);
+                    }
+                    case "Loan Management and Payment"-> {
+                        Intent intent = new Intent(DashBoard.this, LoansPage.class);
+                        intent.putExtra("Phone number", currentUser.getSimCard().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     default -> {
                         return;
                     }
@@ -286,5 +311,22 @@ public class DashBoard extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initialize();
+    }
+
+    public static class DashboardHandler extends Handler {
+        private final WeakReference<DashBoard> activityReference;
+
+        public DashboardHandler(DashBoard activity) {
+            super(Looper.getMainLooper());
+            activityReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            DashBoard activity = activityReference.get();
+            if (activity != null) {
+                activity.initialize();
+            }
+        }
     }
 }

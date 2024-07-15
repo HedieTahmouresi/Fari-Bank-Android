@@ -116,7 +116,7 @@ public class Fund {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 double remains = currentFund.getOwner().isHasRemainsFund() ? currentFund.getOwner().getRemainsFund().calculateRemains(value) : 0;
-                if (currentFund.getOwner().getAccount().getBalance() >= Double.parseDouble(value) + remains) {
+                if (currentFund.getBalance() >= Double.parseDouble(value) + remains) {
                     currentFund.setBalance(currentFund.getBalance() - Double.parseDouble(value) - remains);
                     currentFund.getOwner().getAccount().setBalance(currentFund.getOwner().getAccount().getBalance() + Double.parseDouble(value));
                     currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), fundType, "Account", currentFund.getFundID()));

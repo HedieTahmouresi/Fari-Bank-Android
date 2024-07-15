@@ -59,7 +59,8 @@ public class LoanRequest {
         this.amount = amount;
         this.numOfMonths = numOfMonths;
         this.owner = owner;
-        this.reason = "Pending...";
+        this.reason = "Checking your background...";
+        this.status = LoanStatus.PENDING;
         LoanRequestThread loanRequestThread = new LoanRequestThread(this);
         Thread thread = new Thread(loanRequestThread);
         thread.start();
