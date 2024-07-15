@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class FundAdapter extends RecyclerView.Adapter<FundAdapter.FundViewHolder>{
+public class FundAdapter extends RecyclerView.Adapter<FundAdapter.FundViewHolder> {
 
     private List<Fund> funds;
     private Context context;
@@ -74,12 +74,12 @@ public class FundAdapter extends RecyclerView.Adapter<FundAdapter.FundViewHolder
         });
     }
 
-    public String getKindString(Fund fund){
-        if (fund instanceof SavingsFund savingsFund){
+    public String getKindString(Fund fund) {
+        if (fund instanceof SavingsFund savingsFund) {
             return "Savings Fund";
-        }else if (fund instanceof BonusFund bonusFund){
+        } else if (fund instanceof BonusFund bonusFund) {
             return "Bonus Fund";
-        }else if (fund instanceof RemainsFund remainsFund){
+        } else if (fund instanceof RemainsFund remainsFund) {
             return "Remains Fund";
         }
         return null;

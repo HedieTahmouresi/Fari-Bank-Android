@@ -73,7 +73,7 @@ public class Transfer extends AppCompatActivity {
         options = (Spinner) findViewById(R.id.spinnerContacts);
         ContactSpinnerAdapter adapter = new ContactSpinnerAdapter(Transfer.this, currentUser.getContacts());
         options.setAdapter(adapter);
-        if (!" ".equals(info)){
+        if (!" ".equals(info)) {
             Contact contact = currentUser.findContact(info);
             int index = Arrays.asList(currentUser.getContacts()).indexOf(contact);
             options.setSelection(index);

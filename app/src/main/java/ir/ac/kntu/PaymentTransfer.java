@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-public class PaymentTransfer extends Transaction{
+public class PaymentTransfer extends Transaction {
     public PaymentTransfer(double value, int tracingNumber, String sign) {
         super(value, tracingNumber, sign);
     }

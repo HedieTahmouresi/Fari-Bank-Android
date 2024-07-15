@@ -110,14 +110,14 @@ public class Loan {
         this.currentPayment = this.payments.get(0);
     }
 
-    public List<Payment> createPayments(double loanAmount, int numOfMonths, Loan loan){
+    public List<Payment> createPayments(double loanAmount, int numOfMonths, Loan loan) {
         double benefit = MainActivity.getFariBank().getManagerData().getLoanBenefits();
-        double returnValue = (loanAmount * (100 + benefit))/100;
-        double paymentAmount = returnValue/numOfMonths;
+        double returnValue = (loanAmount * (100 + benefit)) / 100;
+        double paymentAmount = returnValue / numOfMonths;
         ZonedDateTime firstDay = this.getCreation().atZone(ZoneId.systemDefault());
         ZonedDateTime due = firstDay;
         List<Payment> paymentsList = new ArrayList<>();
-        for (int i = 1 ; i <= numOfMonths ; i++){
+        for (int i = 1; i <= numOfMonths; i++) {
             due = due.plusMonths(1);
             Instant dueDate = due.toInstant();
             Payment newPayment = new Payment(i, paymentAmount, dueDate, loan);

@@ -70,8 +70,8 @@ public class BonusFund extends Fund {
         }
         Toast.makeText(context, "The expiration is due!", Toast.LENGTH_SHORT).show();
         this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + this.getBalance());
-        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(),neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
-        neoBank.setTracingNumber(neoBank.getTracingNumber()+1);
+        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
+        neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
         this.getOwner().getAccount().addTransaction(newTransaction);
         double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(Double.toString(this.getBalance())) : 0;
         if (this.getOwner().isHasRemainsFund()) {
@@ -88,24 +88,24 @@ public class BonusFund extends Fund {
         this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + bonus);
     }
 
-    public boolean depositBonus(NeoBank neoBank){
+    public boolean depositBonus(NeoBank neoBank) {
         Instant now = Calendar.now();
         Duration oneDay = Duration.ofDays(1);
         Instant endTime = this.getExpiration().plus(oneDay);
-        if (now.isAfter(endTime)){
+        if (now.isAfter(endTime)) {
             return false;
         }
         ZonedDateTime zonedDateTime = this.getLastDeposit().atZone(ZoneId.systemDefault());
         ZonedDateTime futureDateTime = zonedDateTime.plusMonths(1);
         Instant nextDeposit = futureDateTime.toInstant();
-        if (now.isBefore(nextDeposit) ){
+        if (now.isBefore(nextDeposit)) {
             return false;
         }
         this.transferBonus(neoBank);
         double bonus = (this.getBalance() * neoBank.getManagerData().getBonusPercentage()) / 100;
         setLastDeposit(nextDeposit);
         Transaction newTransaction = new TransferInsideTransaction(bonus, neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
-        neoBank.setTracingNumber(neoBank.getTracingNumber()+1);
+        neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
         this.getOwner().getAccount().addTransaction(newTransaction);
         this.addTransaction(newTransaction);
         FundDetails.getmAdapter().notifyDataSetChanged();

@@ -54,7 +54,7 @@ public class LoanRequestPage extends AppCompatActivity {
         initialize();
     }
 
-    public void initialize(){
+    public void initialize() {
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone number"));
         recyclerView = (RecyclerView) findViewById(R.id.loanRequestRecyclerReview);
         layoutManager = new LinearLayoutManager(this);
@@ -92,7 +92,7 @@ public class LoanRequestPage extends AppCompatActivity {
         });
     }
 
-    public void showAlert(SimpleUser currentUser){
+    public void showAlert(SimpleUser currentUser) {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.alert_loan_request, null);
         EditText amount = dialogView.findViewById(R.id.editText1);
@@ -104,9 +104,9 @@ public class LoanRequestPage extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if (amount.getText().toString().isEmpty() || numOfMonths.getText().toString().isEmpty()){
+                        if (amount.getText().toString().isEmpty() || numOfMonths.getText().toString().isEmpty()) {
                             Toast.makeText(LoanRequestPage.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
-                        } else{
+                        } else {
                             LoanRequest newLoanRequest = new LoanRequest(Double.parseDouble(amount.getText().toString()), Integer.parseInt(numOfMonths.getText().toString()), currentUser);
                             currentUser.addLoanRequest(newLoanRequest);
                             mAdapter.notifyDataSetChanged();

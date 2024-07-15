@@ -51,14 +51,14 @@ public class FundDetails extends AppCompatActivity {
 
     }
 
-    public boolean transferAbility(Fund fund){
-        if (fund instanceof BonusFund bonusFund){
+    public boolean transferAbility(Fund fund) {
+        if (fund instanceof BonusFund bonusFund) {
             return false;
         }
         return true;
     }
 
-    public void onClickDelete(SimpleUser currentUser, Fund currentFund){
+    public void onClickDelete(SimpleUser currentUser, Fund currentFund) {
         delete = (FloatingActionButton) findViewById(R.id.deleteFund);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,23 +74,23 @@ public class FundDetails extends AppCompatActivity {
         });
     }
 
-    public String getKindString(Fund fund){
-        if (fund instanceof SavingsFund savingsFund){
+    public String getKindString(Fund fund) {
+        if (fund instanceof SavingsFund savingsFund) {
             return "Savings Fund";
-        }else if (fund instanceof BonusFund bonusFund){
+        } else if (fund instanceof BonusFund bonusFund) {
             return "Bonus Fund";
-        }else if (fund instanceof RemainsFund remainsFund){
+        } else if (fund instanceof RemainsFund remainsFund) {
             return "Remains Fund";
         }
         return null;
     }
 
-    public void onClickTransferTo(SimpleUser currentUser, Fund currentFund, RecyclerView.Adapter mAdapter){
+    public void onClickTransferTo(SimpleUser currentUser, Fund currentFund, RecyclerView.Adapter mAdapter) {
         transfer = (FloatingActionButton) findViewById(R.id.transferToFund);
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!transferAbility(currentFund)){
+                if (!transferAbility(currentFund)) {
                     Toast.makeText(FundDetails.this, "you can't transfer money from or to this fund", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -103,9 +103,9 @@ public class FundDetails extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String userInput = input.getText().toString();
-                        if (userInput.isEmpty()){
+                        if (userInput.isEmpty()) {
                             Toast.makeText(FundDetails.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             currentFund.transferToFund(getKindString(currentFund), userInput, FundDetails.this, balance);
                             mAdapter.notifyDataSetChanged();
                         }
@@ -123,12 +123,12 @@ public class FundDetails extends AppCompatActivity {
 
     }
 
-    public void onClickTransferFrom(SimpleUser currentUser, Fund currentFund, RecyclerView.Adapter mAdapter){
+    public void onClickTransferFrom(SimpleUser currentUser, Fund currentFund, RecyclerView.Adapter mAdapter) {
         transfer = (FloatingActionButton) findViewById(R.id.transferFromFund);
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!transferAbility(currentFund)){
+                if (!transferAbility(currentFund)) {
                     Toast.makeText(FundDetails.this, "you can't transfer money from or to this fund", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -144,7 +144,7 @@ public class FundDetails extends AppCompatActivity {
                         if (!userInput.isEmpty()) {
                             currentFund.transferFromFund(getKindString(currentFund), userInput, FundDetails.this, balance);
                             mAdapter.notifyDataSetChanged();
-                        } else{
+                        } else {
                             Toast.makeText(FundDetails.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
                         }
                     }

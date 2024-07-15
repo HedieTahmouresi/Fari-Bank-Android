@@ -68,11 +68,11 @@ public class LoanDetails extends AppCompatActivity {
         initialize();
     }
 
-    public void initialize(){
+    public void initialize() {
         setFullPay(findViewById(R.id.fullPayment));
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         Loan currentLoan = currentUser.findLoan(getIntent().getStringExtra("loan ID"));
-        if (currentLoan.hasBeenFullyPaid()){
+        if (currentLoan.hasBeenFullyPaid()) {
             getFullPay().setText("This Loan has been fully paid!");
         }
         id = (TextView) findViewById(R.id.loanID);
@@ -83,7 +83,7 @@ public class LoanDetails extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    public void initializePayment(SimpleUser currentUser, Loan currentLoan){
+    public void initializePayment(SimpleUser currentUser, Loan currentLoan) {
         Payment currentPayment = currentLoan.getCurrentPayment();
         ZonedDateTime zonedDateTime = currentPayment.getDueDate().atZone(ZoneId.systemDefault());
         LocalDate datePart = zonedDateTime.toLocalDate();
@@ -93,28 +93,28 @@ public class LoanDetails extends AppCompatActivity {
         paymentDue = (TextView) findViewById(R.id.paymentDue);
         paymentDue.setText(datePart.toString());
         beenPayed = (TextView) findViewById(R.id.hasBeenPayed);
-        if (currentPayment.hasBeenPayed()){
+        if (currentPayment.hasBeenPayed()) {
             beenPayed.setText("True");
-        } else{
+        } else {
             beenPayed.setText("False");
         }
         paymentsLeft = (TextView) findViewById(R.id.paymentsLeft);
-        String left = Integer.toString(currentLoan.getNumOfMonths()-currentPayment.getId());
+        String left = Integer.toString(currentLoan.getNumOfMonths() - currentPayment.getId());
         paymentsLeft.setText(left);
         delays = (TextView) findViewById(R.id.paymentDelays);
         Instant now = Calendar.now();
         Duration duration = Duration.between(currentPayment.getDueDate(), now);
         long numOfDays = duration.toDays();
-        if (numOfDays>0){
+        if (numOfDays > 0) {
             delays.setText("True");
-        }else{
+        } else {
             delays.setText("False");
         }
         onClickPay(currentUser, currentLoan, beenPayed);
     }
 
 
-    public void onClickPay(SimpleUser currentUser, Loan currentLoan, TextView textView){
+    public void onClickPay(SimpleUser currentUser, Loan currentLoan, TextView textView) {
         pay = (Button) findViewById(R.id.payLoan);
         pay.setOnClickListener(new View.OnClickListener() {
             @Override

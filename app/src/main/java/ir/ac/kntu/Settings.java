@@ -53,7 +53,7 @@ public class Settings extends AppCompatActivity {
         creditPass = (Switch) findViewById(R.id.creditPassSwitch);
         creditPass.setChecked(currentUser.getAccount().getCreditCard().hasSetPassword());
         changingCreditPass = (LinearLayout) findViewById(R.id.creditCardPasswordChange);
-        if (creditPass.isChecked()){
+        if (creditPass.isChecked()) {
             changingCreditPass.setVisibility(View.VISIBLE);
 
         }
@@ -64,7 +64,7 @@ public class Settings extends AppCompatActivity {
         onClickChangePass(currentUser, changingCreditPass);
     }
 
-    public void onClickArrowAbout(SimpleUser currentUser){
+    public void onClickArrowAbout(SimpleUser currentUser) {
         showInfo = (ImageView) findViewById(R.id.arrowAbout);
         showInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +78,7 @@ public class Settings extends AppCompatActivity {
 
     }
 
-    public void onClickContactOption(SimpleUser currentUser, Switch contactOption){
+    public void onClickContactOption(SimpleUser currentUser, Switch contactOption) {
         contactOption.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -91,11 +91,11 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    public void onClickCreditSwitch(SimpleUser currentUser, Switch creditCard, LinearLayout changeLayout){
+    public void onClickCreditSwitch(SimpleUser currentUser, Switch creditCard, LinearLayout changeLayout) {
         creditCard.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     settingCreditPass = (LinearLayout) findViewById(R.id.settingCreditPassLayout);
                     settingCreditPass.setVisibility(View.VISIBLE);
                     setPassword(currentUser, settingCreditPass, changeLayout);
@@ -107,7 +107,7 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    public void onClickChangePass(SimpleUser currentUser, LinearLayout changingCreditPass){
+    public void onClickChangePass(SimpleUser currentUser, LinearLayout changingCreditPass) {
         changeCreditPassText = (TextView) findViewById(R.id.changePassCreditButton);
         changeCreditPassText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,14 +125,14 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    public void changeCreditPass(SimpleUser currentUser, LinearLayout layout){
+    public void changeCreditPass(SimpleUser currentUser, LinearLayout layout) {
         newPassUser = (EditText) findViewById(R.id.newPassCredit);
         oldPassUser = (EditText) findViewById(R.id.oldPassCredit);
-        if (oldPassUser.getText().toString().isEmpty() || newPassUser.getText().toString().isEmpty()){
-            Toast.makeText(Settings.this, "You can't have an empty field",Toast.LENGTH_SHORT).show();
-        }else if (!(oldPassUser.getText().toString()).equals(Integer.toString(currentUser.getAccount().getCreditCard().getPassword()))){
+        if (oldPassUser.getText().toString().isEmpty() || newPassUser.getText().toString().isEmpty()) {
+            Toast.makeText(Settings.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
+        } else if (!(oldPassUser.getText().toString()).equals(Integer.toString(currentUser.getAccount().getCreditCard().getPassword()))) {
             Toast.makeText(Settings.this, "Please enter your old password correctly", Toast.LENGTH_SHORT).show();
-        } else if (newPassUser.getText().toString().length()!=4){
+        } else if (newPassUser.getText().toString().length() != 4) {
             Toast.makeText(Settings.this, "Your passcode must be 4 numbers", Toast.LENGTH_SHORT).show();
         } else {
             currentUser.getAccount().getCreditCard().setPassword(Integer.parseInt(newPassUser.getText().toString()));
@@ -141,13 +141,13 @@ public class Settings extends AppCompatActivity {
         }
     }
 
-    public void setPassword(SimpleUser currentUser, LinearLayout setLayout, LinearLayout changeLayout){
+    public void setPassword(SimpleUser currentUser, LinearLayout setLayout, LinearLayout changeLayout) {
         newPassUser = (EditText) findViewById(R.id.passCreditCard);
         changePass = (Button) findViewById(R.id.setCreditPass);
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (newPassUser.getText().toString().length()!=4){
+                if (newPassUser.getText().toString().length() != 4) {
                     Toast.makeText(Settings.this, "Your passcode should be 4 numbers!", Toast.LENGTH_SHORT);
                 } else {
                     currentUser.getAccount().getCreditCard().setSetPassword(true);
@@ -159,7 +159,7 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    public void onClickUserPass(SimpleUser currentUser){
+    public void onClickUserPass(SimpleUser currentUser) {
         changeUserPass = (ImageView) findViewById(R.id.arrowUserPass);
         changingUserPass = (LinearLayout) findViewById(R.id.changingUserPassLayout);
         changeUserPass.setOnClickListener(new View.OnClickListener() {
@@ -181,14 +181,14 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    public void changePass(SimpleUser currentUser, LinearLayout layout){
+    public void changePass(SimpleUser currentUser, LinearLayout layout) {
         oldPassUser = (EditText) findViewById(R.id.oldPassUser);
         newPassUser = (EditText) findViewById(R.id.newPassUser);
-        if (oldPassUser.getText().toString().isEmpty() || newPassUser.getText().toString().isEmpty()){
-            Toast.makeText(Settings.this, "You can't have an empty field",Toast.LENGTH_SHORT).show();
-        }else if (!oldPassUser.getText().toString().equals(currentUser.getPassword())){
+        if (oldPassUser.getText().toString().isEmpty() || newPassUser.getText().toString().isEmpty()) {
+            Toast.makeText(Settings.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
+        } else if (!oldPassUser.getText().toString().equals(currentUser.getPassword())) {
             Toast.makeText(Settings.this, "Please enter your old password correctly", Toast.LENGTH_SHORT).show();
-        } else if (!checkPass(newPassUser.getText().toString()) || newPassUser.getText().toString().length()<8){
+        } else if (!checkPass(newPassUser.getText().toString()) || newPassUser.getText().toString().length() < 8) {
             Toast.makeText(Settings.this, "Password is too weak! It should contain at least 8 letters, 1 unique character, 1 capital letter, 1 small letter and 1 number!", Toast.LENGTH_SHORT).show();
         } else {
             currentUser.setPassword(newPassUser.getText().toString());

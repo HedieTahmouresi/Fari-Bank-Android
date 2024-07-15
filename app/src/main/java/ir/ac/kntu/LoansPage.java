@@ -30,7 +30,7 @@ public class LoansPage extends AppCompatActivity {
         initialize();
     }
 
-    public void initialize(){
+    public void initialize() {
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone number"));
         recyclerView = (RecyclerView) findViewById(R.id.loanRecyclerReview);
         layoutManager = new LinearLayoutManager(this);

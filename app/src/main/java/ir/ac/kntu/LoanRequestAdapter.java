@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class LoanRequestAdapter extends RecyclerView.Adapter<LoanRequestAdapter.LoanRequestViewHolder>{
+public class LoanRequestAdapter extends RecyclerView.Adapter<LoanRequestAdapter.LoanRequestViewHolder> {
     private List<LoanRequest> loanRequests;
     private Context context;
     private String phoneNumberUser;
@@ -50,7 +50,7 @@ public class LoanRequestAdapter extends RecyclerView.Adapter<LoanRequestAdapter.
         return loanRequests.size();
     }
 
-    public static class LoanRequestViewHolder extends RecyclerView.ViewHolder{
+    public static class LoanRequestViewHolder extends RecyclerView.ViewHolder {
         private TextView loanInfo;
         private TextView request;
 

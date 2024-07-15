@@ -12,7 +12,7 @@ public class LoanRequest {
     @NonNull
     @Override
     public String toString() {
-        return "  *Status : " + status + ", Num Of Months : " + numOfMonths + ", Amount : " + amount ;
+        return "  *Status : " + status + ", Num Of Months : " + numOfMonths + ", Amount : " + amount;
     }
 
     public String getReason() {

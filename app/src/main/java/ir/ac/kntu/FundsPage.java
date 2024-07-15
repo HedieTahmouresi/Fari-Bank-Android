@@ -75,7 +75,7 @@ public class FundsPage extends AppCompatActivity {
         onClick(currentUser, mAdapter);
     }
 
-    public void onClick(SimpleUser currentUser ,RecyclerView.Adapter mAdapter) {
+    public void onClick(SimpleUser currentUser, RecyclerView.Adapter mAdapter) {
         button = (FloatingActionButton) findViewById(R.id.addFund);
         button.setOnClickListener(
                 new View.OnClickListener() {
@@ -87,7 +87,7 @@ public class FundsPage extends AppCompatActivity {
         );
     }
 
-    public void showBonusKinds(SimpleUser currentUser, RecyclerView.Adapter mAdapter){
+    public void showBonusKinds(SimpleUser currentUser, RecyclerView.Adapter mAdapter) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("What kind of fund do you want to create?");
         Spinner ways = new Spinner(this);
@@ -99,12 +99,12 @@ public class FundsPage extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String selected = (String) ways.getSelectedItem();
-                if ("Bonus Fund".equals(selected)){
+                if ("Bonus Fund".equals(selected)) {
                     Intent intent = new Intent(FundsPage.this, AddFund.class);
                     intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
                     startActivity(intent);
                     mAdapter.notifyDataSetChanged();
-                }else{
+                } else {
                     currentUser.addFund(selected, FundsPage.this);
                     mAdapter.notifyDataSetChanged();
                 }

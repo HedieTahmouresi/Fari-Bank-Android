@@ -119,7 +119,7 @@ public class DashBoard extends AppCompatActivity {
         onClickLoans(currentUser);
     }
 
-    public void onClickFunds(SimpleUser currentUser){
+    public void onClickFunds(SimpleUser currentUser) {
         funds = (ImageButton) findViewById(R.id.funds);
         funds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +131,7 @@ public class DashBoard extends AppCompatActivity {
         });
     }
 
-    public void onClickLoans(SimpleUser currentUser){
+    public void onClickLoans(SimpleUser currentUser) {
         loans = (ImageButton) findViewById(R.id.loans);
         loans.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +141,7 @@ public class DashBoard extends AppCompatActivity {
         });
     }
 
-    public void showLoanServices(SimpleUser currentUser){
+    public void showLoanServices(SimpleUser currentUser) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Loan Services :");
         Spinner services = new Spinner(this);
@@ -153,13 +153,13 @@ public class DashBoard extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String selected = (String) services.getSelectedItem();
-                switch(selected){
-                    case "Loan Request"-> {
+                switch (selected) {
+                    case "Loan Request" -> {
                         Intent intent = new Intent(DashBoard.this, LoanRequestPage.class);
                         intent.putExtra("Phone number", currentUser.getSimCard().getPhoneNumber());
                         startActivity(intent);
                     }
-                    case "Loan Management and Payment"-> {
+                    case "Loan Management and Payment" -> {
                         Intent intent = new Intent(DashBoard.this, LoansPage.class);
                         intent.putExtra("Phone number", currentUser.getSimCard().getPhoneNumber());
                         startActivity(intent);

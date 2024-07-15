@@ -18,7 +18,7 @@ public class SavingsFund extends Fund {
 
     @Override
     public void transferToFund(String fundType, String value, Context context, TextView textView) {
-        super.transferToFund( "Savings Fund", value, context, textView);
+        super.transferToFund("Savings Fund", value, context, textView);
     }
 
 }

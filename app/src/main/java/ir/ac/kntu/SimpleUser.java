@@ -30,16 +30,16 @@ public class SimpleUser extends UserPerson {
         return loans;
     }
 
-    public Loan findLoan(String id){
-        for (Loan loan : this.loans){
-            if (id.equals(loan.getId())){
+    public Loan findLoan(String id) {
+        for (Loan loan : this.loans) {
+            if (id.equals(loan.getId())) {
                 return loan;
             }
         }
         return null;
     }
 
-    public void addLoanRequest(LoanRequest loanRequest){
+    public void addLoanRequest(LoanRequest loanRequest) {
         this.loanRequests.add(loanRequest);
     }
 
@@ -47,7 +47,7 @@ public class SimpleUser extends UserPerson {
         return loanRequests;
     }
 
-    public void addLoan(Loan loan){
+    public void addLoan(Loan loan) {
         this.loans.add(loan);
     }
 
@@ -204,9 +204,9 @@ public class SimpleUser extends UserPerson {
         return null;
     }
 
-    public Fund findFund(String fundID){
-        for (Fund fund : funds){
-            if (fund.getFundID().equals(fundID)){
+    public Fund findFund(String fundID) {
+        for (Fund fund : funds) {
+            if (fund.getFundID().equals(fundID)) {
                 return fund;
             }
         }
@@ -253,7 +253,7 @@ public class SimpleUser extends UserPerson {
         }
     }
 
-    public void createBonusFund( Context context, String value, String numOfMonths) {
+    public void createBonusFund(Context context, String value, String numOfMonths) {
         BonusFund newFund = new BonusFund(this, MainActivity.getFariBank(), Integer.parseInt(numOfMonths));
         this.addFund(newFund);
         newFund.setBalance(Double.parseDouble(value));

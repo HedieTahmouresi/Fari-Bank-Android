@@ -35,9 +35,9 @@ public class AddFund extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (expDate.getText().toString().isEmpty() || valueBonusFund.getText().toString().isEmpty()){
+                if (expDate.getText().toString().isEmpty() || valueBonusFund.getText().toString().isEmpty()) {
                     Toast.makeText(AddFund.this, "You can't have an empty field", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     currentUser.createBonusFund(AddFund.this, valueBonusFund.getText().toString(), expDate.getText().toString());
                     finish();
                 }

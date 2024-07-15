@@ -74,8 +74,8 @@ public class Payment {
         this.loan = loan;
     }
 
-    public void pay(Context context, TextView textView){
-        if (this.hasBeenPayed()){
+    public void pay(Context context, TextView textView) {
+        if (this.hasBeenPayed()) {
             Toast.makeText(context, "This has already been payed", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -98,21 +98,21 @@ public class Payment {
         AlertDialog warning = builder.create();
         warning.setTitle("Loan Payment");
         warning.show();
-        if (this.getId()==this.getLoan().getPayments().size() && this.hasBeenPayed()){
+        if (this.getId() == this.getLoan().getPayments().size() && this.hasBeenPayed()) {
             LoanDetails.getFullPay().setText("This Loan has been fully paid");
             this.getLoan().setBeenFullyPaid(true);
-        }else if (this.hasBeenPayed() && Calendar.now().isAfter(this.getDueDate())){
+        } else if (this.hasBeenPayed() && Calendar.now().isAfter(this.getDueDate())) {
             this.getLoan().setCurrentPayment(this.getLoan().getPayments().get(this.getId()));
         }
     }
 
-    public void completePayment(Context context){
+    public void completePayment(Context context) {
         double remains = this.getLoan().getOwner().isHasRemainsFund() ? this.getLoan().getOwner().getRemainsFund().calculateRemains(Double.toString(this.getAmount())) : 0;
-        if (this.getLoan().getOwner().getAccount().getBalance() < this.getAmount() + remains){
+        if (this.getLoan().getOwner().getAccount().getBalance() < this.getAmount() + remains) {
             Toast.makeText(context, "transfer failed! you don't have enough money!", Toast.LENGTH_SHORT).show();
             return;
         }
-        this.getLoan().getOwner().getAccount().setBalance(this.getLoan().getOwner().getAccount().getBalance()-this.getAmount()-remains);
+        this.getLoan().getOwner().getAccount().setBalance(this.getLoan().getOwner().getAccount().getBalance() - this.getAmount() - remains);
         Transaction newTransaction = new PaymentTransfer(this.getAmount() + remains, MainActivity.getFariBank().getTracingNumber(), "-");
         this.getLoan().getOwner().getAccount().addTransaction(newTransaction);
         if (this.getLoan().getOwner().isHasRemainsFund()) {
@@ -122,11 +122,11 @@ public class Payment {
         Instant now = Calendar.now();
         Duration duration = Duration.between(this.getDueDate(), now);
         long numOfDays = duration.toDays();
-        if (numOfDays>=0 && this.getId()<this.getLoan().getPayments().size()){
+        if (numOfDays >= 0 && this.getId() < this.getLoan().getPayments().size()) {
             this.getLoan().setCurrentPayment(this.getLoan().getPayments().get(this.getId()));
-        } else if (numOfDays<0){
+        } else if (numOfDays < 0) {
             this.getLoan().setCurrentPayment(this);
-        } else{
+        } else {
             this.getLoan().setCurrentPayment(this);
             this.getLoan().setBeenFullyPaid(true);
         }

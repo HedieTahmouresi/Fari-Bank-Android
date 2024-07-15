@@ -28,7 +28,7 @@ public class Fund {
         return transactions;
     }
 
-    public void addTransaction(Transaction transaction){
+    public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
     }
 
@@ -69,7 +69,7 @@ public class Fund {
     }
 
 
-    public void transferToFund( String fundType, String value, Context context, TextView balance) {
+    public void transferToFund(String fundType, String value, Context context, TextView balance) {
         NeoBank neoBank = MainActivity.getFariBank();
         Fund currentFund = this;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -83,14 +83,14 @@ public class Fund {
                     currentFund.setBalance(currentFund.getBalance() + Double.parseDouble(value));
                     currentFund.getOwner().getAccount().setBalance(currentFund.getOwner().getAccount().getBalance() - Double.parseDouble(value) - remains);
                     currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), "Account", fundType, currentFund.getFundID()));
-                    currentFund.addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber()+1, "Account", fundType, currentFund.getFundID()));
+                    currentFund.addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, "Account", fundType, currentFund.getFundID()));
                     neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
                     if (currentFund.getOwner().isHasRemainsFund()) {
                         currentFund.getOwner().getRemainsFund().saveRemains(remains, neoBank);
                     }
                     Toast.makeText(context, "Transfer Completed", Toast.LENGTH_SHORT).show();
                     balance.setText(Double.toString(currentFund.getBalance()));
-                } else{
+                } else {
                     Toast.makeText(context, "You don't have enough money!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -120,14 +120,14 @@ public class Fund {
                     currentFund.setBalance(currentFund.getBalance() - Double.parseDouble(value) - remains);
                     currentFund.getOwner().getAccount().setBalance(currentFund.getOwner().getAccount().getBalance() + Double.parseDouble(value));
                     currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), fundType, "Account", currentFund.getFundID()));
-                    currentFund.addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber()+1, fundType, "Account", currentFund.getFundID()));
+                    currentFund.addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, fundType, "Account", currentFund.getFundID()));
                     neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
                     if (currentFund.getOwner().isHasRemainsFund()) {
                         currentFund.getOwner().getRemainsFund().saveRemains(remains, neoBank);
                     }
                     balance.setText(Double.toString(currentFund.getBalance()));
                     Toast.makeText(context, "Transfer Completed", Toast.LENGTH_SHORT).show();
-                } else{
+                } else {
                     Toast.makeText(context, "You don't have enough money!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -142,7 +142,6 @@ public class Fund {
         warning.setTitle("Transfer");
         warning.show();
     }
-
 
 
     public void dissolveFund(NeoBank neoBank, Context context) {
@@ -163,7 +162,6 @@ public class Fund {
         startActivity(context, intent, Bundle.EMPTY);
 
     }
-
 
 
 }
