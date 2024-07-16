@@ -82,8 +82,8 @@ public class Fund {
                 if (currentFund.getOwner().getAccount().getBalance() >= Double.parseDouble(value) + remains) {
                     currentFund.setBalance(currentFund.getBalance() + Double.parseDouble(value));
                     currentFund.getOwner().getAccount().setBalance(currentFund.getOwner().getAccount().getBalance() - Double.parseDouble(value) - remains);
-                    currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), "Account", fundType, currentFund.getFundID()));
-                    currentFund.addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, "Account", fundType, currentFund.getFundID()));
+                    currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), "Account", fundType, currentFund.getFundID(), currentFund.getOwner().getAccount().getBalance()));
+                    currentFund.addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, "Account", fundType, currentFund.getFundID(), currentFund.getBalance()));
                     neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
                     if (currentFund.getOwner().isHasRemainsFund()) {
                         currentFund.getOwner().getRemainsFund().saveRemains(remains, neoBank);
@@ -119,8 +119,8 @@ public class Fund {
                 if (currentFund.getBalance() >= Double.parseDouble(value) + remains) {
                     currentFund.setBalance(currentFund.getBalance() - Double.parseDouble(value) - remains);
                     currentFund.getOwner().getAccount().setBalance(currentFund.getOwner().getAccount().getBalance() + Double.parseDouble(value));
-                    currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), fundType, "Account", currentFund.getFundID()));
-                    currentFund.addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, fundType, "Account", currentFund.getFundID()));
+                    currentFund.getOwner().getAccount().addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber(), fundType, "Account", currentFund.getFundID(), currentFund.getOwner().getAccount().getBalance()));
+                    currentFund.addTransaction(new TransferInsideTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, fundType, "Account", currentFund.getFundID(), currentFund.getBalance()));
                     neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
                     if (currentFund.getOwner().isHasRemainsFund()) {
                         currentFund.getOwner().getRemainsFund().saveRemains(remains, neoBank);
@@ -147,16 +147,14 @@ public class Fund {
     public void dissolveFund(NeoBank neoBank, Context context) {
         this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + this.getBalance());
         this.getOwner().removeFund(this);
-        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Fund", "Account", this.getFundID());
+        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Fund", "Account", this.getFundID(), this.getOwner().getAccount().getBalance());
         this.getOwner().getAccount().addTransaction(newTransaction);
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
         double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(Double.toString(this.getBalance())) : 0;
         if (this.getOwner().isHasRemainsFund()) {
             this.getOwner().getRemainsFund().saveRemains(remains, neoBank);
         }
-
         Toast.makeText(context, "Fund successfully deleted", Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(context, FundsPage.class);
         intent.putExtra("Phone Number", this.getOwner().getSimCard().getPhoneNumber());
         startActivity(context, intent, Bundle.EMPTY);

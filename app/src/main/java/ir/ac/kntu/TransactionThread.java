@@ -53,10 +53,6 @@ public class TransactionThread implements Runnable {
         try {
             Thread.sleep(time);
             this.getTransaction().completeTransaction(this.getCentralBank(), this.getNeoBank());
-            final String newText = "Updated Text";
-            Message msg = DashBoard.getHandler().obtainMessage();
-            msg.obj = newText;
-            DashBoard.getHandler().sendMessage(msg);
         } catch (InterruptedException error) {
             System.out.println("error");
         }

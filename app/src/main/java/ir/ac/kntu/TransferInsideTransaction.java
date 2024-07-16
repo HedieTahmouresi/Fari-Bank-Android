@@ -34,8 +34,8 @@ public class TransferInsideTransaction extends Transaction {
         this.fundId = fundId;
     }
 
-    public TransferInsideTransaction(double value, int tracingNumber, String sender, String receiver, String fundId) {
-        super(value, tracingNumber, " ");
+    public TransferInsideTransaction(double value, int tracingNumber, String sender, String receiver, String fundId, double accountBalance) {
+        super(value, tracingNumber, " ", accountBalance);
         setSender(sender);
         setReceiver(receiver);
         setFundId(fundId);

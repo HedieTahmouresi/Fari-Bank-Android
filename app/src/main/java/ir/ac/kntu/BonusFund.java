@@ -70,7 +70,7 @@ public class BonusFund extends Fund {
         }
         Toast.makeText(context, "The expiration is due!", Toast.LENGTH_SHORT).show();
         this.getOwner().getAccount().setBalance(this.getOwner().getAccount().getBalance() + this.getBalance());
-        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
+        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Bonus  Fund", "Account", this.getFundID(), this.getOwner().getAccount().getBalance());
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
         this.getOwner().getAccount().addTransaction(newTransaction);
         double remains = this.getOwner().isHasRemainsFund() ? this.getOwner().getRemainsFund().calculateRemains(Double.toString(this.getBalance())) : 0;
@@ -104,7 +104,7 @@ public class BonusFund extends Fund {
         this.transferBonus(neoBank);
         double bonus = (this.getBalance() * neoBank.getManagerData().getBonusPercentage()) / 100;
         setLastDeposit(nextDeposit);
-        Transaction newTransaction = new TransferInsideTransaction(bonus, neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID());
+        Transaction newTransaction = new TransferInsideTransaction(bonus, neoBank.getTracingNumber(), "Bonus Fund", "Account", this.getFundID(), this.getOwner().getAccount().getBalance());
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
         this.getOwner().getAccount().addTransaction(newTransaction);
         this.addTransaction(newTransaction);

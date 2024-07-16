@@ -46,6 +46,7 @@ public class DashBoard extends AppCompatActivity {
     private ImageButton funds;
     private ImageButton loans;
     private static DashboardHandler handler;
+    private FloatingActionButton report;
 
     public static DashboardHandler getHandler() {
         return handler;
@@ -74,8 +75,6 @@ public class DashBoard extends AppCompatActivity {
             return insets;
         });
         setHandler(new DashboardHandler(this));
-        SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
-        showBalance(currentUser);
         initialize();
     }
 
@@ -111,15 +110,16 @@ public class DashBoard extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
+        showBalance(currentUser);
         onClickProfile(currentUser);
         onClickCharge(currentUser, balance, recyclerView, seekBar);
         onClickTransfer(currentUser, id);
         onClickFunds(currentUser);
         onClickLoans(currentUser);
+        onClickReport(currentUser);
     }
 
-    public void onClickFunds(SimpleUser currentUser) {
+    public void onClickFunds(SimpleUser currentUser){
         funds = (ImageButton) findViewById(R.id.funds);
         funds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +131,19 @@ public class DashBoard extends AppCompatActivity {
         });
     }
 
-    public void onClickLoans(SimpleUser currentUser) {
+    public void onClickReport(SimpleUser currentUser){
+        report = (FloatingActionButton) findViewById(R.id.report);
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashBoard.this, Reports.class);
+                intent.putExtra("Phone Number", currentUser.getSimCard().getPhoneNumber());
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void onClickLoans(SimpleUser currentUser){
         loans = (ImageButton) findViewById(R.id.loans);
         loans.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +153,7 @@ public class DashBoard extends AppCompatActivity {
         });
     }
 
-    public void showLoanServices(SimpleUser currentUser) {
+    public void showLoanServices(SimpleUser currentUser){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Loan Services :");
         Spinner services = new Spinner(this);
@@ -153,13 +165,13 @@ public class DashBoard extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String selected = (String) services.getSelectedItem();
-                switch (selected) {
-                    case "Loan Request" -> {
+                switch(selected){
+                    case "Loan Request"-> {
                         Intent intent = new Intent(DashBoard.this, LoanRequestPage.class);
                         intent.putExtra("Phone number", currentUser.getSimCard().getPhoneNumber());
                         startActivity(intent);
                     }
-                    case "Loan Management and Payment" -> {
+                    case "Loan Management and Payment"-> {
                         Intent intent = new Intent(DashBoard.this, LoansPage.class);
                         intent.putExtra("Phone number", currentUser.getSimCard().getPhoneNumber());
                         startActivity(intent);

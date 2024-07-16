@@ -8,8 +8,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class ChargeTransaction extends Transaction {
-    public ChargeTransaction(double value, int tracingNumber) {
-        super(value, tracingNumber, "+");
+    public ChargeTransaction(double value, int tracingNumber, double accountBalance) {
+        super(value, tracingNumber, "+", accountBalance);
     }
 
 

@@ -58,9 +58,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public String getType(Transaction transaction) {
         if (transaction instanceof ChargeTransaction chargeTransaction) {
             return " ~Charge Account";
-        } else if (transaction instanceof SimChargeTransaction simChargeTransaction) {
-            return " ~Charge Sim Card";
-        } else if (transaction instanceof TransferInsideTransaction transferInsideTransaction) {
+        }else if (transaction instanceof TransferInsideTransaction transferInsideTransaction) {
             return " ~Inside Transfer";
         } else if (transaction instanceof TransferTransaction) {
             return " ~Transfer";

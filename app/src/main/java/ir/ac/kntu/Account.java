@@ -114,7 +114,7 @@ public class Account {
 
     public void chargeAccount(NeoBank neoBank, String answer, Context context) {
         this.setBalance(this.getBalance() + Double.parseDouble(answer));
-        this.addTransaction(new ChargeTransaction(Double.parseDouble(answer), neoBank.getTracingNumber()));
+        this.addTransaction(new ChargeTransaction(Double.parseDouble(answer), neoBank.getTracingNumber(), this.getBalance()));
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 1);
         Toast.makeText(context, "Account successfully charged!", Toast.LENGTH_SHORT).show();
     }
@@ -131,9 +131,9 @@ public class Account {
         if (facts.get(1)) {
             info = receiver.getSimCard().getPhoneNumber();
         }
-        TransferTransaction newTransaction = new TransferTransaction(Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getFariWage(), MainActivity.getFariBank().getTracingNumber(), receiver, facts.get(1), info, "-", this.getOwner(), false);
+        TransferTransaction newTransaction = new TransferTransaction(Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getFariWage(), MainActivity.getFariBank().getTracingNumber(), receiver, facts.get(1), info, "-", this.getOwner(), false, this.getBalance());
         this.addTransaction(newTransaction);
-        receiver.getAccount().addTransaction(new TransferTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber() + 1, receiver, facts.get(1), info, "+", this.getOwner(), true));
+        receiver.getAccount().addTransaction(new TransferTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber() + 1, receiver, facts.get(1), info, "+", this.getOwner(), true, receiver.getAccount().getBalance()));
         MainActivity.getFariBank().setTracingNumber(MainActivity.getFariBank().getTracingNumber() + 2);
         if (this.getOwner().isHasRemainsFund()) {
             this.getOwner().getRemainsFund().saveRemains(remains, MainActivity.getFariBank());
@@ -142,6 +142,46 @@ public class Account {
             this.addRecent(newTransaction, receiver.getSimCard().getPhoneNumber(), MainActivity.getFariBank());
         }
         Toast.makeText(context, "Transfer completed!", Toast.LENGTH_SHORT).show();
+    }
+
+
+    public List<ChartView.Entry> createDataPoints(){
+        List<ChartView.Entry> dataPoints = new ArrayList<>();
+        for (int index = this.transactions.size()-1 ; index >=0 ; index--){
+            Transaction transaction = this.transactions.get(index);
+            Date date = Date.from(transaction.getDateAndTime());
+            ChartView.Entry newEntry = new ChartView.Entry(date , (float) transaction.getAccountBalance());
+            dataPoints.add(newEntry);
+        }
+        return dataPoints;
+    }
+
+    public double getPlusSideTransfers(){
+        double amount = 0;
+        Transaction prev = this.transactions.get(0);
+        for (Transaction transaction : this.transactions){
+            if (transaction instanceof TransferTransaction transfer){
+                if (transfer.getAccountBalance() > prev.getAccountBalance()){
+                    amount = amount + transfer.getValue();
+                }
+            }
+            prev = transaction;
+        }
+        return amount;
+    }
+
+    public double getMinusSideTransfers(){
+        double amount = 0;
+        Transaction prev = this.transactions.get(0);
+        for (Transaction transaction : this.transactions){
+            if (transaction instanceof TransferTransaction transfer){
+                if (transfer.getAccountBalance() < prev.getAccountBalance()){
+                    amount = amount + transfer.getValue();
+                }
+            }
+            prev = transaction;
+        }
+        return amount;
     }
 /*
 

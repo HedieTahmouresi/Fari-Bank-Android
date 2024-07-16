@@ -6,8 +6,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class PaymentTransfer extends Transaction {
-    public PaymentTransfer(double value, int tracingNumber, String sign) {
-        super(value, tracingNumber, sign);
+    public PaymentTransfer(double value, int tracingNumber, String sign, double accountBalance) {
+        super(value, tracingNumber, sign, accountBalance);
     }
 
     @Override

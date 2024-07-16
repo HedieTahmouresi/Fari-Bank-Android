@@ -29,7 +29,7 @@ public class RemainsFund extends Fund {
 
     public void saveRemains(double value, NeoBank neoBank) {
         this.setBalance(this.getBalance() + value);
-        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Account", "Remains Fund", this.getFundID());
+        Transaction newTransaction = new TransferInsideTransaction(this.getBalance(), neoBank.getTracingNumber(), "Account", "Remains Fund", this.getFundID(), this.getOwner().getAccount().getBalance());
         this.getOwner().getAccount().addTransaction(newTransaction);
     }
 

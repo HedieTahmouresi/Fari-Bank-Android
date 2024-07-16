@@ -73,12 +73,12 @@
         android:id="@+id/deleteContact"
         android:layout_width="75dp"
         android:layout_height="66dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="28dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numberContact"
-        app:layout_constraintVertical_bias="0.862"
+        app:layout_constraintVertical_bias="0.858"
         app:srcCompat="@drawable/ic_action_delete"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -89,6 +89,7 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/transferToContact"
+        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toEndOf="@+id/deleteContact"
         app:layout_constraintTop_toBottomOf="@+id/numberContact"
         app:layout_constraintVertical_bias="0.858"
@@ -96,26 +97,13 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/chargecontactsim"
-        android:layout_width="75dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberContact"
-        app:layout_constraintVertical_bias="0.858"
-        app:srcCompat="@drawable/ic_action_simcard"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/transferToContact"
         android:layout_width="75dp"
         android:layout_height="66dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/chargecontactsim"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numberContact"
         app:layout_constraintVertical_bias="0.858"
         app:srcCompat="@drawable/ic_action_transfer"

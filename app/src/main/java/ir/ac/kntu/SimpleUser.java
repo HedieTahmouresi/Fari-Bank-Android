@@ -254,13 +254,39 @@ public class SimpleUser extends UserPerson {
     }
 
     public void createBonusFund(Context context, String value, String numOfMonths) {
+        double remains = this.isHasRemainsFund() ? this.getRemainsFund().calculateRemains(value) : 0;
+        if (Double.parseDouble(value) + remains > this.getAccount().getBalance()) {
+            Toast.makeText(context, "transfer failed! you don't have enough money!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         BonusFund newFund = new BonusFund(this, MainActivity.getFariBank(), Integer.parseInt(numOfMonths));
         this.addFund(newFund);
+        this.getAccount().setBalance(this.getAccount().getBalance() - Double.parseDouble(value) - remains);
         newFund.setBalance(Double.parseDouble(value));
+        Transaction newTransaction = new TransferInsideTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber(), "Account", "Bonus Fund", newFund.getFundID(), this.getAccount().getBalance());
+        this.getAccount().addTransaction(newTransaction);
+        newTransaction = new TransferInsideTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber() + 1 , "Account", "Bonus Fund", newFund.getFundID(), newFund.getBalance());
+        newFund.addTransaction(newTransaction);
         MainActivity.getFariBank().getManagerData().addBonusFund(newFund);
+        MainActivity.getFariBank().setTracingNumber(MainActivity.getFariBank().getTracingNumber() + 2);
         BonusThread thread = new BonusThread(MainActivity.getFariBank(), newFund);
         Thread newThread = new Thread(thread);
         newThread.start();
+    }
+
+
+    public double getMinusSideTransfers(){
+        double amount = 0;
+        Transaction prev = this.getAccount().getTransactions().get(0);
+        for (Transaction transaction : this.getAccount().getTransactions()){
+            if (transaction instanceof TransferInsideTransaction insideTransfer){
+                if ("Bonus Fund".equals(insideTransfer.getSender())){
+                    amount = amount + insideTransfer.getValue();
+                }
+            }
+            prev = transaction;
+        }
+        return amount;
     }
 
 }

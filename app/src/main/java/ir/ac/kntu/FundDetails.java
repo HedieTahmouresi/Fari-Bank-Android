@@ -20,6 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 public class FundDetails extends AppCompatActivity {
     private TextView id;
     private TextView balance;
@@ -29,6 +34,7 @@ public class FundDetails extends AppCompatActivity {
     private SeekBar seekBar;
     private FloatingActionButton delete;
     private FloatingActionButton transfer;
+    private TextView due;
 
     public static RecyclerView.Adapter getmAdapter() {
         return mAdapter;
@@ -48,7 +54,7 @@ public class FundDetails extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        initialize();
     }
 
     public boolean transferAbility(Fund fund) {
@@ -170,6 +176,14 @@ public class FundDetails extends AppCompatActivity {
     private void initialize() {
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         Fund currentFund = currentUser.findFund(getIntent().getStringExtra("fund ID"));
+        due = (TextView) findViewById(R.id.bonusDue);
+        if (currentFund instanceof BonusFund bonusFund){
+            due.setVisibility(View.VISIBLE);
+            ZonedDateTime zonedDateTime = bonusFund.getLastDeposit().atZone(ZoneId.systemDefault());
+            ZonedDateTime futureDateTime = zonedDateTime.plusMonths(1);
+            LocalDate datePart = futureDateTime.toLocalDate();
+            due.setText("Next Bonus : " + datePart);
+        }
         recyclerView = (RecyclerView) findViewById(R.id.transactionRecyclerView);
         seekBar = findViewById(R.id.seekBarTransaction);
         layoutManager = new LinearLayoutManager(this);

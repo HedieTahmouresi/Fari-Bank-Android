@@ -170,7 +170,7 @@
         android:clickable="true"
         android:tint="#614495"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
-        app:layout_constraintEnd_toStartOf="@+id/management"
+        app:layout_constraintEnd_toStartOf="@+id/report"
         app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
@@ -180,7 +180,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/management"
+        android:id="@+id/report"
         android:layout_width="55dp"
         android:layout_height="58dp"
         android:clickable="true"
@@ -190,7 +190,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.072"
-        app:srcCompat="@drawable/ic_action_management"
+        app:srcCompat="@drawable/ic_action_report"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -202,7 +202,7 @@
         app:layout_constraintBottom_toTopOf="@+id/dashboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/management"
+        app:layout_constraintStart_toEndOf="@+id/report"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.066"
         app:rippleColor="#614495"

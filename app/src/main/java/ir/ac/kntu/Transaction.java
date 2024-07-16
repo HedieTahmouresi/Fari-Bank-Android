@@ -14,7 +14,15 @@ public class Transaction {
     private int tracingNumber;
     private String sign;
     private Instant dateAndTime;
+    private double accountBalance;
 
+    public double getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
 
     public Instant getDateAndTime() {
         return dateAndTime;
@@ -48,11 +56,12 @@ public class Transaction {
         this.sign = sign;
     }
 
-    public Transaction(double value, int tracingNumber, String sign) {
+    public Transaction(double value, int tracingNumber, String sign, double accountBalance) {
         setValue(value);
         setTracingNumber(tracingNumber);
         setDateAndTime(Calendar.now());
         setSign(sign);
+        setAccountBalance(accountBalance);
     }
 
     public String showInfo(NeoBank neoBank) {

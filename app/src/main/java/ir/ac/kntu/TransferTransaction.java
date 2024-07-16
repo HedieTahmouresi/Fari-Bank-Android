@@ -57,8 +57,8 @@ public class TransferTransaction extends Transaction {
         return receiver;
     }
 
-    public TransferTransaction(double value, int tracingNumber, UserPerson receiver, boolean byContact, String receiverInfo, String sign, SimpleUser sender, Boolean isReceiver) {
-        super(value, tracingNumber, sign);
+    public TransferTransaction(double value, int tracingNumber, UserPerson receiver, boolean byContact, String receiverInfo, String sign, SimpleUser sender, Boolean isReceiver, double accountBalance) {
+        super(value, tracingNumber, sign, accountBalance);
         setReceiver(receiver);
         setSender(sender);
         setByContact(byContact);

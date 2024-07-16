@@ -113,7 +113,7 @@ public class Payment {
             return;
         }
         this.getLoan().getOwner().getAccount().setBalance(this.getLoan().getOwner().getAccount().getBalance() - this.getAmount() - remains);
-        Transaction newTransaction = new PaymentTransfer(this.getAmount() + remains, MainActivity.getFariBank().getTracingNumber(), "-");
+        Transaction newTransaction = new PaymentTransfer(this.getAmount() + remains, MainActivity.getFariBank().getTracingNumber(), "-", this.getLoan().getOwner().getAccount().getBalance());
         this.getLoan().getOwner().getAccount().addTransaction(newTransaction);
         if (this.getLoan().getOwner().isHasRemainsFund()) {
             this.getLoan().getOwner().getRemainsFund().saveRemains(remains, MainActivity.getFariBank());

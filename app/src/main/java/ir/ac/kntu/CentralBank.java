@@ -90,18 +90,18 @@ public class CentralBank {
 
 
     public void wireTransfer(SimpleUser sender, SimpleUser receiver, String value, Context context) {
-
         double remains = sender.isHasRemainsFund() ? sender.getRemainsFund().calculateRemains(value) : 0;
-        if (Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getCardWage() + remains > sender.getAccount().getBalance()) {
+        if (Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getWireWage() + remains > sender.getAccount().getBalance()) {
             Toast.makeText(context, "transfer failed! you don't have enough money!", Toast.LENGTH_SHORT).show();
             return;
         }
-        WireTransaction newTransaction = new WireTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber(), receiver, receiver.getAccount().getAccountId(), "-", sender, false);
+        WireTransaction newTransaction = new WireTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber(), receiver, receiver.getAccount().getAccountId(), "-", sender, false, sender.getAccount().getBalance());
         MainActivity.getFariBank().getManagerData().addTransaction(newTransaction);
         Toast.makeText(context, "Transaction is on hold", Toast.LENGTH_SHORT).show();
         TransactionThread thread = new TransactionThread(this, MainActivity.getFariBank(), newTransaction, context);
         Thread newThread = new Thread(thread);
         newThread.start();
+
     }
 
     public void cardToCard(SimpleUser sender, SimpleUser receiver, String value, Context context) {
@@ -112,7 +112,7 @@ public class CentralBank {
         }
         double removeValue = Double.parseDouble(value) + MainActivity.getFariBank().getManagerData().getCardWage();
         sender.getAccount().setBalance(sender.getAccount().getBalance() - removeValue);
-        TransferTransaction newTransaction = new TransferTransaction(removeValue, MainActivity.getFariBank().getTracingNumber(), receiver, false, receiver.getAccount().getCreditCard().getCreditCardId(), "-", sender, false);
+        TransferTransaction newTransaction = new TransferTransaction(removeValue, MainActivity.getFariBank().getTracingNumber(), receiver, false, receiver.getAccount().getCreditCard().getCreditCardId(), "-", sender, false, sender.getAccount().getBalance());
         sender.getAccount().addTransaction(newTransaction);
         sender.getAccount().addRecentCentral(newTransaction, receiver.getSimCard().getPhoneNumber(), this);
         this.transferBetweenBanks(sender, receiver.getAccount(), value, MainActivity.getFariBank());
@@ -127,7 +127,7 @@ public class CentralBank {
             return;
         }
         sender.getAccount().setBalance(sender.getAccount().getBalance() - removeValue);
-        TransferTransaction newTransaction = new TransferTransaction(removeValue, MainActivity.getFariBank().getTracingNumber(), receiver, false, receiver.getAccount().getAccountId(), "-", sender, false);
+        TransferTransaction newTransaction = new TransferTransaction(removeValue, MainActivity.getFariBank().getTracingNumber(), receiver, false, receiver.getAccount().getAccountId(), "-", sender, false, sender.getAccount().getBalance());
         sender.getAccount().addTransaction(newTransaction);
         sender.getAccount().addRecentCentral(newTransaction, receiver.getSimCard().getPhoneNumber(), this);
         this.transferBetweenBanks(sender, receiver.getAccount(), value, MainActivity.getFariBank());
@@ -137,7 +137,7 @@ public class CentralBank {
     public void transferBetweenBanks(SimpleUser sender, Account receiver, String value, NeoBank neoBank) {
         double remains = sender.isHasRemainsFund() ? sender.getRemainsFund().calculateRemains(value) : 0;
         receiver.setBalance(receiver.getBalance() + Double.parseDouble(value));
-        receiver.addTransaction(new TransferTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, receiver.getOwner(), false, receiver.getAccountId(), "+", sender, true));
+        receiver.addTransaction(new TransferTransaction(Double.parseDouble(value), neoBank.getTracingNumber() + 1, receiver.getOwner(), false, receiver.getAccountId(), "+", sender, true, receiver.getBalance()));
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
         if (sender.isHasRemainsFund()) {
             sender.getRemainsFund().saveRemains(remains, neoBank);
