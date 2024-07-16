@@ -62,7 +62,12 @@ public class ChartView extends View {
         float xInterval = chartWidth / (dataPoints.size() - 1);
         float yScale = chartHeight / (maxBalance - minBalance);
 
-        drawGridLines(canvas, maxBalance, minBalance, chartHeight, chartWidth, yScale);
+        float[] values = new float[4];
+        values[0] = maxBalance;
+        values[1] = minBalance;
+        values[2] = chartHeight;
+        values[3] = chartWidth;
+        drawGridLines(canvas, values);
         Path path = new Path();
         path.moveTo(getPaddingLeft(), getPaddingTop() + (maxBalance - dataPoints.get(0).getBalance()) * yScale);
 
@@ -85,7 +90,11 @@ public class ChartView extends View {
         }
     }
 
-    private void drawGridLines(Canvas canvas, float maxBalance, float minBalance, float chartHeight, float chartWidth, float yScale) {
+    private void drawGridLines(Canvas canvas, float[] values) {
+        float maxBalance = values[0];
+        float minBalance = values[1];
+        float chartHeight = values[2];
+        float chartWidth = values[3];
         float yInterval = chartHeight / 5; // 5 horizontal grid lines
         for (int i = 0; i <= 5; i++) {
             float y = getPaddingTop() + i * yInterval;

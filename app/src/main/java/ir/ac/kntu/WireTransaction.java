@@ -35,7 +35,7 @@ public class WireTransaction extends TransferTransaction {
         this.getSender().getAccount().addRecentCentral(this, this.getReceiver().getSimCard().getPhoneNumber(), centralBank);
         SimpleUser receiver = centralBank.getUserBySim(this.getReceiver().getSimCard().getPhoneNumber());
         receiver.getAccount().setBalance(receiver.getAccount().getBalance() + this.getValue());
-        receiver.getAccount().addTransaction(new WireTransaction(this.getValue(), neoBank.getTracingNumber() + 1, receiver, receiver.getAccount().getAccountId(), "+", this.getSender(), true,receiver.getAccount().getBalance()));
+        receiver.getAccount().addTransaction(new WireTransaction(this.getValue(), neoBank.getTracingNumber() + 1, receiver, receiver.getAccount().getAccountId(), "+", this.getSender(), true, receiver.getAccount().getBalance()));
         neoBank.setTracingNumber(neoBank.getTracingNumber() + 2);
         if (this.getSender().isHasRemainsFund()) {
             this.getSender().getRemainsFund().saveRemains(remains, neoBank);

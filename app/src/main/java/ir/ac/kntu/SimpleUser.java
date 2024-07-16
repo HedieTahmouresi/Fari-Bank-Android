@@ -265,7 +265,7 @@ public class SimpleUser extends UserPerson {
         newFund.setBalance(Double.parseDouble(value));
         Transaction newTransaction = new TransferInsideTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber(), "Account", "Bonus Fund", newFund.getFundID(), this.getAccount().getBalance());
         this.getAccount().addTransaction(newTransaction);
-        newTransaction = new TransferInsideTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber() + 1 , "Account", "Bonus Fund", newFund.getFundID(), newFund.getBalance());
+        newTransaction = new TransferInsideTransaction(Double.parseDouble(value), MainActivity.getFariBank().getTracingNumber() + 1, "Account", "Bonus Fund", newFund.getFundID(), newFund.getBalance());
         newFund.addTransaction(newTransaction);
         MainActivity.getFariBank().getManagerData().addBonusFund(newFund);
         MainActivity.getFariBank().setTracingNumber(MainActivity.getFariBank().getTracingNumber() + 2);
@@ -275,12 +275,12 @@ public class SimpleUser extends UserPerson {
     }
 
 
-    public double getMinusSideTransfers(){
+    public double getMinusSideTransfers() {
         double amount = 0;
         Transaction prev = this.getAccount().getTransactions().get(0);
-        for (Transaction transaction : this.getAccount().getTransactions()){
-            if (transaction instanceof TransferInsideTransaction insideTransfer){
-                if ("Bonus Fund".equals(insideTransfer.getSender())){
+        for (Transaction transaction : this.getAccount().getTransactions()) {
+            if (transaction instanceof TransferInsideTransaction insideTransfer) {
+                if ("Bonus Fund".equals(insideTransfer.getSender())) {
                     amount = amount + insideTransfer.getValue();
                 }
             }

@@ -51,7 +51,7 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
         return loans.size();
     }
 
-    public static class LoanViewHolder extends RecyclerView.ViewHolder{
+    public static class LoanViewHolder extends RecyclerView.ViewHolder {
         private TextView loanID;
         private TextView loanInfo;
 

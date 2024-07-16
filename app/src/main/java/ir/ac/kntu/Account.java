@@ -145,23 +145,23 @@ public class Account {
     }
 
 
-    public List<ChartView.Entry> createDataPoints(){
+    public List<ChartView.Entry> createDataPoints() {
         List<ChartView.Entry> dataPoints = new ArrayList<>();
-        for (int index = this.transactions.size()-1 ; index >=0 ; index--){
+        for (int index = this.transactions.size() - 1; index >= 0; index--) {
             Transaction transaction = this.transactions.get(index);
             Date date = Date.from(transaction.getDateAndTime());
-            ChartView.Entry newEntry = new ChartView.Entry(date , (float) transaction.getAccountBalance());
+            ChartView.Entry newEntry = new ChartView.Entry(date, (float) transaction.getAccountBalance());
             dataPoints.add(newEntry);
         }
         return dataPoints;
     }
 
-    public double getPlusSideTransfers(){
+    public double getPlusSideTransfers() {
         double amount = 0;
         Transaction prev = this.transactions.get(0);
-        for (Transaction transaction : this.transactions){
-            if (transaction instanceof TransferTransaction transfer){
-                if (transfer.getAccountBalance() > prev.getAccountBalance()){
+        for (Transaction transaction : this.transactions) {
+            if (transaction instanceof TransferTransaction transfer) {
+                if (transfer.getAccountBalance() > prev.getAccountBalance()) {
                     amount = amount + transfer.getValue();
                 }
             }
@@ -170,12 +170,12 @@ public class Account {
         return amount;
     }
 
-    public double getMinusSideTransfers(){
+    public double getMinusSideTransfers() {
         double amount = 0;
         Transaction prev = this.transactions.get(0);
-        for (Transaction transaction : this.transactions){
-            if (transaction instanceof TransferTransaction transfer){
-                if (transfer.getAccountBalance() < prev.getAccountBalance()){
+        for (Transaction transaction : this.transactions) {
+            if (transaction instanceof TransferTransaction transfer) {
+                if (transfer.getAccountBalance() < prev.getAccountBalance()) {
                     amount = amount + transfer.getValue();
                 }
             }

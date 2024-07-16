@@ -177,7 +177,7 @@ public class FundDetails extends AppCompatActivity {
         SimpleUser currentUser = MainActivity.getCurrentUser(getIntent().getStringExtra("Phone Number"));
         Fund currentFund = currentUser.findFund(getIntent().getStringExtra("fund ID"));
         due = (TextView) findViewById(R.id.bonusDue);
-        if (currentFund instanceof BonusFund bonusFund){
+        if (currentFund instanceof BonusFund bonusFund) {
             due.setVisibility(View.VISIBLE);
             ZonedDateTime zonedDateTime = bonusFund.getLastDeposit().atZone(ZoneId.systemDefault());
             ZonedDateTime futureDateTime = zonedDateTime.plusMonths(1);
